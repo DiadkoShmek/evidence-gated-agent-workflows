@@ -73,7 +73,7 @@ The latest local receipt is recorded in [proof](docs/proof.md).
 - strict top-level and fact schemas;
 - timezone-aware timestamps;
 - missing, stale, conflict, and independence holds;
-- human-authority escalation for bounded risk tags;
+- an explicit human-escalation state for bounded risk tags;
 - deterministic output and stable content hashes;
 - finite local stress run;
 - no model, network, transport, credential, or external-effect surface.
