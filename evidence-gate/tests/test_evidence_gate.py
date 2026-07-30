@@ -12,7 +12,6 @@ from src.evidence_gate import ContractError, evaluate
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_ROOT = ROOT.parent
 AS_OF = "2026-07-30T12:00:00Z"
-PUBLIC_IDENTITY_ALLOWLIST = {"onyskoartur@gmail.com"}
 PRIVATE_MARKER = re.compile(
     r"/(?:home|Users)/[^/\s]+/|" + r"file:" + r"//" +
     r"|(?:api[_-]?key|password|access[_-]?token)\s*[:=]|"
@@ -52,8 +51,7 @@ def private_marker_findings(paths: list[Path]) -> list[tuple[str, str]]:
         except ValueError:
             display_path = path.name
         for match in PRIVATE_MARKER.finditer(path.read_text(encoding="utf-8")):
-            if match.group(0).lower() not in PUBLIC_IDENTITY_ALLOWLIST:
-                findings.append((display_path, match.group(0)))
+            findings.append((display_path, match.group(0)))
     return findings
 
 
@@ -125,11 +123,11 @@ class EvidenceGateTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as directory:
             leaked = Path(directory) / "candidate.md"
-            private_email = "private.person" + "@" + "example.org"
+            disallowed_email = "private.person" + "@" + "example.org"
             private_path = "/" + "home" + "/private/work"
-            leaked.write_text(f"contact: {private_email}\npath: {private_path}\n", encoding="utf-8")
+            leaked.write_text(f"contact: {disallowed_email}\npath: {private_path}\n", encoding="utf-8")
             findings = private_marker_findings([leaked])
-        self.assertEqual([marker for _path, marker in findings], [private_email, "/" + "home" + "/private/"])
+        self.assertEqual([marker for _path, marker in findings], [disallowed_email, "/" + "home" + "/private/"])
 
 
 if __name__ == "__main__":
