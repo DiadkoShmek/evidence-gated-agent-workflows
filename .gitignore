@@ -1,0 +1,5 @@
+__pycache__/
+*.py[cod]
+demo-status.json
+.pytest_cache/
+.venv/
