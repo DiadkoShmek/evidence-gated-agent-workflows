@@ -11,8 +11,9 @@ about failure before they are connected to real systems.
 ### Evidence gate
 
 Turns structured evidence into `draft | escalate | hold`. Missing, stale,
-conflicting, or insufficiently independent evidence is held. High-risk work is
-escalated to human authority. It performs no network or external action.
+conflicting, or insufficiently independent evidence is held. High-risk work
+returns an explicit human-escalation state; it performs no network or external
+action.
 
 ### Async polling contract
 
