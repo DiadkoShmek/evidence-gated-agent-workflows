@@ -47,6 +47,5 @@ Published for portfolio review. No reuse license is granted at this stage.
 
 DiadkoShmek — AI automation builder for agent workflows, API integrations,
 context and memory systems, and reliability boundaries.
-Contact: `207617272+DiadkoShmek@users.noreply.github.com`
 
 See [PROFILE.md](PROFILE.md) for the working profile and evidence boundaries.
