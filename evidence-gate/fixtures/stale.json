@@ -1,0 +1,16 @@
+{
+  "case_id": "stale-case",
+  "required_facts": ["account_status"],
+  "min_independent_clusters": 1,
+  "risk_tags": [],
+  "facts": [
+    {
+      "name": "account_status",
+      "value": "active",
+      "source_id": "old-account-record",
+      "cluster": "system-of-record",
+      "captured_at": "2026-07-01T10:00:00Z",
+      "expires_at": "2026-07-10T10:00:00Z"
+    }
+  ]
+}
