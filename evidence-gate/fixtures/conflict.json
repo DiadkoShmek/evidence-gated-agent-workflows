@@ -1,0 +1,24 @@
+{
+  "case_id": "conflict-case",
+  "required_facts": ["policy_limit"],
+  "min_independent_clusters": 1,
+  "risk_tags": [],
+  "facts": [
+    {
+      "name": "policy_limit",
+      "value": 250,
+      "source_id": "policy-page",
+      "cluster": "company-web",
+      "captured_at": "2026-07-30T09:00:00Z",
+      "expires_at": "2026-08-30T09:00:00Z"
+    },
+    {
+      "name": "policy_limit",
+      "value": 500,
+      "source_id": "terms-page",
+      "cluster": "legal-terms",
+      "captured_at": "2026-07-29T09:00:00Z",
+      "expires_at": "2026-08-29T09:00:00Z"
+    }
+  ]
+}
