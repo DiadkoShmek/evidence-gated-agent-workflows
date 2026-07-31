@@ -8,6 +8,12 @@ about failure before they are connected to real systems.
 
 ## Included demos
 
+### [Integration Reliability Acceptance Pack](INTEGRATION_RELIABILITY_ACCEPTANCE_PACK.md)
+
+A buyer-facing scope for one paid discovery and control-plane slice. It names
+the required buyer inputs, deliverables, hostile acceptance tests, human
+approval boundary, and explicit exclusions before any production activation.
+
 ### Evidence gate
 
 Turns structured evidence into `draft | escalate | hold`. Missing, stale,
