@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
+import os
 from pathlib import Path
 
 
@@ -11,7 +12,9 @@ ROOT = Path(__file__).resolve().parent
 
 def run(cwd: Path, *args: str) -> None:
     print(f"\n==> {cwd.name}: {' '.join(args)}", flush=True)
-    subprocess.run([sys.executable, *args], cwd=cwd, check=True)
+    environment = dict(os.environ)
+    environment["PYTHONDONTWRITEBYTECODE"] = "1"
+    subprocess.run([sys.executable, *args], cwd=cwd, check=True, env=environment)
 
 
 def main() -> None:
@@ -20,6 +23,8 @@ def main() -> None:
     run(ROOT / "evidence-gate", "scripts/stress.py", "--iterations", "1000")
     run(ROOT / "async-polling-contract", "-m", "unittest", "-v")
     run(ROOT / "async-polling-contract", "demo.py")
+    run(ROOT / "egoh-demo", "-m", "unittest", "-v", "tests.test_egoh_demo")
+    run(ROOT / "egoh-demo", "run_demo.py", "--scenario", "valid-review")
     print("\nALL PUBLIC PROOFS PASSED", flush=True)
 
 

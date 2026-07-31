@@ -1,0 +1,26 @@
+{
+  "boundary": {
+    "application_submitted": false,
+    "approval_recorded": false,
+    "external_action": false,
+    "provider_delivery_observed": false
+  },
+  "decision": "review-required",
+  "evidence_sha256": "d489b785fabf97743cefa79ce909c846a0cd746d20c9f6f6e228eda4ff5b35f3",
+  "journal_event_sha256": "dcceea4b4e8bcfff5e21da1ea6ddc438eb45f756659cf57b83afca77e881abd1",
+  "known": [
+    "synthetic evidence schema validated",
+    "digest bound",
+    "no external action"
+  ],
+  "replayed": false,
+  "required_human_action": "Review the local handoff; any external action needs separate named authority and provider-side readback.",
+  "scenario_id": "valid-review",
+  "schema": "egoh-operator-handoff-v1",
+  "unknown": [
+    "provider state",
+    "delivery",
+    "contract",
+    "income"
+  ]
+}
