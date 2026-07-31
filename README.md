@@ -31,13 +31,27 @@ unknown IDs. It does not claim multi-writer persistence safety.
 The worker is intentionally fake: this is not a ComfyUI, GPU, n8n, or
 production deployment claim.
 
+### [Evidence-Gated Operator Handoff](egoh-demo/README.md)
+
+A synthetic, local-only contract that accepts a narrowly shaped evidence packet
+only into `review-required`. Digest mismatch, stale evidence, unknown tools,
+unexpected raw fields, ambiguous local targets, journal tampering, and a
+caller-supplied decision all fail closed. The demo has no browser, network,
+provider, credential, submit, or payment interface.
+
+The included [public proof pack](egoh-demo/public-pack/TEST_RESULTS.md) records
+the current hostile acceptance readback, fixture digests, a redacted example
+handoff, and explicit non-production limits. It is an inspection artifact, not
+a deployment claim.
+
 ## One-command proof
 
 ```bash
 python3 run_proof.py
 ```
 
-The repository uses only the Python standard library. CI runs the same command.
+The repository uses only the Python standard library. The runner prevents Python
+bytecode writes; CI runs the same command.
 
 ## Why this exists
 
