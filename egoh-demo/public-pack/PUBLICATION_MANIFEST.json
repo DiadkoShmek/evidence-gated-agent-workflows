@@ -1,13 +1,14 @@
 {"schema":"evidence-gated-public-candidate-manifest-v1","algorithm":"sha256","exclusions":[".git/**",".pytest_cache/**","**/__pycache__/**","**/*.pyc","**/*.pyo","egoh-demo/public-pack/PUBLICATION_MANIFEST.json"],"files":[
 {"path":".github/workflows/proof.yml","sha256":"0d19ca7ee1c5fb87b0c6adc5a85f03618db86f44d4df40f48d67440ecc1d9afb"},
 {"path":".gitignore","sha256":"e867c505656fb0d0bcd95d93cef6fedddac4845877f05919e82ab6c4ac1040b0"},
+{"path":"CAPABILITY_UA.md","sha256":"e8794846a363961398bf1547b5f930d446e41a20c43e105adf3c5443abba1eed"},
 {"path":"INTEGRATION_RELIABILITY_ACCEPTANCE_PACK.md","sha256":"cd1107d793ca7a89cd973c43926cf8533459644a86a90c872d2b9e7cd6fa2cc8"},
 {"path":"PROFILE.md","sha256":"659e3aa53902be0c9e13375d70ceaac586a6d598e0dae9868ac7c244ab1402d1"},
-{"path":"README.md","sha256":"5e744af4b0acbc312f83fd4b231317062a0b60cd065880e3f26c607a998c5aa5"},
+{"path":"README.md","sha256":"b2badbc3b3318e1b7743799cd6335c8eca8482ce75b52781102342538061ef3e"},
 {"path":"async-polling-contract/README.md","sha256":"986f7dd7e387fd81cb44eeb37c95731d3406f5c4aa467ecfe5752a928a110687"},
 {"path":"async-polling-contract/contract.py","sha256":"7d3d3957fc63d8ff4df8c49fc5a23d5faaba0ec851b55167d522740590c1045c"},
-{"path":"async-polling-contract/demo.py","sha256":"a082ca0291c5c2242b987df6039bcacd90acaf6b8f1f7ccab2ad17e8a34c8b7c"},
-{"path":"async-polling-contract/test_contract.py","sha256":"f6660d4c9ef7760639f33743e1cb6008975644270548b4060955b23c23564150"},
+{"path":"async-polling-contract/demo.py","sha256":"82d03bdc9d8f1cd1a3dfda8387584359b813ecbceebc0b5e01a059a2e26d2002"},
+{"path":"async-polling-contract/test_contract.py","sha256":"e7bcf8e280a8f00f070ffc405dede233dfdca0044818955143adfe0a8050afc0"},
 {"path":"egoh-demo/README.md","sha256":"b7aabe6eba9e04278d4b0afe330d22c14fd4dace5bc6fd4bb06b3c89d6537b32"},
 {"path":"egoh-demo/egoh_demo.py","sha256":"23c66c7e5360e952427b84fad655423ee43b529508b486bea7b404998d97ca72"},
 {"path":"egoh-demo/fixtures/altered-digest.json","sha256":"be5f1eb6e4109ed0a73f07a85debb0ad3a8fd8003f733f924940c69cd6696543"},
@@ -38,5 +39,5 @@
 {"path":"evidence-gate/tests/__init__.py","sha256":"f04254d8d3dabab15deeea1d7881b708f34f87807a5621fae97b0af8b3227fd6"},
 {"path":"evidence-gate/tests/test_evidence_gate.py","sha256":"2aec807bcc1b5243c9d0e2e94a7565200674b7e5f58747301ac168ae5b09cdf9"},
 {"path":"run_proof.py","sha256":"eea3113fa9a0d893dab23d23683ac02cefe6323e49657b1b9c2de59a7551e6a8"},
-{"path":"test_publication_candidate.py","sha256":"96c59cb10ee3fc33ce4610e18319e735a7c07c71ba73a9d4dd276c5af16e124a"}
-],"tree_sha256":"467b7da33fb256fe27df21fd0f5ec5435e7997926560e10d184acb7e43617fc0"}
+{"path":"test_publication_candidate.py","sha256":"49df9d03ae7c014062f6127857306205bac38fd1309d2a60398799c288890a44"}
+],"tree_sha256":"f36236b2aead21ed7a91ebab827fea25304f4671915783c8bfb3fc31ac7b1f63"}

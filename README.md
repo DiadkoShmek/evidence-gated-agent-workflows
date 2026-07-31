@@ -14,6 +14,11 @@ A buyer-facing scope for one paid discovery and control-plane slice. It names
 the required buyer inputs, deliverables, hostile acceptance tests, human
 approval boundary, and explicit exclusions before any production activation.
 
+### [Український capability brief](CAPABILITY_UA.md)
+
+Коротка українська подача: оплачуваний перший slice, exact public proof і
+чітка доказова межа без production-обіцянок.
+
 ### Evidence gate
 
 Turns structured evidence into `draft | escalate | hold`. Missing, stale,

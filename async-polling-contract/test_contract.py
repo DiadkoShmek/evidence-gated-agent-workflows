@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 import json
+import io
 import tempfile
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
 
 from contract import FakeComfyUI, PollConfig, PollingController, StatusStore
+from demo import main as run_demo
 
 
 class TickClock:
@@ -60,6 +63,16 @@ class PollingContractTests(unittest.TestCase):
         result = controller.submit_and_poll("failed", ["failed"])
         self.assertEqual(result["state"], "failed")
         self.assertEqual(result["retry_delays_seconds"], [])
+
+    def test_demo_uses_ephemeral_status_store(self) -> None:
+        stale_status = Path(__file__).resolve().parent / "demo-status.json"
+        self.assertFalse(stale_status.exists())
+        output = io.StringIO()
+        with redirect_stdout(output):
+            run_demo()
+        self.assertFalse(stale_status.exists())
+        result = json.loads(output.getvalue())
+        self.assertEqual(result["state"], "complete")
 
 
 if __name__ == "__main__":

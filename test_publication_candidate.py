@@ -14,9 +14,11 @@ from pathlib import Path
 sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parent
 PACK = ROOT / "INTEGRATION_RELIABILITY_ACCEPTANCE_PACK.md"
+CAPABILITY = ROOT / "CAPABILITY_UA.md"
 EGOH = ROOT / "egoh-demo"
 MANIFEST = EGOH / "public-pack" / "PUBLICATION_MANIFEST.json"
 EXPECTED_PACK_SHA256 = "cd1107d793ca7a89cd973c43926cf8533459644a86a90c872d2b9e7cd6fa2cc8"
+EXPECTED_CAPABILITY_SHA256 = "e8794846a363961398bf1547b5f930d446e41a20c43e105adf3c5443abba1eed"
 MANIFEST_SCHEMA = "evidence-gated-public-candidate-manifest-v1"
 MANIFEST_EXCLUSIONS = [
     ".git/**",
@@ -61,7 +63,9 @@ class PublicationCandidateTest(unittest.TestCase):
 
     def content_paths(self) -> list[Path]:
         self.assertTrue(EGOH.is_dir())
+        self.assertTrue(CAPABILITY.is_file())
         paths = set(self.tracked_paths())
+        paths.add(CAPABILITY)
         paths.update(path for path in EGOH.rglob("*") if path.is_file())
         return sorted(
             path for path in paths if path != MANIFEST and not self.is_cache_path(path)
@@ -120,6 +124,13 @@ class PublicationCandidateTest(unittest.TestCase):
             "[Integration Reliability Acceptance Pack](INTEGRATION_RELIABILITY_ACCEPTANCE_PACK.md)",
             readme,
         )
+
+    def test_ukrainian_capability_brief_is_exact_and_linked(self) -> None:
+        self.assertTrue(CAPABILITY.is_file())
+        self.assertFalse(CAPABILITY.is_symlink())
+        self.assertEqual(sha256_file(CAPABILITY), EXPECTED_CAPABILITY_SHA256)
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("[Український capability brief](CAPABILITY_UA.md)", readme)
 
     def test_public_pack_examples_are_current_and_bound_to_valid_review(self) -> None:
         sys.path.insert(0, str(EGOH))
