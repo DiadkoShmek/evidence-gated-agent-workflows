@@ -19,6 +19,10 @@
       "sha256": "e867c505656fb0d0bcd95d93cef6fedddac4845877f05919e82ab6c4ac1040b0"
     },
     {
+      "path": "CAPABILITY_UA.md",
+      "sha256": "e8794846a363961398bf1547b5f930d446e41a20c43e105adf3c5443abba1eed"
+    },
+    {
       "path": "INTEGRATION_RELIABILITY_ACCEPTANCE_PACK.md",
       "sha256": "cd1107d793ca7a89cd973c43926cf8533459644a86a90c872d2b9e7cd6fa2cc8"
     },
@@ -28,7 +32,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "11e47d5dc748f8a2582b618a405dae7d4945921df892d9a36be96959517577ee"
+      "sha256": "92f2e601a6d6cc54f143b83c6dc5c6a80ce795bfd8b3c85501444fe213f668b7"
     },
     {
       "path": "async-polling-contract/README.md",
@@ -40,11 +44,11 @@
     },
     {
       "path": "async-polling-contract/demo.py",
-      "sha256": "a082ca0291c5c2242b987df6039bcacd90acaf6b8f1f7ccab2ad17e8a34c8b7c"
+      "sha256": "82d03bdc9d8f1cd1a3dfda8387584359b813ecbceebc0b5e01a059a2e26d2002"
     },
     {
       "path": "async-polling-contract/test_contract.py",
-      "sha256": "f6660d4c9ef7760639f33743e1cb6008975644270548b4060955b23c23564150"
+      "sha256": "e7bcf8e280a8f00f070ffc405dede233dfdca0044818955143adfe0a8050afc0"
     },
     {
       "path": "egoh-demo/README.md",
@@ -168,8 +172,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "96c59cb10ee3fc33ce4610e18319e735a7c07c71ba73a9d4dd276c5af16e124a"
+      "sha256": "49df9d03ae7c014062f6127857306205bac38fd1309d2a60398799c288890a44"
     }
   ],
-  "tree_sha256": "5c3482719488a6efdca56d32e4d37edd962fe470b986beb29e60398c98dcb333"
+  "tree_sha256": "def0803cd9f59d7a67ece6d4270934baaf59be404a71c558254f78f86a69bc8a"
 }
