@@ -15,6 +15,7 @@ def run(cwd: Path, *args: str) -> None:
 
 
 def main() -> None:
+    run(ROOT, "-m", "unittest", "-v", "test_publication_candidate.py")
     run(ROOT / "evidence-gate", "-m", "unittest", "discover", "-s", "tests", "-v")
     run(ROOT / "evidence-gate", "scripts/stress.py", "--iterations", "1000")
     run(ROOT / "async-polling-contract", "-m", "unittest", "-v")
