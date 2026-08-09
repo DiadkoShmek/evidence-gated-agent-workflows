@@ -60,11 +60,15 @@
     },
     {
       "path": "docs/index.html",
-      "sha256": "65d96007ca194162cdc7733e84d9a0b4baa9b01f6f65a91c93fd4ddcd1c73d9c"
+      "sha256": "1c7d7f77b37929034d6b5f9fe54d53fccbbee4c47b9d73fbd73195e273e6628f"
+    },
+    {
+      "path": "docs/proof-experience.js",
+      "sha256": "9ebc2e9701b22a36ab3f491ae446e8ba3b9c3b33a7fe961ab5f78ea31232d1bc"
     },
     {
       "path": "docs/styles.css",
-      "sha256": "50811610311c9774564a04a572d2fcfb0b000dbf79bb8a1a5fdc4110910a916c"
+      "sha256": "566428f933da199a9b163311bf2d1b74d4f64344f36551cf8f43597390b6fffe"
     },
     {
       "path": "egoh-demo/README.md",
@@ -188,8 +192,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "73b7deb0dd1e94dbb2580e60ed304ae7c2ceda471965ef91d1dce088b5f0876b"
+      "sha256": "653dda6c70e88d3eb0e700c22e977fdec07f0f68dfff103c49ca537cafdf26d8"
     }
   ],
-  "tree_sha256": "dc2881ed2c55989ab5febb2781a58065275357ea64921daf4264f834f4b13d5f"
+  "tree_sha256": "5525f20bff1c0bbedd3c1b96b8dfca305bc3e1248dd2a3cd16df3cf537fdf082"
 }
