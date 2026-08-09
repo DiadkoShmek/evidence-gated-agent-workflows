@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parent
 PACK = ROOT / "INTEGRATION_RELIABILITY_ACCEPTANCE_PACK.md"
 CAPABILITY = ROOT / "CAPABILITY_UA.md"
 LANDING = ROOT / "docs" / "index.html"
+LANDING_EN = ROOT / "docs" / "en.html"
 LANDING_STYLE = ROOT / "docs" / "styles.css"
 PROOF_EXPERIENCE = ROOT / "docs" / "proof-experience.js"
 INQUIRY = ROOT / ".github" / "ISSUE_TEMPLATE" / "client-inquiry.yml"
@@ -27,7 +28,7 @@ EVIDENCE_GATE = ROOT / "evidence-gate"
 TRACE_AS_OF = "2026-07-30T12:00:00Z"
 MANIFEST = EGOH / "public-pack" / "PUBLICATION_MANIFEST.json"
 EXPECTED_PACK_SHA256 = "cd1107d793ca7a89cd973c43926cf8533459644a86a90c872d2b9e7cd6fa2cc8"
-EXPECTED_CAPABILITY_SHA256 = "e8794846a363961398bf1547b5f930d446e41a20c43e105adf3c5443abba1eed"
+EXPECTED_CAPABILITY_SHA256 = "cd4267f8aaa5a6e4137cd181de6199c009874adef77c9402d7be00be6b9f73b3"
 MANIFEST_SCHEMA = "evidence-gated-public-candidate-manifest-v1"
 MANIFEST_EXCLUSIONS = [
     ".git/**",
@@ -79,7 +80,7 @@ def evaluate_evidence_fixture(name: str) -> dict[str, object]:
     return outcome
 
 
-def replay_failure_trace_explorer_dom() -> dict[str, object]:
+def replay_failure_trace_explorer_dom(language: str) -> dict[str, object]:
     """Run the checked-in explorer against a deliberately minimal DOM contract."""
     harness = r'''
 const fs = require("fs");
@@ -121,6 +122,7 @@ const controls = ["clean", "missing", "stale", "conflict", "risk"].map((id) => {
   return control;
 });
 const document = {
+  documentElement: { lang: process.argv.at(-2) },
   querySelectorAll(selector) {
     if (selector !== "[data-trace-scenario]") throw new Error(`unexpected query ${selector}`);
     return controls;
@@ -157,7 +159,7 @@ risk.handlers.click();
 console.log(JSON.stringify({ initial, risk: snapshot() }));
 '''
     completed = subprocess.run(
-        ["node", "-e", harness, str(PROOF_EXPERIENCE)],
+        ["node", "-e", harness, language, str(PROOF_EXPERIENCE)],
         check=True,
         capture_output=True,
         text=True,
@@ -186,8 +188,7 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertTrue(EGOH.is_dir())
         self.assertTrue(CAPABILITY.is_file())
         paths = set(self.tracked_paths())
-        paths.add(CAPABILITY)
-        paths.add(PROOF_EXPERIENCE)
+        paths.update({CAPABILITY, LANDING, LANDING_EN, LANDING_STYLE, PROOF_EXPERIENCE})
         paths.update(path for path in EGOH.rglob("*") if path.is_file())
         return sorted(
             path for path in paths if path != MANIFEST and not self.is_cache_path(path)
@@ -256,39 +257,46 @@ class PublicationCandidateTest(unittest.TestCase):
 
     def test_public_landing_is_static_bounded_and_points_to_exact_owner_routes(self) -> None:
         landing = LANDING.read_text(encoding="utf-8")
+        english = LANDING_EN.read_text(encoding="utf-8")
         style = LANDING_STYLE.read_text(encoding="utf-8")
-        scripts = re.findall(r'<script\s+src="([^"]+)"\s+defer></script>', landing)
-        self.assertEqual(scripts, ["proof-experience.js"])
-        self.assertEqual(landing.lower().count("<script"), 1)
+        self.assertIn('<html lang="uk">', landing)
+        self.assertIn('<html lang="en">', english)
+        self.assertIn('href="en.html"', landing)
+        self.assertIn('href="index.html"', english)
+        for page in (landing, english):
+            scripts = re.findall(r'<script\s+src="([^"]+)"\s+defer></script>', page)
+            self.assertEqual(scripts, ["proof-experience.js"])
+            self.assertEqual(page.lower().count("<script"), 1)
+            self.assertNotIn("<form", page.lower())
+            self.assertNotIn("http://", page.lower())
+            self.assertNotRegex(page, r"(?:/home/|\.openclaw|Дзеркало|Комната поля|Omnigen)")
+            self.assertEqual(
+                set(re.findall(r'https://[^"< ]+', page)),
+                {
+                    "https://github.com/DiadkoShmek/evidence-gated-agent-workflows",
+                    "https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml",
+                },
+            )
+            self.assertEqual(page.count("$1,500"), 1)
+            self.assertLess(len(page.encode("utf-8")), 32 * 1024)
         self.assertTrue(PROOF_EXPERIENCE.is_file())
-        self.assertNotIn("<form", landing.lower())
-        self.assertNotIn("http://", landing.lower())
-        self.assertNotRegex(landing, r"(?:/home/|\.openclaw|Дзеркало|Комната поля|Omnigen)")
-        self.assertEqual(
-            set(re.findall(r'https://[^"< ]+', landing)),
-            {
-                "https://github.com/DiadkoShmek/evidence-gated-agent-workflows",
-                "https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml",
-            },
-        )
-        self.assertIn("Fail-Closed Provenance Adapter Sprint", landing)
-        self.assertIn("$1,500", landing)
-        self.assertIn("does not prove", landing)
-        self.assertIn("Illustrative browser-local replay", landing)
+        self.assertIn("Фіксований інженерний спринт", landing)
+        self.assertIn("Fail-Closed Provenance Adapter Sprint", english)
+        self.assertIn("does not prove", english)
+        self.assertIn("Ілюстративне browser-local відтворення", landing)
         self.assertNotIn("url(", style.lower())
         self.assertNotIn("@import", style.lower())
-        resource_urls = re.findall(
-            r'<(?:link|script|img|source|iframe|audio|video)\b[^>]*\b(?:href|src|srcset)="([^"]+)"',
-            landing,
-        )
-        self.assertEqual(resource_urls, ["styles.css", "proof-experience.js"])
-        self.assertNotRegex(landing.lower(), r'<link\b[^>]*\brel="?preload\b')
-        self.assertLess(len(LANDING.read_bytes()), 32 * 1024)
+        for page in (landing, english):
+            resource_urls = re.findall(
+                r'<(?:link|script|img|source|iframe|audio|video)\b[^>]*\b(?:href|src|srcset)="([^"]+)"', page,
+            )
+            self.assertEqual(resource_urls, ["styles.css", "proof-experience.js"])
+            self.assertNotRegex(page.lower(), r'<link\b[^>]*\brel="?preload\b')
         self.assertLess(len(LANDING_STYLE.read_bytes()), 32 * 1024)
 
     def test_buyer_visible_progression_keeps_only_the_first_sprint_purchasable(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        landing = LANDING.read_text(encoding="utf-8")
+        landing = LANDING_EN.read_text(encoding="utf-8")
         progression = re.search(
             r'<section class="section shell progression".*?</section>', landing, re.DOTALL,
         )
@@ -338,22 +346,22 @@ class PublicationCandidateTest(unittest.TestCase):
             outcome = evaluate_evidence_fixture(scenario)
             self.assertFalse(outcome["external_action_authorized"])
             trace_pattern = re.compile(
-                rf'"id": "{scenario}".*?'
-                rf'"outcome": "{outcome["decision"]}".*?'
-                rf'"reason": "{outcome["reason"]}".*?'
-                rf'"fixtureDecision": "{outcome["decision"]}".*?'
-                r'"externalActionAuthorized": false',
+                rf'id: "{scenario}".*?'
+                rf'outcome: "{outcome["decision"]}".*?'
+                rf'reason: "{outcome["reason"]}".*?'
+                rf'fixtureDecision: "{outcome["decision"]}".*?'
+                r'externalActionAuthorized: false',
                 re.DOTALL,
             )
             self.assertRegex(experience, trace_pattern)
             self.assertIn(f'data-trace-scenario="{scenario}"', landing)
-        self.assertEqual(experience.count('"externalActionAuthorized": false'), 5)
-        self.assertIn("separate checked-in <code>evidence-gate</code> fixtures", landing)
-        self.assertIn("current checked-in explorer source contains no network, storage, or telemetry APIs", landing)
-        self.assertIn("not Python equivalence, EGOH parity, production safety, certification, client validity, or external authorization", landing)
+        self.assertEqual(experience.count('externalActionAuthorized: false'), 5)
+        self.assertIn("окремих зафіксованих <code>evidence-gate</code> fixtures", landing)
+        self.assertIn("Поточний source explorer не має network, storage або telemetry APIs", landing)
+        self.assertIn("Це не Python equivalence, EGOH parity, production safety, certification, client validity чи external authorization", landing)
 
     def test_failure_trace_initial_dom_matches_canonical_clean_fixture(self) -> None:
-        landing = LANDING.read_text(encoding="utf-8")
+        landing = LANDING_EN.read_text(encoding="utf-8")
         experience = PROOF_EXPERIENCE.read_text(encoding="utf-8")
         clean = evaluate_evidence_fixture("clean")
         expected = {
@@ -388,8 +396,53 @@ class PublicationCandidateTest(unittest.TestCase):
             experience.index(click_binding),
         )
 
+    def test_ukrainian_failure_trace_static_bootstrap_is_complete_and_selected_clean(self) -> None:
+        landing = LANDING.read_text(encoding="utf-8")
+        clean = evaluate_evidence_fixture("clean")
+        expected = {
+            "title": "Валідний доказ",
+            "outcome": clean["decision"],
+            "reason": clean["reason"],
+            "decision": clean["decision"],
+            "authorized": canonical_json(clean["external_action_authorized"]),
+            "explanation": "Повний синтетичний доказ може дати draft; будь-яку наступну дію все одно вирішує людина.",
+        }
+        tags = {
+            "title": "h3", "outcome": "dd", "reason": "dd", "decision": "dd",
+            "authorized": "dd", "explanation": "p",
+        }
+        actual: dict[str, str] = {}
+        for field, tag in tags.items():
+            match = re.search(rf"data-trace-{field}>([^<]+)</{tag}>", landing)
+            self.assertIsNotNone(match, field)
+            actual[field] = match.group(1)  # type: ignore[union-attr]
+        self.assertEqual(actual, expected)
+        self.assertEqual(
+            re.findall(
+                r'<button[^>]+data-trace-scenario="([^"]+)"[^>]+aria-pressed="(true|false)"[^>]*>([^<]+)</button>',
+                landing,
+            ),
+            [
+                ("clean", "true", "Валідний доказ"),
+                ("missing", "false", "Відсутній доказ"),
+                ("stale", "false", "Застарілий доказ"),
+                ("conflict", "false", "Суперечливий доказ"),
+                ("risk", "false", "Передача з risk-tag"),
+            ],
+        )
+        for label in (
+            "Зафіксований синтетичний результат",
+            "Результат triage",
+            "Названа причина",
+            "Рішення fixture",
+            "Зовнішня дія дозволена",
+            "Ілюстративне browser-local відтворення окремих зафіксованих <code>evidence-gate</code> fixtures.",
+            "Поточний source explorer не має network, storage або telemetry APIs.",
+        ):
+            self.assertIn(label, landing)
+
     def test_failure_trace_runtime_initializes_clean_and_replays_risk(self) -> None:
-        replay = replay_failure_trace_explorer_dom()
+        replay = replay_failure_trace_explorer_dom("en")
         self.assertEqual(
             replay["initial"],
             {
@@ -432,6 +485,29 @@ class PublicationCandidateTest(unittest.TestCase):
                 ],
             },
         )
+
+    def test_bilingual_trace_runtime_has_one_five_case_parity_path(self) -> None:
+        english = replay_failure_trace_explorer_dom("en")
+        ukrainian = replay_failure_trace_explorer_dom("uk")
+        experience = PROOF_EXPERIENCE.read_text(encoding="utf-8")
+        self.assertIn('const TRACE_CASES = Object.freeze([', experience)
+        self.assertIn('const TRACE_COPY = Object.freeze({', experience)
+        self.assertEqual(experience.count('externalActionAuthorized: false'), 5)
+        for snapshot in (english["initial"], english["risk"], ukrainian["initial"], ukrainian["risk"]):
+            self.assertEqual(snapshot["authorized"], "false")
+            self.assertEqual(snapshot["controls"], [
+                {"id": "clean", "classSelected": snapshot["title"] in {"Valid evidence", "Валідний доказ"}, "ariaPressed": "true" if snapshot["title"] in {"Valid evidence", "Валідний доказ"} else "false"},
+                {"id": "missing", "classSelected": False, "ariaPressed": "false"},
+                {"id": "stale", "classSelected": False, "ariaPressed": "false"},
+                {"id": "conflict", "classSelected": False, "ariaPressed": "false"},
+                {"id": "risk", "classSelected": snapshot["title"] in {"Risk-tagged handoff", "Передача з risk-tag"}, "ariaPressed": "true" if snapshot["title"] in {"Risk-tagged handoff", "Передача з risk-tag"} else "false"},
+            ])
+        self.assertEqual(
+            [(english["initial"][key], english["risk"][key]) for key in ("outcome", "reason", "decision", "authorized")],
+            [(ukrainian["initial"][key], ukrainian["risk"][key]) for key in ("outcome", "reason", "decision", "authorized")],
+        )
+        self.assertEqual(ukrainian["initial"]["title"], "Валідний доказ")
+        self.assertEqual(ukrainian["risk"]["title"], "Передача з risk-tag")
 
     def test_failure_trace_explorer_has_no_input_or_external_runtime_surface(self) -> None:
         landing = LANDING.read_text(encoding="utf-8").lower()
