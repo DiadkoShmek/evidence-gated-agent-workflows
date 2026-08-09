@@ -5,10 +5,12 @@ fail honestly instead of inventing a successful result.
 
 ## Work with me
 
-I offer a fixed-scope **Fail-Closed Provenance Adapter Sprint**: in 3–5 working
-days, turn one untrusted AI or data artifact handoff into a bounded adapter,
-hostile test suite, evidence report, and engineering handoff. The fixed pilot
-price is **$1,500**.
+I offer a fixed-scope **Fail-Closed Provenance Adapter Sprint**. You bring one
+sanitized AI or data artifact, its expected schema, the source and target
+interface descriptions, and one costly failure the handoff must refuse. In
+3–5 working days I build a bounded adapter, hostile test suite, decision trace,
+known-limits report, and engineering handoff. The fixed pilot price is
+**$1,500**.
 
 [View the service page](https://diadkoshmek.github.io/evidence-gated-agent-workflows/)
 or [open a scoped public workflow inquiry](https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml).
@@ -17,6 +19,14 @@ access details in a public issue.
 
 For clients: this demonstrates how I make AI workflows observable and honest
 about failure before they are connected to real systems.
+
+The pilot is accepted when the agreed valid fixture passes, the agreed hostile
+fixtures fail closed with named reasons, and the documented proof command is
+green. One review round is included. Production deployment, security or
+compliance certification, SLA, ongoing support, client-system access, and
+automatic activation are outside this pilot. Repository and licensing terms
+are agreed before work begins. The public demo tests demonstrate only the
+checked-in demo; they are not a safety guarantee for a client adapter.
 
 ## Included demos
 
