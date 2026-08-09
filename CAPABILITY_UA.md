@@ -11,11 +11,11 @@ coding agents, перевіряю реалізацію hostile-тестами т
 
 ## Перший оплачуваний етап
 
-**П’ять робочих днів, один workflow, один named owner, один вимірюваний критерій.**
+**3–5 робочих днів, один workflow, один named owner, один вимірюваний критерій: $1,500 fixed-scope sprint.**
 
-- audit і карта failure modes: **$300–700**;
-- audit + обмежений proof of concept: **$700–1,500**;
-- більша реалізація оцінюється лише після перевіреного першого етапу.
+Перший оплачуваний крок — лише цей fixed sprint. Більша реалізація може бути
+окремо описана лише після письмового evidence першого етапу; вона не включена,
+не оцінена і не обіцяна цим brief.
 
 Результат: карта процесу, typed input/output contract, один runnable slice,
 hostile cases, decision trace, відомі межі, rollback/handoff і короткий план
@@ -30,8 +30,9 @@ hostile cases, decision trace, відомі межі, rollback/handoff і кор
 - synthetic stress proof без network access та зовнішніх дій;
 - відтворення однією командою: `python3 run_proof.py`.
 
-Код і інструкція відтворення зафіксовані на exact public commit `f60c8a8`:
-<https://github.com/DiadkoShmek/evidence-gated-agent-workflows/tree/f60c8a811088a72ca69fe17e5e1c5d3165303ad4>
+Код і інструкція відтворення доступні в public repository; локальна команда
+`python3 run_proof.py` перевіряє checked-in synthetic proof без network access
+чи зовнішніх дій.
 
 ## Де це корисно
 
