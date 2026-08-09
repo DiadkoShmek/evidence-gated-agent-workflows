@@ -7,6 +7,7 @@
   <title>Fail-Closed Provenance Adapter Sprint — Artur Onysko</title>
   <link rel="stylesheet" href="styles.css">
   <script src="proof-experience.js" defer></script>
+  <script src="intake-experience.js" defer></script>
 </head>
 <body>
   <header class="nav shell">
@@ -14,6 +15,7 @@
     <nav aria-label="Primary navigation">
       <a href="#deliverables">Deliverables</a>
       <a href="#proof">Proof</a>
+      <a href="#intake">Planning</a>
       <a class="language-link" href="index.html" lang="uk">Українська</a>
       <a class="nav-cta" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Bring one workflow</a>
     </nav>
@@ -28,7 +30,7 @@
         <a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Describe the broken handoff</a>
         <a class="button secondary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows">Run the public proof</a>
       </div>
-      <p class="micro">No credentials or private client data in the first inquiry. Production activation is a separate decision.</p>
+      <p class="micro">Do not include credentials or private client data in the first public inquiry; the public form cannot verify their absence. Production activation is a separate decision.</p>
     </section>
 
     <section class="signal">
@@ -150,6 +152,53 @@
       <p class="trace-boundary">Illustrative browser-local replay of the separate checked-in <code>evidence-gate</code> fixtures. The current checked-in explorer source contains no network, storage, or telemetry APIs. It is not Python equivalence, EGOH parity, production safety, certification, client validity, or external authorization.</p>
     </section>
 
+    <section id="intake" class="section shell intake-section" aria-labelledby="intake-title">
+      <div class="intake-heading"><p class="eyebrow">Local acceptance packet</p><h2 id="intake-title">Build a narrow review-only draft before a public inquiry.</h2><p>Choose controlled values only. The builder produces a browser-local planning draft, not evidence, a contract, an award, a payment, or authority for an external action.</p></div>
+      <div class="intake-layout">
+        <div class="intake-choices" aria-label="Acceptance packet options">
+          <fieldset><legend>1 · Handoff type</legend><div class="choice-grid"><button class="intake-choice" type="button" data-intake-field="workflow" data-intake-value="agent-result-to-internal-tool" aria-pressed="false">Agent result → internal tool</button><button class="intake-choice" type="button" data-intake-field="workflow" data-intake-value="model-artifact-to-runtime" aria-pressed="false">Model artifact → runtime</button><button class="intake-choice" type="button" data-intake-field="workflow" data-intake-value="async-job-status" aria-pressed="false">Async job status</button><button class="intake-choice" type="button" data-intake-field="workflow" data-intake-value="data-receipt" aria-pressed="false">Data receipt</button></div></fieldset>
+          <fieldset><legend>2 · Buyer-declared source category</legend><div class="choice-grid"><button class="intake-choice" type="button" data-intake-field="source" data-intake-value="buyer-declared-sanitized-sample-artifact" aria-pressed="false">Buyer-declared sanitized sample artifact</button><button class="intake-choice" type="button" data-intake-field="source" data-intake-value="source-interface-description-only" aria-pressed="false">Source interface description only</button></div></fieldset>
+          <fieldset><legend>3 · Narrow target</legend><div class="choice-grid"><button class="intake-choice" type="button" data-intake-field="target" data-intake-value="one-internal-review-boundary" aria-pressed="false">One internal review boundary</button><button class="intake-choice" type="button" data-intake-field="target" data-intake-value="one-bounded-runtime-adapter" aria-pressed="false">One bounded runtime adapter</button></div></fieldset>
+          <fieldset><legend>4 · Decision owner role</legend><div class="choice-grid"><button class="intake-choice" type="button" data-intake-field="decision_owner_role" data-intake-value="human-review-owner-to-be-named" aria-pressed="false">Human review owner — name during review</button><button class="intake-choice" type="button" data-intake-field="decision_owner_role" data-intake-value="team-operator-to-be-named" aria-pressed="false">Team operator — name during review</button></div></fieldset>
+          <fieldset><legend>5 · Costly failure that must fail closed</legend><div class="choice-grid"><button class="intake-choice" type="button" data-intake-field="costly_failure" data-intake-value="missing-evidence" aria-pressed="false">Missing evidence</button><button class="intake-choice" type="button" data-intake-field="costly_failure" data-intake-value="stale-evidence" aria-pressed="false">Stale evidence</button><button class="intake-choice" type="button" data-intake-field="costly_failure" data-intake-value="malformed-artifact" aria-pressed="false">Malformed artifact</button><button class="intake-choice" type="button" data-intake-field="costly_failure" data-intake-value="contradictory-evidence" aria-pressed="false">Contradictory evidence</button></div></fieldset>
+          <fieldset><legend>6 · Measurable five-day evidence</legend><div class="choice-grid"><button class="intake-choice" type="button" data-intake-field="five_day_evidence" data-intake-value="valid-fixture-plus-hostile-fail-closed" aria-pressed="false">Valid fixture + hostile fail-closed cases</button><button class="intake-choice" type="button" data-intake-field="five_day_evidence" data-intake-value="bounded-polling-terminal-state" aria-pressed="false">Bounded polling + terminal state</button><button class="intake-choice" type="button" data-intake-field="five_day_evidence" data-intake-value="decision-trace-known-limits" aria-pressed="false">Decision trace + known limits</button></div></fieldset>
+          <fieldset><legend>7 · Test environment</legend><div class="choice-grid"><button class="intake-choice" type="button" data-intake-field="test_environment" data-intake-value="sanitized-example-only" aria-pressed="false">Sanitized example only</button><button class="intake-choice" type="button" data-intake-field="test_environment" data-intake-value="sanitized-test-environment" aria-pressed="false">Sanitized test environment</button><button class="intake-choice" type="button" data-intake-field="test_environment" data-intake-value="discovery-before-artifact" aria-pressed="false">Discovery before any artifact</button></div></fieldset>
+          <fieldset><legend>8 · Human action boundary</legend><div class="choice-grid"><button class="intake-choice" type="button" data-intake-field="human_action_boundary" data-intake-value="human-approval-required-before-any-next-action" aria-pressed="false">Human approval required before any next action</button><button class="intake-choice" type="button" data-intake-field="human_action_boundary" data-intake-value="manual-review-only" aria-pressed="false">Manual review only</button></div></fieldset>
+          <fieldset><legend>9 · Public boundary declaration</legend><div class="choice-grid"><button class="intake-choice" type="button" data-intake-field="boundary_declaration" data-intake-value="buyer-declares-public-summary-only" aria-pressed="false">Buyer declares public summary only; full exclusions stay invariant</button></div></fieldset>
+        </div>
+        <article class="intake-card" aria-live="polite" aria-atomic="true"><p class="trace-kicker">Your browser-local output</p><h3>Review-only planning draft</h3><pre class="intake-packet" data-intake-packet>{
+  "schema": "external-buyer-acceptance-packet-v1",
+  "workflow": null,
+  "source": null,
+  "target": null,
+  "decision_owner_role": null,
+  "decision_owner_status": "must-be-named-during-human-review",
+  "costly_failure": null,
+  "measurable_five_day_evidence": null,
+  "test_environment": null,
+  "human_action_boundary": null,
+  "boundary_declaration": null,
+  "exclusions": "production-credentials-private-data-payment-account-changes-excluded",
+  "output_status": "UNSENT · no buyer selections · local to this tab · not validated",
+  "scope": "review-only",
+  "draft_class": "unpopulated-planning-template",
+  "completion_status": "incomplete",
+  "authority": "none",
+  "evidence": false,
+  "contract": false,
+  "award": false,
+  "payment": false,
+  "external_action": false,
+  "external_action_authorized": false,
+  "production": false,
+  "production_activation": "excluded",
+  "automatic_submit": false,
+  "manual_route": "existing-github-issue-form"
+}</pre><button class="button reset" type="button" data-intake-reset>Reset to the first packet</button><p>This draft is not stored, submitted, or an application. If it accurately describes your first cut, manually open the existing English public GitHub Issue Form and provide only a public summary. A public form cannot verify the absence of private data.</p><a class="button secondary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Manually open the existing English GitHub Issue Form</a></article>
+      </div>
+      <p class="intake-boundary">Do not enter here or add to a public issue any secrets, credentials, private code, customer/personal data, private URLs, or production access details. The current builder has controlled fields and no network, storage, telemetry, or automatic-submit APIs.</p>
+    </section>
+
     <section class="section shell fit">
       <div>
         <p class="eyebrow">Good first use</p>
@@ -165,7 +214,7 @@
       <p class="eyebrow">Start without exposing private data</p>
       <h2>One workflow. One expensive failure. One fact that would prove improvement.</h2>
       <a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Open a scoped inquiry</a>
-      <p class="micro">Prefer private contact? Open the issue with only a public summary and ask for a private follow-up route.</p>
+      <p class="micro">Provide only a public summary. Any private route is a separate human-confirmed step and is not created by this page.</p>
     </section>
   </main>
 
