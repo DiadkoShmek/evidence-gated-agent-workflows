@@ -11,6 +11,14 @@
   ],
   "files": [
     {
+      "path": ".github/ISSUE_TEMPLATE/client-inquiry.yml",
+      "sha256": "b0911298e7dfff0409fb451534290048c786953800b4ec14d6e6b260b179bef9"
+    },
+    {
+      "path": ".github/workflows/pages.yml",
+      "sha256": "85c00e07a1ae162236d38c041e208540e136d4cf75dbf5f185aeea32a1ff8546"
+    },
+    {
       "path": ".github/workflows/proof.yml",
       "sha256": "0d19ca7ee1c5fb87b0c6adc5a85f03618db86f44d4df40f48d67440ecc1d9afb"
     },
@@ -32,7 +40,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "92f2e601a6d6cc54f143b83c6dc5c6a80ce795bfd8b3c85501444fe213f668b7"
+      "sha256": "40c85356327c5e9c0f396c20deb5ca90089c6c419c9435b11d449d1fa3103e93"
     },
     {
       "path": "async-polling-contract/README.md",
@@ -49,6 +57,14 @@
     {
       "path": "async-polling-contract/test_contract.py",
       "sha256": "e7bcf8e280a8f00f070ffc405dede233dfdca0044818955143adfe0a8050afc0"
+    },
+    {
+      "path": "docs/index.html",
+      "sha256": "3ef60ba4e4d0f3a9a112ef8db96e0fd49295debf8ec126e2c53d30b83a0d3719"
+    },
+    {
+      "path": "docs/styles.css",
+      "sha256": "50811610311c9774564a04a572d2fcfb0b000dbf79bb8a1a5fdc4110910a916c"
     },
     {
       "path": "egoh-demo/README.md",
@@ -104,7 +120,7 @@
     },
     {
       "path": "egoh-demo/run_demo.py",
-      "sha256": "50bb9bc3ef87aa7e32977408a2f9b493914f48c233ad3328327b68a0d2857367"
+      "sha256": "6ace123c805e0098d8b94af2c55a024d108c157d82395b05e0fe1af5c8e077ee"
     },
     {
       "path": "egoh-demo/tests/test_egoh_demo.py",
@@ -168,12 +184,12 @@
     },
     {
       "path": "run_proof.py",
-      "sha256": "eea3113fa9a0d893dab23d23683ac02cefe6323e49657b1b9c2de59a7551e6a8"
+      "sha256": "4b094e8f7119f8b2580a8d4a7b7e7f7b13518928d9b1044842a3d2b36ca796d4"
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "49df9d03ae7c014062f6127857306205bac38fd1309d2a60398799c288890a44"
+      "sha256": "73b7deb0dd1e94dbb2580e60ed304ae7c2ceda471965ef91d1dce088b5f0876b"
     }
   ],
-  "tree_sha256": "def0803cd9f59d7a67ece6d4270934baaf59be404a71c558254f78f86a69bc8a"
+  "tree_sha256": "53cab40bc68e0d312431c435cb2ea01d574fdcc5cbd2e1b06e669faa34cff888"
 }

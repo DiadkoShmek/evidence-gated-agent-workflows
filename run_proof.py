@@ -24,7 +24,16 @@ def main() -> None:
     run(ROOT / "async-polling-contract", "-m", "unittest", "-v")
     run(ROOT / "async-polling-contract", "demo.py")
     run(ROOT / "egoh-demo", "-m", "unittest", "-v", "tests.test_egoh_demo")
-    run(ROOT / "egoh-demo", "run_demo.py", "--scenario", "valid-review")
+    run(
+        ROOT / "egoh-demo",
+        "run_demo.py",
+        "--scenario",
+        "valid-review",
+        "--as-of",
+        "2026-07-31T12:01:00+00:00",
+        "--expect-decision",
+        "review-required",
+    )
     print("\nALL PUBLIC PROOFS PASSED", flush=True)
 
 

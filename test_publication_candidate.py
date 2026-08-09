@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
@@ -15,6 +16,10 @@ sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parent
 PACK = ROOT / "INTEGRATION_RELIABILITY_ACCEPTANCE_PACK.md"
 CAPABILITY = ROOT / "CAPABILITY_UA.md"
+LANDING = ROOT / "docs" / "index.html"
+LANDING_STYLE = ROOT / "docs" / "styles.css"
+INQUIRY = ROOT / ".github" / "ISSUE_TEMPLATE" / "client-inquiry.yml"
+PAGES_WORKFLOW = ROOT / ".github" / "workflows" / "pages.yml"
 EGOH = ROOT / "egoh-demo"
 MANIFEST = EGOH / "public-pack" / "PUBLICATION_MANIFEST.json"
 EXPECTED_PACK_SHA256 = "cd1107d793ca7a89cd973c43926cf8533459644a86a90c872d2b9e7cd6fa2cc8"
@@ -131,6 +136,77 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertEqual(sha256_file(CAPABILITY), EXPECTED_CAPABILITY_SHA256)
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn("[Український capability brief](CAPABILITY_UA.md)", readme)
+
+    def test_public_landing_is_static_bounded_and_points_to_exact_owner_routes(self) -> None:
+        landing = LANDING.read_text(encoding="utf-8")
+        style = LANDING_STYLE.read_text(encoding="utf-8")
+        self.assertNotIn("<script", landing.lower())
+        self.assertNotIn("<form", landing.lower())
+        self.assertNotIn("http://", landing.lower())
+        self.assertNotRegex(landing, r"(?:/home/|\.openclaw|Дзеркало|Комната поля|Omnigen)")
+        self.assertEqual(
+            set(re.findall(r'https://[^"< ]+', landing)),
+            {
+                "https://github.com/DiadkoShmek/evidence-gated-agent-workflows",
+                "https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml",
+            },
+        )
+        self.assertIn("Fail-Closed Provenance Adapter Sprint", landing)
+        self.assertIn("$1,500", landing)
+        self.assertIn("does not prove", landing)
+        self.assertNotIn("url(", style.lower())
+        self.assertLess(len(LANDING.read_bytes()), 32 * 1024)
+        self.assertLess(len(LANDING_STYLE.read_bytes()), 32 * 1024)
+
+    def test_public_inquiry_warns_without_claiming_enforced_sanitization(self) -> None:
+        inquiry = INQUIRY.read_text(encoding="utf-8")
+        self.assertIn("This is a public issue", inquiry)
+        for forbidden in ("email", "phone", "password", "token", "api key", "upload"):
+            self.assertNotRegex(inquiry.lower(), rf"id:\s*{re.escape(forbidden)}")
+        for required in ("id: workflow", "id: failure", "id: proof", "id: boundary"):
+            self.assertIn(required, inquiry)
+        self.assertIn("production activation", inquiry)
+        self.assertIn("private code", inquiry)
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertNotIn("sanitized workflow inquiry", readme)
+
+    def test_pages_deploys_only_sealed_static_directory(self) -> None:
+        workflow = PAGES_WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("needs: verify", workflow)
+        self.assertIn("run: python3 run_proof.py", workflow)
+        self.assertIn("path: docs", workflow)
+        self.assertIn("contents: read", workflow)
+        self.assertIn("pages: write", workflow)
+        self.assertIn("id-token: write", workflow)
+        self.assertNotIn("pull_request", workflow)
+        self.assertNotRegex(workflow, r"uses:\s+actions/[^\s]+@v\d")
+
+    def test_one_command_proof_pins_valid_fixture_epoch_and_expected_decision(self) -> None:
+        runner = (ROOT / "run_proof.py").read_text(encoding="utf-8")
+        self.assertIn('"2026-07-31T12:01:00+00:00"', runner)
+        self.assertIn('"--expect-decision"', runner)
+        self.assertIn('"review-required"', runner)
+        environment = dict(os.environ)
+        environment["PYTHONDONTWRITEBYTECODE"] = "1"
+        completed = subprocess.run(
+            [
+                sys.executable,
+                str(EGOH / "run_demo.py"),
+                "--scenario",
+                "valid-review",
+                "--as-of",
+                "2026-07-31T12:01:00+00:00",
+                "--expect-decision",
+                "review-required",
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+            env=environment,
+        )
+        result = json.loads(completed.stdout)
+        self.assertEqual(result["decision"]["decision"], "review-required")
+        self.assertIsNotNone(result["handoff"])
 
     def test_public_pack_examples_are_current_and_bound_to_valid_review(self) -> None:
         sys.path.insert(0, str(EGOH))

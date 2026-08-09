@@ -3,6 +3,18 @@
 Two small, dependency-free Python references for automation systems that must
 fail honestly instead of inventing a successful result.
 
+## Work with me
+
+I offer a fixed-scope **Fail-Closed Provenance Adapter Sprint**: in 3–5 working
+days, turn one untrusted AI or data artifact handoff into a bounded adapter,
+hostile test suite, evidence report, and engineering handoff. The fixed pilot
+price is **$1,500**.
+
+[View the service page](https://diadkoshmek.github.io/evidence-gated-agent-workflows/)
+or [open a scoped public workflow inquiry](https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml).
+Do not put credentials, personal/customer data, private code, or production
+access details in a public issue.
+
 For clients: this demonstrates how I make AI workflows observable and honest
 about failure before they are connected to real systems.
 
