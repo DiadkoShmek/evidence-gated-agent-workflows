@@ -40,7 +40,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "a2640133d67e9d506584e91286e23fdf046123a03ac393f8cb32b50e82f1f9bc"
+      "sha256": "f90ab9aa37af46548de5115d1ef67145b01f0d4bf143577ccf8a493a361ca0c5"
     },
     {
       "path": "async-polling-contract/README.md",
@@ -60,7 +60,7 @@
     },
     {
       "path": "docs/index.html",
-      "sha256": "231854f2c970f948dc23ac2e9782d4b17d4e84a75c9a65156507ce289bb9398b"
+      "sha256": "4f13da2d7d6eea9cb9b8e0e4bfce525aacc4f12ac66cd0b5fdbc1e4d3ae41815"
     },
     {
       "path": "docs/styles.css",
@@ -191,5 +191,5 @@
       "sha256": "73b7deb0dd1e94dbb2580e60ed304ae7c2ceda471965ef91d1dce088b5f0876b"
     }
   ],
-  "tree_sha256": "595e7699786bd329493702a4155b463b8a5f3c4c4989d74429a1de06ddc6680a"
+  "tree_sha256": "95b9e164a1c00926afdfb70ed19525ec9efbcbfffed7873b1266503cfd2b3be0"
 }
