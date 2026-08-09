@@ -12,6 +12,32 @@ const INTAKE_DEFAULTS = Object.freeze({
   boundary_declaration: null,
 });
 
+const ISSUE_FORM_GUIDANCE_JSON = `{
+  "route": "existing-github-issue-form",
+  "headings": [
+    "One workflow",
+    "Expensive failure",
+    "Five-day proof",
+    "Test environment available?",
+    "Public-data boundary"
+  ],
+  "environment_mapping": {
+    "sanitized-test-environment": "Yes — sanitized test environment and examples",
+    "sanitized-example-only": "Partly — examples only",
+    "discovery-before-artifact": "No — discovery and contract first"
+  },
+  "manual_public_summary_required": {
+    "workflow": "manual-public-summary-required",
+    "failure": "manual-public-summary-required",
+    "proof": "manual-public-summary-required"
+  },
+  "public_data_boundary_requirements": {
+    "I confirm this issue contains no credentials, personal/customer data, private code, private URLs, or production access details.": "manual-checkbox-attestation-required",
+    "I understand that production activation, credentials, payments, and account changes are outside the first public inquiry.": "manual-checkbox-attestation-required"
+  }
+}`;
+const ISSUE_FORM_GUIDANCE = Object.freeze(JSON.parse(ISSUE_FORM_GUIDANCE_JSON));
+
 const intakeChoices = Array.from(document.querySelectorAll("[data-intake-field]"));
 const intakePacket = document.querySelector("[data-intake-packet]");
 const intakeReset = document.querySelector("[data-intake-reset]");
@@ -50,6 +76,10 @@ function buildIntakePacket() {
     production_activation: "excluded",
     automatic_submit: false,
     manual_route: "existing-github-issue-form",
+    issue_form_guidance: ISSUE_FORM_GUIDANCE,
+    issue_created: false,
+    provider_observed: false,
+    queue_admitted: false,
   };
 }
 
