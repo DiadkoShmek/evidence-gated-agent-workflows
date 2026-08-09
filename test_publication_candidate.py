@@ -763,11 +763,58 @@ class PublicationCandidateTest(unittest.TestCase):
             for field in (
                 "evidence", "contract", "award", "payment", "external_action",
                 "external_action_authorized", "production", "automatic_submit",
+                "issue_created", "provider_observed", "queue_admitted",
             ):
                 self.assertIs(packet[field], False)
             self.assertEqual(packet["authority"], "none")
             self.assertEqual(packet["production_activation"], "excluded")
             self.assertEqual(packet["manual_route"], "existing-github-issue-form")
+            self.assertEqual(packet["issue_form_guidance"]["route"], packet["manual_route"])
+            self.assertEqual(
+                set(packet["issue_form_guidance"]),
+                {
+                    "route", "headings", "environment_mapping",
+                    "manual_public_summary_required", "public_data_boundary_requirements",
+                },
+            )
+            self.assertEqual(
+                packet["issue_form_guidance"]["headings"],
+                [
+                    "One workflow", "Expensive failure", "Five-day proof",
+                    "Test environment available?", "Public-data boundary",
+                ],
+            )
+            self.assertEqual(
+                packet["issue_form_guidance"]["environment_mapping"],
+                {
+                    "sanitized-test-environment": "Yes — sanitized test environment and examples",
+                    "sanitized-example-only": "Partly — examples only",
+                    "discovery-before-artifact": "No — discovery and contract first",
+                },
+            )
+            self.assertEqual(
+                packet["issue_form_guidance"]["manual_public_summary_required"],
+                {
+                    "workflow": "manual-public-summary-required",
+                    "failure": "manual-public-summary-required",
+                    "proof": "manual-public-summary-required",
+                },
+            )
+            self.assertEqual(
+                set(packet["issue_form_guidance"]["manual_public_summary_required"]),
+                {"workflow", "failure", "proof"},
+            )
+            self.assertEqual(
+                set(packet["issue_form_guidance"]["public_data_boundary_requirements"].values()),
+                {"manual-checkbox-attestation-required"},
+            )
+            self.assertNotIn(
+                "manual-public-summary-required",
+                packet["issue_form_guidance"]["public_data_boundary_requirements"].values(),
+            )
+            serialized_guidance = canonical_json(packet["issue_form_guidance"]).lower()
+            for prohibited in ("authority", "admission", "created", "provider"):
+                self.assertNotIn(prohibited, serialized_guidance)
         selected = [
             control for control in partial["controls"]
             if control["field"] == "costly_failure" and control["classSelected"]
