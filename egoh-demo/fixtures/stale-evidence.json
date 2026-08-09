@@ -1,0 +1,14 @@
+{
+  "schema": "egoh-synthetic-scenario-v1",
+  "scenario_id": "stale-evidence",
+  "tool_intent": "observe-structure",
+  "evidence": {
+    "schema": "egoh-synthetic-evidence-v1",
+    "scenario_id": "stale-evidence",
+    "observed_at": "2020-01-01T00:00:00+00:00",
+    "freshness_ttl_seconds": 60,
+    "projection": {"form_count": 1, "field_count": 1, "application_form_candidate_present": true},
+    "claims": {"external_action": false, "page_content_output": false, "provider_delivery_observed": false, "application_submitted": false}
+  },
+  "evidence_sha256": "d35b663057b6fbed4e74df51c03bb613225823427869ae2ada835eb7a37c6dba"
+}

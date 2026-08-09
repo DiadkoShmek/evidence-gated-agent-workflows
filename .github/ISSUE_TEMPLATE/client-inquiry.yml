@@ -1,0 +1,52 @@
+name: Scoped workflow inquiry
+description: Describe one unreliable AI or data handoff without sharing private data.
+title: "[inquiry] "
+labels: ["client-inquiry", "review-required"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is a public issue. Do not include credentials, personal data, customer records, private URLs, proprietary code, or security-sensitive details. A public summary is enough to decide whether a private next step is useful.
+  - type: input
+    id: workflow
+    attributes:
+      label: One workflow
+      description: Name the single source-to-target handoff that is unreliable.
+      placeholder: "Example: agent-generated report entering an internal review queue"
+    validations:
+      required: true
+  - type: textarea
+    id: failure
+    attributes:
+      label: Expensive failure
+      description: What repeatedly goes wrong, in sanitized terms?
+      placeholder: "Missing output is sometimes treated as success, causing manual recovery."
+    validations:
+      required: true
+  - type: textarea
+    id: proof
+    attributes:
+      label: Five-day proof
+      description: What observable fact would make a small first slice useful?
+      placeholder: "Malformed and missing artifacts always enter an explicit held state in the test environment."
+    validations:
+      required: true
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Test environment available?
+      options:
+        - "Yes — sanitized test environment and examples"
+        - "Partly — examples only"
+        - "No — discovery and contract first"
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundary
+    attributes:
+      label: Public-data boundary
+      options:
+        - label: I confirm this issue contains no credentials, personal/customer data, private code, private URLs, or production access details.
+          required: true
+        - label: I understand that production activation, credentials, payments, and account changes are outside the first public inquiry.
+          required: true
