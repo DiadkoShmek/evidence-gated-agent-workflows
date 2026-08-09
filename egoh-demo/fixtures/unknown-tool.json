@@ -1,0 +1,14 @@
+{
+  "schema": "egoh-synthetic-scenario-v1",
+  "scenario_id": "unknown-tool",
+  "tool_intent": "send",
+  "evidence": {
+    "schema": "egoh-synthetic-evidence-v1",
+    "scenario_id": "unknown-tool",
+    "observed_at": "2026-07-31T12:00:00+00:00",
+    "freshness_ttl_seconds": 86400,
+    "projection": {"form_count": 1, "field_count": 1, "application_form_candidate_present": true},
+    "claims": {"external_action": false, "page_content_output": false, "provider_delivery_observed": false, "application_submitted": false}
+  },
+  "evidence_sha256": "0afd4b1c53373e2494d239f332176f001aa340ce748f7661a588da343d31b47c"
+}

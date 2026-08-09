@@ -1,0 +1,6 @@
+be5f1eb6e4109ed0a73f07a85debb0ad3a8fd8003f733f924940c69cd6696543  ../fixtures/altered-digest.json
+2406146796bcdb25cea51b8db750b82b7a488da0ebb2b2c70da2ccd96a42268b  ../fixtures/missing-evidence.json
+5c7352490b9b00dd036e13b1ee93144b26cb5976d81fdd7a0cb4665311bfa3ff  ../fixtures/replay.json
+3bc49770873a5b57cbc7353f80dd67dca19dcb02dbc3f0e70601d6f92f63f7e8  ../fixtures/stale-evidence.json
+5f894344f3276b1ecac4ea118a0edfa80358abd5324befc746e197998bd702c5  ../fixtures/unknown-tool.json
+3530b2f0e08a5ac969f753225b953d24ae10954295f89b50f3b199b02fe778dc  ../fixtures/valid-review.json
