@@ -20,6 +20,7 @@ LANDING = ROOT / "docs" / "index.html"
 LANDING_EN = ROOT / "docs" / "en.html"
 LANDING_STYLE = ROOT / "docs" / "styles.css"
 PROOF_EXPERIENCE = ROOT / "docs" / "proof-experience.js"
+INTAKE_EXPERIENCE = ROOT / "docs" / "intake-experience.js"
 INQUIRY = ROOT / ".github" / "ISSUE_TEMPLATE" / "client-inquiry.yml"
 PAGES_WORKFLOW = ROOT / ".github" / "workflows" / "pages.yml"
 PROOF_WORKFLOW = ROOT / ".github" / "workflows" / "proof.yml"
@@ -170,6 +171,143 @@ console.log(JSON.stringify({ initial, risk: snapshot() }));
     return outcome
 
 
+def replay_acceptance_packet_builder_dom() -> dict[str, object]:
+    """Run the local packet builder with only its declared DOM surface."""
+    harness = r'''
+const fs = require("fs");
+const vm = require("vm");
+
+const options = [
+  ["workflow", "agent-result-to-internal-tool"],
+  ["workflow", "model-artifact-to-runtime"],
+  ["workflow", "async-job-status"],
+  ["workflow", "data-receipt"],
+  ["source", "buyer-declared-sanitized-sample-artifact"],
+  ["source", "source-interface-description-only"],
+  ["target", "one-internal-review-boundary"],
+  ["target", "one-bounded-runtime-adapter"],
+  ["decision_owner_role", "human-review-owner-to-be-named"],
+  ["decision_owner_role", "team-operator-to-be-named"],
+  ["costly_failure", "missing-evidence"],
+  ["costly_failure", "stale-evidence"],
+  ["costly_failure", "malformed-artifact"],
+  ["costly_failure", "contradictory-evidence"],
+  ["five_day_evidence", "valid-fixture-plus-hostile-fail-closed"],
+  ["five_day_evidence", "bounded-polling-terminal-state"],
+  ["five_day_evidence", "decision-trace-known-limits"],
+  ["test_environment", "sanitized-example-only"],
+  ["test_environment", "sanitized-test-environment"],
+  ["test_environment", "discovery-before-artifact"],
+  ["human_action_boundary", "human-approval-required-before-any-next-action"],
+  ["human_action_boundary", "manual-review-only"],
+  ["boundary_declaration", "buyer-declares-public-summary-only"],
+];
+const controls = options.map(([field, value]) => {
+  const control = {
+    dataset: { intakeField: field, intakeValue: value },
+    attributes: {},
+    handlers: {},
+    selected: false,
+    classList: {
+      toggle(name, selected) {
+        if (name !== "is-selected") throw new Error(`unexpected class ${name}`);
+        control.selected = Boolean(selected);
+      },
+    },
+    setAttribute(name, value) {
+      control.attributes[name] = String(value);
+    },
+    addEventListener(name, handler) {
+      if (name !== "click" || control.handlers.click) {
+        throw new Error(`unexpected listener ${name}`);
+      }
+      control.handlers.click = handler;
+    },
+  };
+  return control;
+});
+const packet = { textContent: "" };
+const reset = { handlers: {}, addEventListener(name, handler) {
+  if (name !== "click" || reset.handlers.click) throw new Error(`unexpected listener ${name}`);
+  reset.handlers.click = handler;
+} };
+const document = {
+  querySelectorAll(selector) {
+    if (selector !== "[data-intake-field]") throw new Error(`unexpected query ${selector}`);
+    return controls;
+  },
+  querySelector(selector) {
+    if (selector === "[data-intake-packet]") return packet;
+    if (selector === "[data-intake-reset]") return reset;
+    throw new Error(`unexpected query ${selector}`);
+  },
+};
+function snapshot() {
+  return {
+    packet: JSON.parse(packet.textContent),
+    controls: controls.map((control) => ({
+      field: control.dataset.intakeField,
+      value: control.dataset.intakeValue,
+      classSelected: control.selected,
+      ariaPressed: control.attributes["aria-pressed"],
+    })),
+  };
+}
+
+const sourcePath = process.argv.at(-1);
+function forbiddenCapability(name) {
+  const fail = () => { throw new Error(`forbidden capability used: ${name}`); };
+  return new Proxy(fail, { get: fail, set: fail, apply: fail, construct: fail });
+}
+vm.runInNewContext(fs.readFileSync(sourcePath, "utf8"), {
+  document, Array, Object, String, JSON,
+  fetch: forbiddenCapability("fetch"),
+  XMLHttpRequest: forbiddenCapability("XMLHttpRequest"),
+  WebSocket: forbiddenCapability("WebSocket"),
+  EventSource: forbiddenCapability("EventSource"),
+  navigator: forbiddenCapability("navigator"),
+  window: forbiddenCapability("window"),
+  location: forbiddenCapability("location"),
+  history: forbiddenCapability("history"),
+  localStorage: forbiddenCapability("localStorage"),
+  sessionStorage: forbiddenCapability("sessionStorage"),
+  indexedDB: forbiddenCapability("indexedDB"),
+  caches: forbiddenCapability("caches"),
+}, {
+  filename: sourcePath,
+});
+const initial = snapshot();
+const changed = controls.find((control) => control.dataset.intakeValue === "contradictory-evidence");
+if (!changed || typeof changed.handlers.click !== "function") {
+  throw new Error("missing contradictory-evidence click handler");
+}
+changed.handlers.click();
+const partial = snapshot();
+const fields = [...new Set(options.map(([field]) => field))];
+for (const field of fields) {
+  const control = controls.find((candidate) => candidate.dataset.intakeField === field);
+  if (!control || typeof control.handlers.click !== "function") {
+    throw new Error(`missing ${field} click handler`);
+  }
+  control.handlers.click();
+}
+const complete = snapshot();
+if (typeof reset.handlers.click !== "function") throw new Error("missing reset click handler");
+reset.handlers.click();
+console.log(JSON.stringify({ initial, partial, complete, reset: snapshot() }));
+'''
+    completed = subprocess.run(
+        ["node", "-e", harness, str(INTAKE_EXPERIENCE)],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    outcome = json.loads(completed.stdout)
+    if not isinstance(outcome, dict):
+        raise AssertionError("acceptance packet runtime output must be an object")
+    return outcome
+
+
 class PublicationCandidateTest(unittest.TestCase):
     def is_cache_path(self, path: Path) -> bool:
         return path.name == "__pycache__" or path.suffix in {".pyc", ".pyo"}
@@ -188,7 +326,7 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertTrue(EGOH.is_dir())
         self.assertTrue(CAPABILITY.is_file())
         paths = set(self.tracked_paths())
-        paths.update({CAPABILITY, LANDING, LANDING_EN, LANDING_STYLE, PROOF_EXPERIENCE})
+        paths.update({CAPABILITY, LANDING, LANDING_EN, LANDING_STYLE, PROOF_EXPERIENCE, INTAKE_EXPERIENCE})
         paths.update(path for path in EGOH.rglob("*") if path.is_file())
         return sorted(
             path for path in paths if path != MANIFEST and not self.is_cache_path(path)
@@ -265,8 +403,8 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertIn('href="index.html"', english)
         for page in (landing, english):
             scripts = re.findall(r'<script\s+src="([^"]+)"\s+defer></script>', page)
-            self.assertEqual(scripts, ["proof-experience.js"])
-            self.assertEqual(page.lower().count("<script"), 1)
+            self.assertEqual(scripts, ["proof-experience.js", "intake-experience.js"])
+            self.assertEqual(page.lower().count("<script"), 2)
             self.assertNotIn("<form", page.lower())
             self.assertNotIn("http://", page.lower())
             self.assertNotRegex(page, r"(?:/home/|\.openclaw|Дзеркало|Комната поля|Omnigen)")
@@ -290,7 +428,7 @@ class PublicationCandidateTest(unittest.TestCase):
             resource_urls = re.findall(
                 r'<(?:link|script|img|source|iframe|audio|video)\b[^>]*\b(?:href|src|srcset)="([^"]+)"', page,
             )
-            self.assertEqual(resource_urls, ["styles.css", "proof-experience.js"])
+            self.assertEqual(resource_urls, ["styles.css", "proof-experience.js", "intake-experience.js"])
             self.assertNotRegex(page.lower(), r'<link\b[^>]*\brel="?preload\b')
         self.assertLess(len(LANDING_STYLE.read_bytes()), 32 * 1024)
 
@@ -521,6 +659,128 @@ class PublicationCandidateTest(unittest.TestCase):
         ):
             self.assertNotIn(forbidden, experience)
         self.assertNotRegex(experience, r"(?:prompt|confirm|alert)\s*\(")
+
+    def test_acceptance_packet_builder_is_bilingual_controlled_and_manual_only(self) -> None:
+        ukrainian = LANDING.read_text(encoding="utf-8")
+        english = LANDING_EN.read_text(encoding="utf-8")
+        builder = INTAKE_EXPERIENCE.read_text(encoding="utf-8")
+        expected_fields = [
+            "workflow", "source", "target", "decision_owner_role", "costly_failure",
+            "five_day_evidence", "test_environment", "human_action_boundary", "boundary_declaration",
+        ]
+        choices = re.compile(
+            r'data-intake-field="([a-z_]+)" data-intake-value="([a-z0-9-]+)"'
+        )
+        self.assertEqual(choices.findall(ukrainian), choices.findall(english))
+        self.assertEqual(
+            list(dict.fromkeys(field for field, _value in choices.findall(ukrainian))),
+            expected_fields,
+        )
+        self.assertEqual(len(choices.findall(ukrainian)), 23)
+        for page in (ukrainian, english):
+            self.assertIn('<script src="intake-experience.js" defer></script>', page)
+            self.assertIn('data-intake-reset', page)
+            self.assertIn('UNSENT · no buyer selections · local to this tab · not validated', page)
+            self.assertIn('"external_action_authorized": false', page)
+            self.assertIn('"authority": "none"', page)
+            self.assertIn('"production_activation": "excluded"', page)
+            self.assertNotRegex(page, r'<(?:form|input|select|textarea)\b')
+            intake = re.search(r'<section id="intake".*?</section>', page, re.DOTALL)
+            self.assertIsNotNone(intake)
+            intake_markup = intake.group(0)  # type: ignore[union-attr]
+            self.assertNotIn("is-selected", intake_markup)
+            self.assertEqual(
+                re.findall(r'data-intake-value="[^"]+" aria-pressed="([^"]+)"', intake_markup),
+                ["false"] * 23,
+            )
+        self.assertIn("англомовну public GitHub Issue Form", ukrainian)
+        self.assertIn("Public form не може перевірити відсутність private data", ukrainian)
+        self.assertIn("English public GitHub Issue Form", english)
+        self.assertIn("public form cannot verify the absence of private data", english)
+        issue_href = (
+            "https://github.com/DiadkoShmek/evidence-gated-agent-workflows/"
+            "issues/new?template=client-inquiry.yml"
+        )
+        for page in (ukrainian, english):
+            intake = re.search(r'<section id="intake".*?</section>', page, re.DOTALL)
+            self.assertIsNotNone(intake)
+            self.assertEqual(intake.group(0).count(issue_href), 1)  # type: ignore[union-attr]
+        for forbidden in (
+            "fetch(", "xmlhttprequest", "sendbeacon", "clipboard", "window.location",
+            "document.location", "urlsearchparams", "window.history", "window.open",
+            "location.assign", "location.replace", "history.pushstate", "history.replacestate",
+            "fragment", "prefill", "serviceworker", "caches",
+            "localstorage", "sessionstorage", "indexeddb", "document.cookie", "websocket",
+            "eventsource", "http://", "https://", "import ", "import(",
+        ):
+            self.assertNotIn(forbidden, builder.lower())
+
+    def test_acceptance_packet_runtime_is_unsent_false_authority_and_resettable(self) -> None:
+        replay = replay_acceptance_packet_builder_dom()
+        initial = replay["initial"]
+        partial = replay["partial"]
+        complete = replay["complete"]
+        reset = replay["reset"]
+        self.assertIsInstance(initial, dict)
+        self.assertIsInstance(partial, dict)
+        self.assertIsInstance(complete, dict)
+        self.assertEqual(reset, initial)
+        initial_packet = initial["packet"]
+        partial_packet = partial["packet"]
+        complete_packet = complete["packet"]
+        self.assertEqual(initial_packet["schema"], "external-buyer-acceptance-packet-v1")
+        self.assertEqual(
+            initial_packet["output_status"],
+            "UNSENT · no buyer selections · local to this tab · not validated",
+        )
+        self.assertEqual(initial_packet["scope"], "review-only")
+        self.assertEqual(initial_packet["draft_class"], "unpopulated-planning-template")
+        self.assertEqual(initial_packet["workflow"], None)
+        self.assertEqual(initial_packet["completion_status"], "incomplete")
+        self.assertEqual(partial_packet["costly_failure"], "contradictory-evidence")
+        self.assertEqual(partial_packet["completion_status"], "incomplete")
+        self.assertEqual(
+            partial_packet["output_status"],
+            "UNSENT · buyer-declared · local to this tab · not validated",
+        )
+        self.assertEqual(partial_packet["draft_class"], "buyer-declared-planning-draft")
+        self.assertEqual(complete_packet["completion_status"], "complete-local-draft")
+        self.assertEqual(complete_packet["workflow"], "agent-result-to-internal-tool")
+        self.assertEqual(
+            complete_packet["decision_owner_status"],
+            "must-be-named-during-human-review",
+        )
+        self.assertEqual(
+            complete_packet["exclusions"],
+            "production-credentials-private-data-payment-account-changes-excluded",
+        )
+        self.assertEqual(
+            complete_packet["output_status"],
+            "UNSENT · buyer-declared · local to this tab · not validated",
+        )
+        self.assertEqual(complete_packet["draft_class"], "buyer-declared-planning-draft")
+        for packet in (initial_packet, partial_packet, complete_packet):
+            for field in (
+                "evidence", "contract", "award", "payment", "external_action",
+                "external_action_authorized", "production", "automatic_submit",
+            ):
+                self.assertIs(packet[field], False)
+            self.assertEqual(packet["authority"], "none")
+            self.assertEqual(packet["production_activation"], "excluded")
+            self.assertEqual(packet["manual_route"], "existing-github-issue-form")
+        selected = [
+            control for control in partial["controls"]
+            if control["field"] == "costly_failure" and control["classSelected"]
+        ]
+        self.assertEqual(
+            selected,
+            [{
+                "field": "costly_failure",
+                "value": "contradictory-evidence",
+                "classSelected": True,
+                "ariaPressed": "true",
+            }],
+        )
 
     def test_public_inquiry_warns_without_claiming_enforced_sanitization(self) -> None:
         inquiry = INQUIRY.read_text(encoding="utf-8")
