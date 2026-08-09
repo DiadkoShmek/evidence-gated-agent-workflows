@@ -72,6 +72,8 @@ function renderTrace(trace) {
   });
 }
 
+renderTrace(traceById.get("clean"));
+
 traceControls.forEach((control) => {
   control.addEventListener("click", () => {
     const trace = traceById.get(control.dataset.traceScenario);

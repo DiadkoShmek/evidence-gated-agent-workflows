@@ -16,11 +16,11 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "sha256": "85c00e07a1ae162236d38c041e208540e136d4cf75dbf5f185aeea32a1ff8546"
+      "sha256": "3d9dbe4cdfd334fe8495094faa5df3f3145509afc12cbcedef27fd15242a5f8f"
     },
     {
       "path": ".github/workflows/proof.yml",
-      "sha256": "0d19ca7ee1c5fb87b0c6adc5a85f03618db86f44d4df40f48d67440ecc1d9afb"
+      "sha256": "51d97b4e2b6f51f594cc1a11e384c958d485685ec666fdf0a32c97055781a341"
     },
     {
       "path": ".gitignore",
@@ -40,7 +40,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "f90ab9aa37af46548de5115d1ef67145b01f0d4bf143577ccf8a493a361ca0c5"
+      "sha256": "a6b5ceaed9cd1983b64ade14645ead33849a876aebbb4cad0e7be806a50da7af"
     },
     {
       "path": "async-polling-contract/README.md",
@@ -60,15 +60,15 @@
     },
     {
       "path": "docs/index.html",
-      "sha256": "77ace246f25d3f4f105b7a65c83f8a9092b051035870657dc989321eb7850a3e"
+      "sha256": "2f5acccd0f48003e96c0e021ba7916a6c744ef62af1e192c6cf6ff030ecba370"
     },
     {
       "path": "docs/proof-experience.js",
-      "sha256": "9ebc2e9701b22a36ab3f491ae446e8ba3b9c3b33a7fe961ab5f78ea31232d1bc"
+      "sha256": "b0fefceeb3a2995829852528d8b53ccd71b8e5785412150da4a15c545b71ebec"
     },
     {
       "path": "docs/styles.css",
-      "sha256": "566428f933da199a9b163311bf2d1b74d4f64344f36551cf8f43597390b6fffe"
+      "sha256": "f67b1df7eb74a4c38bb0b836badabe84f1558c9472b7f5657f86a3a9c7cf7ab9"
     },
     {
       "path": "egoh-demo/README.md",
@@ -192,8 +192,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "653dda6c70e88d3eb0e700c22e977fdec07f0f68dfff103c49ca537cafdf26d8"
+      "sha256": "421973e5bb5346ccf085e34d024314df001694fa2174ef75edfe6d19ef5c61f1"
     }
   ],
-  "tree_sha256": "2e1fd380e4e1e8a995eb58990d0d77e00fba410d7dc8d7f4b7b9fff49709d864"
+  "tree_sha256": "0cf819bad3a6726c951dd308f4eed763ba72e4e675829dd6e7e31edf91a6b65a"
 }

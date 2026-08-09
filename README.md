@@ -28,6 +28,26 @@ automatic activation are outside this pilot. Repository and licensing terms
 are agreed before work begins. The public demo tests demonstrate only the
 checked-in demo; they are not a safety guarantee for a client adapter.
 
+## A staged system, with one purchasable first step
+
+The fixed sprint is deliberately the only item for sale now: **one fail-closed handoff**
+with a bounded acceptance proof. It is the evidence needed to decide whether any larger
+system work is justified.
+
+1. **Now — fixed purchasable sprint.** The Fail-Closed Provenance Adapter
+   Sprint above produces one bounded adapter, hostile proof, decision trace,
+   known-limits report, and handoff.
+2. **After Stage 1 evidence — separately scoped hardening.** If that proof
+   reveals a real boundary worth carrying forward, a later written scope can
+   harden an agent/runtime control plane around that boundary. It is not
+   included, priced, or promised by the first sprint.
+3. **After evidence — operator system roadmap.** A later roadmap can name the
+   next operator decisions, proof gaps, and ownership boundaries. It does not
+   authorize implementation or imply that a later layer will be needed.
+
+This is a progression of evidence, not a bundled platform offer: the first
+handoff must earn every later conversation.
+
 ## Included demos
 
 ### [Integration Reliability Acceptance Pack](INTEGRATION_RELIABILITY_ACCEPTANCE_PACK.md)
@@ -77,8 +97,11 @@ a deployment claim.
 python3 run_proof.py
 ```
 
-The repository uses only the Python standard library. The runner prevents Python
-bytecode writes; CI runs the same command.
+The checked-in Python implementations use only the Python standard library and
+no installed packages. The proof command requires Python 3.12 and Node 24.14.0:
+Node runs the dependency-free browser-local explorer runtime test with its
+built-in `vm`, not npm or installed JavaScript packages. The runner prevents
+Python bytecode writes; CI provisions those runtimes and runs the same command.
 
 ## Why this exists
 

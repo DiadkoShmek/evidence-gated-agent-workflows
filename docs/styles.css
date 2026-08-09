@@ -55,6 +55,14 @@ h3 { font-size: 1.5rem; }
 .cards h3 { margin-top: 58px; }
 .cards p, .proof-section p, .fit-copy { color: var(--muted); }
 
+.progression { border-top: 1px solid var(--line); }
+.progression-heading > p:last-child { color: var(--muted); font-size: 1.08rem; max-width: 760px; }
+.progression-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; list-style: none; margin: 52px 0 0; padding: 0; }
+.progression-steps li { background: var(--white); border-top: 4px solid var(--blue); padding: 28px; }
+.progression-steps span { color: var(--blue); font-size: .73rem; font-weight: 900; letter-spacing: .11em; text-transform: uppercase; }
+.progression-steps h3 { margin: 46px 0 14px; }
+.progression-steps p { color: var(--muted); margin: 0; }
+
 .proof-section { background: var(--blue); color: white; }
 .proof-grid { display: grid; grid-template-columns: 1.4fr .8fr; gap: 72px; align-items: start; }
 .proof-section .eyebrow { color: var(--acid); }
@@ -94,7 +102,7 @@ footer { border-top: 1px solid var(--line); padding: 26px 0 40px; display: flex;
   .signal-grid { grid-template-columns: 1fr 1fr; }
   .signal-grid div:nth-child(2) { border-right: 0; }
   .signal-grid div:nth-child(-n+2) { border-bottom: 1px solid #374151; }
-  .cards, .proof-grid, .fit, .trace-layout { grid-template-columns: 1fr; }
+  .cards, .proof-grid, .fit, .trace-layout, .progression-steps { grid-template-columns: 1fr; }
   .trace-details { grid-template-columns: 1fr; }
   .section { padding-block: 74px; }
   .cards article { min-height: 220px; }
