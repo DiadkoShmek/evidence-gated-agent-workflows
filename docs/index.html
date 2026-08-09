@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A focused engineering sprint for teams that need AI and data artifacts to fail closed before they cross system boundaries.">
+  <title>Fail-Closed Provenance Adapter Sprint — Artur Onysko</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="nav shell">
+    <a class="mark" href="#top" aria-label="Home">AO<span>/proof</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="#deliverables">Deliverables</a>
+      <a href="#proof">Proof</a>
+      <a class="nav-cta" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Bring one workflow</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <p class="eyebrow">3–5 day fixed-scope engineering sprint</p>
+      <h1>Make one AI handoff<br><em>fail honestly.</em></h1>
+      <p class="lede">I turn one untrusted model, agent, or data artifact into a bounded integration: verified inputs, explicit failure states, hostile tests, and a reviewable handoff.</p>
+      <div class="actions">
+        <a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Describe the broken handoff</a>
+        <a class="button secondary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows">Run the public proof</a>
+      </div>
+      <p class="micro">No credentials or private client data in the first inquiry. Production activation is a separate decision.</p>
+    </section>
+
+    <section class="signal">
+      <div class="shell signal-grid">
+        <div><strong>1</strong><span>named workflow</span></div>
+        <div><strong>3–5</strong><span>working days</span></div>
+        <div><strong>$1,500</strong><span>fixed pilot</span></div>
+        <div><strong>0</strong><span>known false-success paths accepted in the public proof</span></div>
+      </div>
+    </section>
+
+    <section id="deliverables" class="section shell">
+      <p class="eyebrow">The deliverable</p>
+      <h2>A narrow reliability layer, not a slide deck.</h2>
+      <div class="cards">
+        <article>
+          <span>01</span>
+          <h3>Boundary map</h3>
+          <p>One source, one target, exact ownership, expected schema, authority limits, and measurable acceptance criteria.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Fail-closed adapter</h3>
+          <p>A small implementation that rejects missing, stale, malformed, substituted, or contradictory evidence instead of promoting it.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Hostile proof</h3>
+          <p>Normal and adversarial tests, decision trace, known limits, and a reproducible handoff your engineers can inspect.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="proof" class="section proof-section">
+      <div class="shell proof-grid">
+        <div>
+          <p class="eyebrow">Public, runnable evidence</p>
+          <h2>Inspect the method before buying the sprint.</h2>
+          <p>The repository contains dependency-free references for evidence gates, bounded asynchronous polling, operator handoff, and explicit terminal failure states. One command runs the proof suite.</p>
+          <pre><code>python3 run_proof.py</code></pre>
+        </div>
+        <aside>
+          <p class="aside-label">What this proves</p>
+          <ul>
+            <li>Missing evidence does not become success.</li>
+            <li>Retries and polling have hard bounds.</li>
+            <li>Duplicate effects and ambiguous outcomes are held.</li>
+            <li>Human approval remains explicit.</li>
+          </ul>
+          <p class="aside-label">What it does not prove</p>
+          <p>Production deployment, client results, security certification, or access to your systems.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section shell fit">
+      <div>
+        <p class="eyebrow">Good first use</p>
+        <h2>Bring the handoff your team does not trust.</h2>
+      </div>
+      <div class="fit-copy">
+        <p>Examples: an agent result entering an internal tool, a model artifact crossing into a runtime, an async job whose status can lie, or a data receipt that must survive malformed and racing inputs.</p>
+        <p>If a useful proof cannot be completed inside the agreed boundary, you receive an honest hold report with the exact blocker and reusable artifacts.</p>
+      </div>
+    </section>
+
+    <section class="closing shell">
+      <p class="eyebrow">Start without exposing private data</p>
+      <h2>One workflow. One expensive failure. One fact that would prove improvement.</h2>
+      <a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Open a scoped inquiry</a>
+      <p class="micro">Prefer private contact? Open the issue with only a public summary and ask for a private follow-up route.</p>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <span>Artur Onysko · AI workflow reliability</span>
+    <span>Ukrainian · async-first written English</span>
+  </footer>
+</body>
+</html>
