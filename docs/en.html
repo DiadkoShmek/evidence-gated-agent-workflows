@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A focused engineering sprint for teams that need AI and data artifacts to fail closed before they cross system boundaries.">
+  <title>Fail-Closed Provenance Adapter Sprint — Artur Onysko</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="proof-experience.js" defer></script>
+</head>
+<body>
+  <header class="nav shell">
+    <a class="mark" href="#top" aria-label="Home">AO<span>/proof</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="#deliverables">Deliverables</a>
+      <a href="#proof">Proof</a>
+      <a class="language-link" href="index.html" lang="uk">Українська</a>
+      <a class="nav-cta" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Bring one workflow</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <p class="eyebrow">3–5 day fixed-scope engineering sprint</p>
+      <h1>Make one AI handoff<br><em>fail honestly.</em></h1>
+      <p class="lede">Your AI or data pipeline produces an artifact you cannot fully trust. In one fixed sprint, I build a small adapter that verifies the handoff, rejects missing, stale, malformed, substituted, or contradictory evidence, and returns a written decision trace for human review.</p>
+      <div class="actions">
+        <a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Describe the broken handoff</a>
+        <a class="button secondary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows">Run the public proof</a>
+      </div>
+      <p class="micro">No credentials or private client data in the first inquiry. Production activation is a separate decision.</p>
+    </section>
+
+    <section class="signal">
+      <div class="shell signal-grid">
+        <div><strong>1</strong><span>named workflow</span></div>
+        <div><strong>3–5</strong><span>working days</span></div>
+        <div><strong>$1,500</strong><span>fixed pilot</span></div>
+        <div><strong>1</strong><span>command to reproduce the public demo tests</span></div>
+      </div>
+    </section>
+
+    <section class="section shell fit">
+      <div>
+        <p class="eyebrow">A concrete exchange</p>
+        <h2>What you supply. What “done” means.</h2>
+      </div>
+      <div class="fit-copy">
+        <p><strong>You supply:</strong> one sanitized sample artifact, its expected schema, the source and target interface descriptions, and one costly failure the adapter must refuse. No credentials or production access are required for the pilot.</p>
+        <p><strong>Acceptance:</strong> the agreed valid fixture passes; missing, malformed, stale, substituted, and contradictory fixtures fail closed; the decision trace names the reason; the documented proof command passes; known limits and unresolved blockers are written down.</p>
+        <p><strong>Handoff:</strong> one review round is included. Production deployment, certification, SLA, ongoing support, client-system access, and automatic activation are not included. Repository and licensing terms are agreed before work begins.</p>
+      </div>
+    </section>
+
+    <section id="deliverables" class="section shell">
+      <p class="eyebrow">The deliverable</p>
+      <h2>A narrow reliability layer, not a slide deck.</h2>
+      <div class="cards">
+        <article>
+          <span>01</span>
+          <h3>Boundary map</h3>
+          <p>One source, one target, exact ownership, expected schema, authority limits, and measurable acceptance criteria.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Fail-closed adapter</h3>
+          <p>A small implementation that rejects missing, stale, malformed, substituted, or contradictory evidence instead of promoting it.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Hostile proof</h3>
+          <p>Normal and adversarial tests, decision trace, known limits, and a reproducible handoff your engineers can inspect.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section shell progression" aria-labelledby="progression-title">
+      <div class="progression-heading">
+        <p class="eyebrow">A serious system starts narrow</p>
+        <h2 id="progression-title">One proven handoff before any larger control layer.</h2>
+        <p>The only purchasable step is the fixed sprint above. Later layers are considered only when its written evidence identifies a real boundary worth carrying forward.</p>
+      </div>
+      <ol class="progression-steps">
+        <li>
+          <span>01 · purchasable now</span>
+          <h3>One fail-closed handoff</h3>
+          <p>One bounded adapter, hostile acceptance proof, decision trace, and known-limits handoff for the fixed sprint.</p>
+        </li>
+        <li>
+          <span>02 · after Stage 1 evidence</span>
+          <h3>Harden an agent/runtime control plane</h3>
+          <p>A later written scope may harden the boundary the sprint exposes. It is not included, priced, or promised by the first sprint.</p>
+        </li>
+        <li>
+          <span>03 · after evidence</span>
+          <h3>Operator system roadmap</h3>
+          <p>A later roadmap may name proof gaps, ownership boundaries, and the next operator decisions. It does not authorize implementation.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section id="proof" class="section proof-section">
+      <div class="shell proof-grid">
+        <div>
+          <p class="eyebrow">Public, runnable evidence</p>
+          <h2>Inspect the method before buying the sprint.</h2>
+          <p>The repository contains dependency-free references for evidence gates, bounded asynchronous polling, operator handoff, and explicit terminal failure states. One command runs this demo's test suite; it is not a safety guarantee for a future client adapter.</p>
+          <pre><code>python3 run_proof.py</code></pre>
+        </div>
+        <aside>
+          <p class="aside-label">What this proves</p>
+          <ul>
+            <li>Missing evidence does not become success.</li>
+            <li>Retries and polling have hard bounds.</li>
+            <li>Duplicate effects and ambiguous outcomes are held.</li>
+            <li>Human approval remains explicit.</li>
+          </ul>
+          <p class="aside-label">What it does not prove</p>
+          <p>Production deployment, client results, security certification, or access to your systems.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="failure-traces" class="section shell trace-section" aria-labelledby="trace-title">
+      <div class="trace-heading">
+        <p class="eyebrow">Failure trace explorer</p>
+        <h2 id="trace-title">See why an unsafe handoff stops.</h2>
+        <p>Choose a checked-in synthetic case. The trace shows its named reason, a buyer-facing triage outcome, and the non-authorization boundary.</p>
+      </div>
+      <div class="trace-layout">
+        <div class="trace-controls" role="group" aria-label="Synthetic failure trace scenarios">
+          <button class="trace-control is-selected" type="button" data-trace-scenario="clean" aria-pressed="true">Valid evidence</button>
+          <button class="trace-control" type="button" data-trace-scenario="missing" aria-pressed="false">Missing evidence</button>
+          <button class="trace-control" type="button" data-trace-scenario="stale" aria-pressed="false">Stale evidence</button>
+          <button class="trace-control" type="button" data-trace-scenario="conflict" aria-pressed="false">Conflicting evidence</button>
+          <button class="trace-control" type="button" data-trace-scenario="risk" aria-pressed="false">Risk-tagged handoff</button>
+        </div>
+        <article class="trace-card" aria-live="polite" aria-atomic="true">
+          <p class="trace-kicker">Checked-in synthetic outcome</p>
+          <h3 data-trace-title>Valid evidence</h3>
+          <dl class="trace-details">
+            <div><dt>Triage outcome</dt><dd data-trace-outcome>draft</dd></div>
+            <div><dt>Named reason</dt><dd data-trace-reason>EVIDENCE_COMPLETE</dd></div>
+            <div><dt>Fixture decision</dt><dd data-trace-decision>draft</dd></div>
+            <div><dt>External action authorized</dt><dd data-trace-authorized>false</dd></div>
+          </dl>
+          <p class="trace-explanation" data-trace-explanation>Complete synthetic evidence can produce a draft; a human still decides any next action.</p>
+        </article>
+      </div>
+      <p class="trace-boundary">Illustrative browser-local replay of the separate checked-in <code>evidence-gate</code> fixtures. The current checked-in explorer source contains no network, storage, or telemetry APIs. It is not Python equivalence, EGOH parity, production safety, certification, client validity, or external authorization.</p>
+    </section>
+
+    <section class="section shell fit">
+      <div>
+        <p class="eyebrow">Good first use</p>
+        <h2>Bring the handoff your team does not trust.</h2>
+      </div>
+      <div class="fit-copy">
+        <p>Examples: an agent result entering an internal tool, a model artifact crossing into a runtime, an async job whose status can lie, or a data receipt that must survive malformed and racing inputs.</p>
+        <p>If a useful proof cannot be completed inside the agreed boundary, you receive an honest hold report with the exact blocker and reusable artifacts.</p>
+      </div>
+    </section>
+
+    <section class="closing shell">
+      <p class="eyebrow">Start without exposing private data</p>
+      <h2>One workflow. One expensive failure. One fact that would prove improvement.</h2>
+      <a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Open a scoped inquiry</a>
+      <p class="micro">Prefer private contact? Open the issue with only a public summary and ask for a private follow-up route.</p>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <span>Artur Onysko · AI workflow reliability</span>
+    <span>Ukrainian · async-first written English</span>
+  </footer>
+</body>
+</html>

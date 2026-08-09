@@ -28,7 +28,7 @@
     },
     {
       "path": "CAPABILITY_UA.md",
-      "sha256": "e8794846a363961398bf1547b5f930d446e41a20c43e105adf3c5443abba1eed"
+      "sha256": "cd4267f8aaa5a6e4137cd181de6199c009874adef77c9402d7be00be6b9f73b3"
     },
     {
       "path": "INTEGRATION_RELIABILITY_ACCEPTANCE_PACK.md",
@@ -59,16 +59,20 @@
       "sha256": "e7bcf8e280a8f00f070ffc405dede233dfdca0044818955143adfe0a8050afc0"
     },
     {
+      "path": "docs/en.html",
+      "sha256": "8a5390ed2dc1663c5b9a511d8cae99847425006985c94aacfacdf79b5efb2768"
+    },
+    {
       "path": "docs/index.html",
-      "sha256": "2f5acccd0f48003e96c0e021ba7916a6c744ef62af1e192c6cf6ff030ecba370"
+      "sha256": "16114e73f488383e6b94c5abc9357be5bee34a9daae36fc311de2ddebbab2b0b"
     },
     {
       "path": "docs/proof-experience.js",
-      "sha256": "b0fefceeb3a2995829852528d8b53ccd71b8e5785412150da4a15c545b71ebec"
+      "sha256": "add1e8d662f1d11b729b29ff5e0566d6c888fdd3fddac62f76d3edebd93f4e0e"
     },
     {
       "path": "docs/styles.css",
-      "sha256": "f67b1df7eb74a4c38bb0b836badabe84f1558c9472b7f5657f86a3a9c7cf7ab9"
+      "sha256": "10179b8c83dee802fd30b4fb5419a74ccffb7ab0ea75e54665a452cb072113ce"
     },
     {
       "path": "egoh-demo/README.md",
@@ -192,8 +196,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "421973e5bb5346ccf085e34d024314df001694fa2174ef75edfe6d19ef5c61f1"
+      "sha256": "d82c7bddee36940071f706ab091e0a836426f90c8559660e37dc90d3617c6517"
     }
   ],
-  "tree_sha256": "0cf819bad3a6726c951dd308f4eed763ba72e4e675829dd6e7e31edf91a6b65a"
+  "tree_sha256": "5dfce8eb6597af9bbf31ef183dcb0da2c1e479242868ba11232a4d1cadb99835"
 }
