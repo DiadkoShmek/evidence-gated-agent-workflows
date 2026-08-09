@@ -18,9 +18,12 @@ PACK = ROOT / "INTEGRATION_RELIABILITY_ACCEPTANCE_PACK.md"
 CAPABILITY = ROOT / "CAPABILITY_UA.md"
 LANDING = ROOT / "docs" / "index.html"
 LANDING_STYLE = ROOT / "docs" / "styles.css"
+PROOF_EXPERIENCE = ROOT / "docs" / "proof-experience.js"
 INQUIRY = ROOT / ".github" / "ISSUE_TEMPLATE" / "client-inquiry.yml"
 PAGES_WORKFLOW = ROOT / ".github" / "workflows" / "pages.yml"
 EGOH = ROOT / "egoh-demo"
+EVIDENCE_GATE = ROOT / "evidence-gate"
+TRACE_AS_OF = "2026-07-30T12:00:00Z"
 MANIFEST = EGOH / "public-pack" / "PUBLICATION_MANIFEST.json"
 EXPECTED_PACK_SHA256 = "cd1107d793ca7a89cd973c43926cf8533459644a86a90c872d2b9e7cd6fa2cc8"
 EXPECTED_CAPABILITY_SHA256 = "e8794846a363961398bf1547b5f930d446e41a20c43e105adf3c5443abba1eed"
@@ -52,6 +55,29 @@ def canonical_json(value: object) -> str:
     return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
 
 
+def evaluate_evidence_fixture(name: str) -> dict[str, object]:
+    environment = dict(os.environ)
+    environment["PYTHONDONTWRITEBYTECODE"] = "1"
+    completed = subprocess.run(
+        [
+            sys.executable,
+            str(EVIDENCE_GATE / "src" / "evidence_gate.py"),
+            "--input",
+            str(EVIDENCE_GATE / "fixtures" / f"{name}.json"),
+            "--as-of",
+            TRACE_AS_OF,
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+        env=environment,
+    )
+    outcome = json.loads(completed.stdout)
+    if not isinstance(outcome, dict):
+        raise AssertionError("evidence gate output must be an object")
+    return outcome
+
+
 class PublicationCandidateTest(unittest.TestCase):
     def is_cache_path(self, path: Path) -> bool:
         return path.name == "__pycache__" or path.suffix in {".pyc", ".pyo"}
@@ -71,6 +97,7 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertTrue(CAPABILITY.is_file())
         paths = set(self.tracked_paths())
         paths.add(CAPABILITY)
+        paths.add(PROOF_EXPERIENCE)
         paths.update(path for path in EGOH.rglob("*") if path.is_file())
         return sorted(
             path for path in paths if path != MANIFEST and not self.is_cache_path(path)
@@ -140,7 +167,10 @@ class PublicationCandidateTest(unittest.TestCase):
     def test_public_landing_is_static_bounded_and_points_to_exact_owner_routes(self) -> None:
         landing = LANDING.read_text(encoding="utf-8")
         style = LANDING_STYLE.read_text(encoding="utf-8")
-        self.assertNotIn("<script", landing.lower())
+        scripts = re.findall(r'<script\s+src="([^"]+)"\s+defer></script>', landing)
+        self.assertEqual(scripts, ["proof-experience.js"])
+        self.assertEqual(landing.lower().count("<script"), 1)
+        self.assertTrue(PROOF_EXPERIENCE.is_file())
         self.assertNotIn("<form", landing.lower())
         self.assertNotIn("http://", landing.lower())
         self.assertNotRegex(landing, r"(?:/home/|\.openclaw|Дзеркало|Комната поля|Omnigen)")
@@ -154,9 +184,72 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertIn("Fail-Closed Provenance Adapter Sprint", landing)
         self.assertIn("$1,500", landing)
         self.assertIn("does not prove", landing)
+        self.assertIn("Illustrative browser-local replay", landing)
         self.assertNotIn("url(", style.lower())
+        self.assertNotIn("@import", style.lower())
+        resource_urls = re.findall(
+            r'<(?:link|script|img|source|iframe|audio|video)\b[^>]*\b(?:href|src|srcset)="([^"]+)"',
+            landing,
+        )
+        self.assertEqual(resource_urls, ["styles.css", "proof-experience.js"])
+        self.assertNotRegex(landing.lower(), r'<link\b[^>]*\brel="?preload\b')
         self.assertLess(len(LANDING.read_bytes()), 32 * 1024)
         self.assertLess(len(LANDING_STYLE.read_bytes()), 32 * 1024)
+
+    def test_failure_trace_explorer_replays_only_checked_in_synthetic_outcomes(self) -> None:
+        landing = LANDING.read_text(encoding="utf-8")
+        experience = PROOF_EXPERIENCE.read_text(encoding="utf-8")
+        for scenario in ("clean", "missing", "stale", "conflict", "risk"):
+            outcome = evaluate_evidence_fixture(scenario)
+            self.assertFalse(outcome["external_action_authorized"])
+            trace_pattern = re.compile(
+                rf'"id": "{scenario}".*?'
+                rf'"outcome": "{outcome["decision"]}".*?'
+                rf'"reason": "{outcome["reason"]}".*?'
+                rf'"fixtureDecision": "{outcome["decision"]}".*?'
+                r'"externalActionAuthorized": false',
+                re.DOTALL,
+            )
+            self.assertRegex(experience, trace_pattern)
+            self.assertIn(f'data-trace-scenario="{scenario}"', landing)
+        self.assertEqual(experience.count('"externalActionAuthorized": false'), 5)
+        self.assertIn("separate checked-in <code>evidence-gate</code> fixtures", landing)
+        self.assertIn("current checked-in explorer source contains no network, storage, or telemetry APIs", landing)
+        self.assertIn("not Python equivalence, EGOH parity, production safety, certification, client validity, or external authorization", landing)
+
+    def test_failure_trace_initial_dom_matches_canonical_clean_fixture(self) -> None:
+        landing = LANDING.read_text(encoding="utf-8")
+        clean = evaluate_evidence_fixture("clean")
+        expected = {
+            "outcome": clean["decision"],
+            "reason": clean["reason"],
+            "decision": clean["decision"],
+            "authorized": canonical_json(clean["external_action_authorized"]),
+        }
+        actual: dict[str, str] = {}
+        for field in expected:
+            match = re.search(rf"data-trace-{field}>([^<]+)</dd>", landing)
+            self.assertIsNotNone(match, field)
+            actual[field] = match.group(1)  # type: ignore[union-attr]
+        self.assertEqual(actual, expected)
+        selected = re.findall(
+            r'<button[^>]+data-trace-scenario="([^"]+)"[^>]+aria-pressed="true"',
+            landing,
+        )
+        self.assertEqual(selected, ["clean"])
+
+    def test_failure_trace_explorer_has_no_input_or_external_runtime_surface(self) -> None:
+        landing = LANDING.read_text(encoding="utf-8").lower()
+        experience = PROOF_EXPERIENCE.read_text(encoding="utf-8").lower()
+        self.assertNotRegex(landing, r"<(?:form|input|select|textarea)\b")
+        self.assertNotIn("contenteditable", landing)
+        for forbidden in (
+            "fetch(", "xmlhttprequest", "sendbeacon", "localstorage", "sessionstorage",
+            "indexeddb", "document.cookie", "window.open", "websocket", "eventsource",
+            "<script", "http://", "https://",
+        ):
+            self.assertNotIn(forbidden, experience)
+        self.assertNotRegex(experience, r"(?:prompt|confirm|alert)\s*\(")
 
     def test_public_inquiry_warns_without_claiming_enforced_sanitization(self) -> None:
         inquiry = INQUIRY.read_text(encoding="utf-8")
