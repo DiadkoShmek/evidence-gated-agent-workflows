@@ -68,7 +68,7 @@
     },
     {
       "path": "docs/intake-experience.js",
-      "sha256": "6f84569d24e1249b04772da78c3ded1cf72d9419a1533ef28de10872a15c443a"
+      "sha256": "2de2d89bf84a0a765e23f31e2332f365e4a8da85f89bf8d37a1aa965d65a62fc"
     },
     {
       "path": "docs/proof-experience.js",
@@ -200,8 +200,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "c9973d7a6e4e12e286e3f3b59c5f1702986be3dc4a33ed8a37a137ebd3e1773c"
+      "sha256": "0bfca71f0b67b208de22a9ba0ea393eef038c2015186262c9538f43ad29f97bc"
     }
   ],
-  "tree_sha256": "3d44f9375623827c39e27a12d97245437bdbd5bbfc3289e22fc3827f08930fcf"
+  "tree_sha256": "0da583597dcf2f6ae8be98b32c41356434c05ba1c73bc52f54f8ea1c07b0af2e"
 }
