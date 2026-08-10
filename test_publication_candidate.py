@@ -502,7 +502,7 @@ class PublicationCandidateTest(unittest.TestCase):
         for page in (landing, english):
             scripts = re.findall(r'<script\s+src="([^"]+)"\s+defer></script>', page)
             self.assertEqual(scripts, ["proof-experience.js", "intake-experience.js", "operating-core-experience.js"])
-            self.assertEqual(page.lower().count("<script"), 3)
+            self.assertEqual(page.lower().count("<script"), 4)
             self.assertNotIn("<form", page.lower())
             self.assertNotIn("http://", page.lower())
             self.assertNotRegex(page, r"(?:/home/|\.openclaw|Дзеркало|Комната поля|Omnigen)")
@@ -511,9 +511,14 @@ class PublicationCandidateTest(unittest.TestCase):
                 {
                     "https://github.com/DiadkoShmek/evidence-gated-agent-workflows",
                     "https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml",
+                    "https://diadkoshmek.github.io/evidence-gated-agent-workflows/",
+                    "https://diadkoshmek.github.io/evidence-gated-agent-workflows/en.html",
+                    "https://schema.org",
                 },
             )
-            self.assertEqual(page.count("$1,500"), 1)
+            main = re.search(r"<main\b.*?</main>", page, re.DOTALL)
+            self.assertIsNotNone(main)
+            self.assertEqual(main.group(0).count("$1,500"), 1)  # type: ignore[union-attr]
             self.assertLess(len(page.encode("utf-8")), 32 * 1024)
         self.assertTrue(PROOF_EXPERIENCE.is_file())
         self.assertIn("Фіксований інженерний спринт", landing)
@@ -523,12 +528,83 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertNotIn("url(", style.lower())
         self.assertNotIn("@import", style.lower())
         for page in (landing, english):
-            resource_urls = re.findall(
-                r'<(?:link|script|img|source|iframe|audio|video)\b[^>]*\b(?:href|src|srcset)="([^"]+)"', page,
-            )
+            resource_urls = re.findall(r'<link rel="stylesheet" href="([^"]+)">', page)
+            resource_urls += re.findall(r'<script src="([^"]+)" defer></script>', page)
             self.assertEqual(resource_urls, ["styles.css", "proof-experience.js", "intake-experience.js", "operating-core-experience.js"])
             self.assertNotRegex(page.lower(), r'<link\b[^>]*\brel="?preload\b')
         self.assertLess(len(LANDING_STYLE.read_bytes()), 32 * 1024)
+
+    def test_bilingual_discovery_metadata_is_exact_static_and_scope_bound(self) -> None:
+        base = "https://diadkoshmek.github.io/evidence-gated-agent-workflows/"
+        issue_url = "https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml"
+        repository_url = "https://github.com/DiadkoShmek/evidence-gated-agent-workflows"
+        expected_by_page = (
+            (
+                LANDING.read_text(encoding="utf-8"),
+                {
+                    "language": "uk",
+                    "title": "Fail-Closed Provenance Adapter Sprint — Артур Онисько",
+                    "description": "Фіксований $1,500 sprint на 3–5 днів: fail-closed adapter, hostile proof і review-only handoff для однієї AI або data передачі.",
+                    "canonical": base,
+                },
+            ),
+            (
+                LANDING_EN.read_text(encoding="utf-8"),
+                {
+                    "language": "en",
+                    "title": "Fail-Closed Provenance Adapter Sprint — Artur Onysko",
+                    "description": "A $1,500, 3–5 day fixed-scope sprint: a fail-closed adapter, hostile proof, and review-only handoff for one AI or data workflow.",
+                    "canonical": base + "en.html",
+                },
+            ),
+        )
+        for page, expected in expected_by_page:
+            head = re.search(r"<head>(.*?)</head>", page, re.DOTALL)
+            self.assertIsNotNone(head)
+            head_markup = head.group(1)  # type: ignore[union-attr]
+            self.assertIn(f"<title>{expected['title']}</title>", head_markup)
+            self.assertIn(f'<meta name="description" content="{expected["description"]}">', head_markup)
+            self.assertIn(f'<link rel="canonical" href="{expected["canonical"]}">', head_markup)
+            self.assertEqual(
+                re.findall(r'<link rel="alternate" hreflang="([^"]+)" href="([^"]+)">', head_markup),
+                [("uk", base), ("en", base + "en.html"), ("x-default", base + "en.html")],
+            )
+            for property_name, content in (
+                ("og:type", "website"),
+                ("og:site_name", "Fail-Closed Provenance Adapter Sprint"),
+                ("og:title", expected["title"]),
+                ("og:description", expected["description"]),
+                ("og:url", expected["canonical"]),
+            ):
+                self.assertIn(f'<meta property="{property_name}" content="{content}">', head_markup)
+            for name, content in (
+                ("twitter:card", "summary"),
+                ("twitter:title", expected["title"]),
+                ("twitter:description", expected["description"]),
+            ):
+                self.assertIn(f'<meta name="{name}" content="{content}">', head_markup)
+            structured_match = re.search(
+                r'<script type="application/ld\+json">(.*?)</script>', head_markup, re.DOTALL,
+            )
+            self.assertIsNotNone(structured_match)
+            self.assertEqual(
+                json.loads(structured_match.group(1)),  # type: ignore[union-attr]
+                {
+                    "@context": "https://schema.org",
+                    "@type": "Service",
+                    "name": "Fail-Closed Provenance Adapter Sprint",
+                    "description": expected["description"],
+                    "url": expected["canonical"],
+                    "inLanguage": expected["language"],
+                    "provider": {"@type": "Person", "name": "Artur Onysko"},
+                    "offers": {"@type": "Offer", "price": "1500", "priceCurrency": "USD"},
+                },
+            )
+            self.assertNotRegex(head_markup.lower(), r"(?:analytics|gtag|plausible|pixel|og:image|twitter:image)")
+            self.assertEqual(
+                set(re.findall(r"https://[^\"<\s]+", page)),
+                {base, base + "en.html", "https://schema.org", repository_url, issue_url},
+            )
 
     def test_buyer_visible_progression_keeps_only_the_first_sprint_purchasable(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
@@ -554,7 +630,9 @@ class PublicationCandidateTest(unittest.TestCase):
             "It does not authorize implementation.",
         ):
             self.assertIn(text, progression_text)
-        self.assertEqual(landing.count("$1,500"), 1)
+        buyer_visible_main = re.search(r"<main\b.*?</main>", landing, re.DOTALL)
+        self.assertIsNotNone(buyer_visible_main)
+        self.assertEqual(buyer_visible_main.group(0).count("$1,500"), 1)  # type: ignore[union-attr]
         for cautious_clause in (
             "Later layers are considered only when its written evidence identifies a real boundary worth carrying forward.",
             "A later written scope may harden the boundary the sprint exposes.",
