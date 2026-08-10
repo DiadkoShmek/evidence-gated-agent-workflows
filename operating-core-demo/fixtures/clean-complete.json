@@ -1,0 +1,60 @@
+{
+  "schema": "operating-core-demo-boundary-v1",
+  "chain_id": "operating-core-clean",
+  "as_of": "2026-07-30T12:00:00Z",
+  "evidence": {
+    "case_id": "operating-core-clean",
+    "required_facts": ["account_status", "policy_limit"],
+    "min_independent_clusters": 1,
+    "risk_tags": [],
+    "facts": [
+      {
+        "name": "account_status",
+        "value": "active",
+        "source_id": "account-record-1",
+        "cluster": "system-of-record",
+        "captured_at": "2026-07-30T10:00:00Z",
+        "expires_at": "2026-07-31T10:00:00Z"
+      },
+      {
+        "name": "policy_limit",
+        "value": 250,
+        "source_id": "policy-record-1",
+        "cluster": "policy-owner",
+        "captured_at": "2026-07-30T09:00:00Z",
+        "expires_at": "2026-08-30T09:00:00Z"
+      }
+    ]
+  },
+  "evidence_sha256": "730d3c06feb2c6476e3db907224f631c96ec5bacfd8b9af50fa8ece2621e81b3",
+  "lifecycle": {
+    "fingerprint": "operating-core:operating-core-clean:730d3c06feb2c6476e3db907224f631c96ec5bacfd8b9af50fa8ece2621e81b3",
+    "events": ["queued", "running", "complete"],
+    "max_attempts": 4,
+    "base_backoff_seconds": 2,
+    "timeout_seconds": 10
+  },
+  "egoh_observation": {
+    "schema": "egoh-synthetic-scenario-v1",
+    "scenario_id": "operating-core-clean",
+    "tool_intent": "observe-structure",
+    "evidence": {
+      "schema": "egoh-synthetic-evidence-v1",
+      "scenario_id": "operating-core-clean",
+      "observed_at": "2026-07-30T11:00:00+00:00",
+      "freshness_ttl_seconds": 86400,
+      "projection": {
+        "form_count": 1,
+        "field_count": 3,
+        "application_form_candidate_present": true
+      },
+      "claims": {
+        "external_action": false,
+        "page_content_output": false,
+        "provider_delivery_observed": false,
+        "application_submitted": false
+      }
+    },
+    "evidence_sha256": "ea0e5e10a4475385dd4071932cd027dc472a77192e56628db0aea6097d659ca6"
+  }
+}

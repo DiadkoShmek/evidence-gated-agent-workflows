@@ -11,6 +11,13 @@ import unittest
 from datetime import datetime, timezone
 from pathlib import Path
 
+from generate_publication_manifest import (
+    MANIFEST_EXCLUSIONS,
+    content_paths as canonical_content_paths,
+    is_excluded,
+    manifest_payload,
+)
+
 
 sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parent
@@ -22,6 +29,8 @@ LANDING_STYLE = ROOT / "docs" / "styles.css"
 PROOF_EXPERIENCE = ROOT / "docs" / "proof-experience.js"
 INTAKE_EXPERIENCE = ROOT / "docs" / "intake-experience.js"
 OPERATING_CORE_EXPERIENCE = ROOT / "docs" / "operating-core-experience.js"
+OPERATING_CORE = ROOT / "operating-core-demo"
+MANIFEST_GENERATOR = ROOT / "generate_publication_manifest.py"
 INQUIRY = ROOT / ".github" / "ISSUE_TEMPLATE" / "client-inquiry.yml"
 PAGES_WORKFLOW = ROOT / ".github" / "workflows" / "pages.yml"
 PROOF_WORKFLOW = ROOT / ".github" / "workflows" / "proof.yml"
@@ -32,14 +41,6 @@ MANIFEST = EGOH / "public-pack" / "PUBLICATION_MANIFEST.json"
 EXPECTED_PACK_SHA256 = "cd1107d793ca7a89cd973c43926cf8533459644a86a90c872d2b9e7cd6fa2cc8"
 EXPECTED_CAPABILITY_SHA256 = "cd4267f8aaa5a6e4137cd181de6199c009874adef77c9402d7be00be6b9f73b3"
 MANIFEST_SCHEMA = "evidence-gated-public-candidate-manifest-v1"
-MANIFEST_EXCLUSIONS = [
-    ".git/**",
-    ".pytest_cache/**",
-    "**/__pycache__/**",
-    "**/*.pyc",
-    "**/*.pyo",
-    "egoh-demo/public-pack/PUBLICATION_MANIFEST.json",
-]
 PRIVATE_MARKER = re.compile(
     r"/(?:home|Users)/[^/\s]+/|"
     r"file:" + r"//|"
@@ -404,9 +405,6 @@ console.log(JSON.stringify({ initial, stages }));
 
 
 class PublicationCandidateTest(unittest.TestCase):
-    def is_cache_path(self, path: Path) -> bool:
-        return path.name == "__pycache__" or path.suffix in {".pyc", ".pyo"}
-
     def tracked_paths(self) -> list[Path]:
         completed = subprocess.run(
             ["git", "-C", str(ROOT), "ls-files", "-z"], check=True, capture_output=True
@@ -419,22 +417,15 @@ class PublicationCandidateTest(unittest.TestCase):
 
     def content_paths(self) -> list[Path]:
         self.assertTrue(EGOH.is_dir())
-        self.assertTrue(CAPABILITY.is_file())
-        paths = set(self.tracked_paths())
-        paths.update({CAPABILITY, LANDING, LANDING_EN, LANDING_STYLE, PROOF_EXPERIENCE, INTAKE_EXPERIENCE, OPERATING_CORE_EXPERIENCE})
-        paths.update(path for path in EGOH.rglob("*") if path.is_file())
-        return sorted(
-            path for path in paths if path != MANIFEST and not self.is_cache_path(path)
-        )
+        self.assertTrue(OPERATING_CORE.is_dir())
+        self.assertTrue(MANIFEST_GENERATOR.is_file())
+        return canonical_content_paths(ROOT)
 
     def all_candidate_paths(self) -> list[Path]:
         return sorted([*self.content_paths(), MANIFEST])
 
     def expected_manifest_entries(self) -> list[dict[str, str]]:
-        return [
-            {"path": str(path.relative_to(ROOT)), "sha256": sha256_file(path)}
-            for path in self.content_paths()
-        ]
+        return manifest_payload(ROOT)["files"]  # type: ignore[return-value]
 
     def read_manifest(self) -> dict[str, object]:
         self.assertTrue(MANIFEST.is_file())
@@ -461,15 +452,24 @@ class PublicationCandidateTest(unittest.TestCase):
 
     def test_publication_manifest_binds_every_public_candidate_file(self) -> None:
         manifest = self.read_manifest()
+        expected_payload = manifest_payload(ROOT)
         expected = self.expected_manifest_entries()
-        self.assertEqual(manifest["files"], expected)
-        self.assertEqual(
-            manifest["tree_sha256"],
-            hashlib.sha256(canonical_json(expected).encode("utf-8")).hexdigest(),
-        )
+        self.assertEqual(manifest, expected_payload)
         committed = {str(path.relative_to(ROOT)) for path in self.tracked_paths() if path != MANIFEST}
         manifest_paths = {entry["path"] for entry in expected}
         self.assertTrue(committed <= manifest_paths)
+
+    def test_publication_manifest_check_uses_the_canonical_generator(self) -> None:
+        subprocess.run([sys.executable, str(MANIFEST_GENERATOR), "--check"], cwd=ROOT, check=True)
+
+    def test_manifest_exclusion_predicate_rejects_nested_cache_without_manifest_drift(self) -> None:
+        baseline = manifest_payload(ROOT)
+        with tempfile.TemporaryDirectory(dir=OPERATING_CORE) as directory:
+            cached = Path(directory) / "nested" / ".pytest_cache" / "generated.pyc"
+            cached.parent.mkdir(parents=True)
+            cached.write_bytes(b"synthetic-cache")
+            self.assertTrue(is_excluded(ROOT, cached))
+            self.assertEqual(manifest_payload(ROOT), baseline)
 
     def test_acceptance_pack_is_exact_reviewed_source_and_linked(self) -> None:
         self.assertTrue(PACK.is_file())
@@ -1193,12 +1193,12 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertEqual(findings, [])
 
     def test_egoh_candidate_contains_no_caches(self) -> None:
-        cache_paths = [
+        excluded = [
             path.relative_to(ROOT)
             for path in EGOH.rglob("*")
-            if self.is_cache_path(path)
+            if path != MANIFEST and is_excluded(ROOT, path)
         ]
-        self.assertEqual(cache_paths, [])
+        self.assertEqual(excluded, [])
 
 
 if __name__ == "__main__":

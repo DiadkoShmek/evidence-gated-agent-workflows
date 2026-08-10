@@ -23,6 +23,8 @@ def main() -> None:
     run(ROOT / "evidence-gate", "scripts/stress.py", "--iterations", "1000")
     run(ROOT / "async-polling-contract", "-m", "unittest", "-v")
     run(ROOT / "async-polling-contract", "demo.py")
+    run(ROOT / "operating-core-demo", "-m", "unittest", "-v", "tests.test_operating_core_demo")
+    run(ROOT / "operating-core-demo", "run_demo.py")
     run(ROOT / "egoh-demo", "-m", "unittest", "-v", "tests.test_egoh_demo")
     run(
         ROOT / "egoh-demo",
