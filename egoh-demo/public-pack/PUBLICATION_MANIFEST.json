@@ -60,15 +60,19 @@
     },
     {
       "path": "docs/en.html",
-      "sha256": "a36e6b6e243c4912766b542e78a97051d43f86ca8af65aac2054659b380de40c"
+      "sha256": "11cfcf67d9b6e7bb48eb94d07ec7b6c60a9e5846013bf6d5db201caae270f120"
     },
     {
       "path": "docs/index.html",
-      "sha256": "f1d596267b672167c2c24e443a348967abcf085cc03b181136c6276c541e8aa4"
+      "sha256": "93ea7f9ea9afdc8a742629392e393db6fad770229a802411880c7a9c938b7691"
     },
     {
       "path": "docs/intake-experience.js",
       "sha256": "2de2d89bf84a0a765e23f31e2332f365e4a8da85f89bf8d37a1aa965d65a62fc"
+    },
+    {
+      "path": "docs/operating-core-experience.js",
+      "sha256": "1773c3545f212698f6d76e311fb3e05f65c1c5864e03c792336dabdfe4237893"
     },
     {
       "path": "docs/proof-experience.js",
@@ -76,7 +80,7 @@
     },
     {
       "path": "docs/styles.css",
-      "sha256": "e7d47f2c9d93ed7671a2f76cec2facb7ca2d6ff7ba63a7b428e48a5e34311f28"
+      "sha256": "545c3f582ea45bd6d8456e98c4ccfe611ab0b0745cc2eb87d62afc4fc405939b"
     },
     {
       "path": "egoh-demo/README.md",
@@ -200,8 +204,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "0bfca71f0b67b208de22a9ba0ea393eef038c2015186262c9538f43ad29f97bc"
+      "sha256": "96dcb5a05305247b8444649a0fe521014b3feae5d91194e20a37e91da5b81dee"
     }
   ],
-  "tree_sha256": "42f8d79732d7bf764819c090a2aab919e352d6447d54d8c59fb6ef4be90249c5"
+  "tree_sha256": "61a24f1dfe2c8b017623233d98599c9a851ecc7c7f15726fe92bfd49c6c8e337"
 }

@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="styles.css">
   <script src="proof-experience.js" defer></script>
   <script src="intake-experience.js" defer></script>
+  <script src="operating-core-experience.js" defer></script>
 </head>
 <body>
   <header class="nav shell">
@@ -99,6 +100,15 @@
           <p>A later roadmap may name proof gaps, ownership boundaries, and the next operator decisions. It does not authorize implementation.</p>
         </li>
       </ol>
+    </section>
+
+    <section id="operating-core" class="section shell core-section" aria-labelledby="core-title">
+      <div class="core-heading"><p class="eyebrow">Operating Core Map</p><h2 id="core-title">The first slice of an operating core, not a chatbot project.</h2><p>This is a map of one reviewable control surface: it shows the contract checked in now, the buyer-specific input required for a sprint, and what is not claimed. The fixed sprint above remains the only purchasable step now.</p></div>
+      <div class="core-layout">
+        <div class="core-controls" role="group" aria-label="Operating core stages"><button class="core-control is-selected" type="button" data-core-stage="system-boundary" aria-pressed="true">01 · System boundary</button><button class="core-control" type="button" data-core-stage="evidence-decision" aria-pressed="false">02 · Evidence decision</button><button class="core-control" type="button" data-core-stage="bounded-lifecycle" aria-pressed="false">03 · Bounded lifecycle</button><button class="core-control" type="button" data-core-stage="human-authority" aria-pressed="false">04 · Human authority</button><button class="core-control" type="button" data-core-stage="receipt-handoff" aria-pressed="false">05 · Receipt / handoff</button></div>
+        <article class="core-card" aria-live="polite" aria-atomic="true"><p class="trace-kicker">Checked-in control-surface map</p><h3 data-core-title>System boundary</h3><dl class="core-details"><div><dt>Stage</dt><dd data-core-stage-id>system-boundary</dd></div><div><dt>Public reference</dt><dd data-core-reference>Typed source-to-target boundary</dd></div><div><dt>For a buyer-specific sprint</dt><dd data-core-buyer>Named source, target, owner, and schema</dd></div><div><dt>Not claimed</dt><dd data-core-limit>No client-system access or production.</dd></div><div><dt>Authority</dt><dd data-core-authority>none</dd></div><div><dt>External action authorized</dt><dd data-core-external>false</dd></div><div><dt>Production</dt><dd data-core-production>false</dd></div><div><dt>Provider observed</dt><dd data-core-provider>false</dd></div></dl></article>
+      </div>
+      <p class="core-boundary">Browser-local inspection of a checked-in map, not a runtime system, evidence, contract, deployment, provider observation, or permission. It has no network, storage, telemetry, clipboard, navigation, prefill, or submit APIs.</p>
     </section>
 
     <section id="proof" class="section proof-section">

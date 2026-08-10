@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="styles.css">
   <script src="proof-experience.js" defer></script>
   <script src="intake-experience.js" defer></script>
+  <script src="operating-core-experience.js" defer></script>
 </head>
 <body>
   <header class="nav shell">
@@ -67,6 +68,15 @@
         <li><span>02 · після Stage 1 evidence</span><h3>Harden agent/runtime control plane</h3><p>Пізніший письмовий scope може посилити межу, яку відкрив sprint. Це не включено, не оцінено і не обіцяно першим sprint.</p></li>
         <li><span>03 · після evidence</span><h3>Operator system roadmap</h3><p>Пізніша roadmap може назвати proof gaps, межі owner та наступні operator decisions. Вона не authorizes implementation.</p></li>
       </ol>
+    </section>
+
+    <section id="operating-core" class="section shell core-section" aria-labelledby="core-title">
+      <div class="core-heading"><p class="eyebrow">Operating Core Map</p><h2 id="core-title">Перший slice operating core, не chatbot-проєкт.</h2><p>Це карта одного reviewable control surface: вона показує, який contract перевіряється зараз, який buyer-specific input потрібен для sprint і що не claimed. Єдиний purchasable крок зараз — fixed sprint вище.</p></div>
+      <div class="core-layout">
+        <div class="core-controls" role="group" aria-label="Етапи operating core"><button class="core-control is-selected" type="button" data-core-stage="system-boundary" aria-pressed="true">01 · Межа системи</button><button class="core-control" type="button" data-core-stage="evidence-decision" aria-pressed="false">02 · Evidence decision</button><button class="core-control" type="button" data-core-stage="bounded-lifecycle" aria-pressed="false">03 · Bounded lifecycle</button><button class="core-control" type="button" data-core-stage="human-authority" aria-pressed="false">04 · Людська влада</button><button class="core-control" type="button" data-core-stage="receipt-handoff" aria-pressed="false">05 · Receipt / handoff</button></div>
+        <article class="core-card" aria-live="polite" aria-atomic="true"><p class="trace-kicker">Зафіксована control-surface карта</p><h3 data-core-title>Межа системи</h3><dl class="core-details"><div><dt>Етап</dt><dd data-core-stage-id>system-boundary</dd></div><div><dt>Public reference</dt><dd data-core-reference>Typed source-to-target boundary</dd></div><div><dt>Для buyer-specific sprint</dt><dd data-core-buyer>Названі source, target, owner та schema</dd></div><div><dt>Не claimed</dt><dd data-core-limit>Немає доступу до client system чи production.</dd></div><div><dt>Authority</dt><dd data-core-authority>none</dd></div><div><dt>External action authorized</dt><dd data-core-external>false</dd></div><div><dt>Production</dt><dd data-core-production>false</dd></div><div><dt>Provider observed</dt><dd data-core-provider>false</dd></div></dl></article>
+      </div>
+      <p class="core-boundary">Browser-local інспекція зафіксованої карти, не runtime system, evidence, contract, deployment, provider observation чи permission. Вона не має network, storage, telemetry, clipboard, navigation, prefill або submit APIs.</p>
     </section>
 
     <section id="proof" class="section proof-section">
