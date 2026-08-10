@@ -143,7 +143,11 @@
   "production_activation": "excluded",
   "automatic_submit": false,
   "manual_route": "existing-github-issue-form"
-}</pre><button class="button reset" type="button" data-intake-reset>Повернути перший packet</button><p>Цей draft не зберігається, не надсилається і не є заявкою. Якщо він точно описує ваш перший cut, вручну відкрийте існуючу англомовну public GitHub Issue Form і внесіть лише public summary. Public form не може перевірити відсутність private data.</p><a class="button secondary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Вручну відкрити існуючу англомовну GitHub Issue Form</a></article>
+}</pre><div class="issue-form-bridge" aria-label="Міст до public Issue Form"><p class="trace-kicker">Міст до canonical Issue Form</p><h4>Спершу локальна перевірка, потім ручний public summary.</h4><pre data-issue-form-bridge>{
+  "state": "held-incomplete-local-draft",
+  "authority": "none",
+  "external_action_authorized": false
+}</pre></div><button class="button reset" type="button" data-intake-reset>Повернути перший packet</button><p>Коли всі controlled values обрані, bridge покаже exact five-field scaffold canonical Issue Form. Перечитайте кожен public summary вручну: він не вводиться, не копіюється й не подається цією сторінкою. Потім вручну відкрийте існуючу англомовну public GitHub Issue Form. Public form не може перевірити відсутність private data.</p><a class="button secondary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Вручну відкрити існуючу англомовну public GitHub Issue Form</a></article>
       </div>
       <p class="intake-boundary">Не вводьте тут і не додавайте до public issue secrets, credentials, private code, customer/personal data, private URLs або production access details. Поточний builder має контрольовані поля, не має network, storage, telemetry чи automatic-submit APIs.</p>
     </section>

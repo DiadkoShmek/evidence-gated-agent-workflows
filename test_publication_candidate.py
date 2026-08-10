@@ -229,6 +229,7 @@ const controls = options.map(([field, value]) => {
   return control;
 });
 const packet = { textContent: "" };
+const bridge = { textContent: "" };
 const reset = { handlers: {}, addEventListener(name, handler) {
   if (name !== "click" || reset.handlers.click) throw new Error(`unexpected listener ${name}`);
   reset.handlers.click = handler;
@@ -240,6 +241,7 @@ const document = {
   },
   querySelector(selector) {
     if (selector === "[data-intake-packet]") return packet;
+    if (selector === "[data-issue-form-bridge]") return bridge;
     if (selector === "[data-intake-reset]") return reset;
     throw new Error(`unexpected query ${selector}`);
   },
@@ -247,6 +249,7 @@ const document = {
 function snapshot() {
   return {
     packet: JSON.parse(packet.textContent),
+    bridge: JSON.parse(bridge.textContent),
     controls: controls.map((control) => ({
       field: control.dataset.intakeField,
       value: control.dataset.intakeValue,
@@ -896,6 +899,8 @@ class PublicationCandidateTest(unittest.TestCase):
             intake = re.search(r'<section id="intake".*?</section>', page, re.DOTALL)
             self.assertIsNotNone(intake)
             self.assertEqual(intake.group(0).count(issue_href), 1)  # type: ignore[union-attr]
+            self.assertEqual(intake.group(0).count('data-issue-form-bridge'), 1)  # type: ignore[union-attr]
+            self.assertIn('"state": "held-incomplete-local-draft"', intake.group(0))  # type: ignore[union-attr]
         for forbidden in (
             "fetch(", "xmlhttprequest", "sendbeacon", "clipboard", "window.location",
             "document.location", "urlsearchparams", "window.history", "window.open",
@@ -919,6 +924,9 @@ class PublicationCandidateTest(unittest.TestCase):
         initial_packet = initial["packet"]
         partial_packet = partial["packet"]
         complete_packet = complete["packet"]
+        initial_bridge = initial["bridge"]
+        partial_bridge = partial["bridge"]
+        complete_bridge = complete["bridge"]
         self.assertEqual(initial_packet["schema"], "external-buyer-acceptance-packet-v1")
         self.assertEqual(
             initial_packet["output_status"],
@@ -950,6 +958,62 @@ class PublicationCandidateTest(unittest.TestCase):
             "UNSENT · buyer-declared · local to this tab · not validated",
         )
         self.assertEqual(complete_packet["draft_class"], "buyer-declared-planning-draft")
+        for bridge in (initial_bridge, partial_bridge):
+            self.assertEqual(bridge["schema"], "external-buyer-issue-form-bridge-v1")
+            self.assertEqual(bridge["state"], "held-incomplete-local-draft")
+            self.assertEqual(bridge["route"], "existing-github-issue-form")
+            self.assertEqual(
+                bridge["headings"],
+                [
+                    "One workflow", "Expensive failure", "Five-day proof",
+                    "Test environment available?", "Public-data boundary",
+                ],
+            )
+            self.assertIn("Choose all controlled planning values", bridge["reason"])
+        self.assertEqual(complete_bridge["schema"], "external-buyer-issue-form-bridge-v1")
+        self.assertEqual(complete_bridge["state"], "buyer-review-and-manual-entry-required")
+        self.assertEqual(complete_bridge["route"], "existing-github-issue-form")
+        self.assertEqual(
+            [key for key in complete_bridge if key in {
+                "One workflow", "Expensive failure", "Five-day proof",
+                "Test environment available?", "Public-data boundary",
+            }],
+            [
+                "One workflow", "Expensive failure", "Five-day proof",
+                "Test environment available?", "Public-data boundary",
+            ],
+        )
+        for heading, controlled_value in (
+            ("One workflow", "agent result entering one internal tool"),
+            ("Expensive failure", "missing evidence"),
+            ("Five-day proof", "one valid fixture passes"),
+        ):
+            field = complete_bridge[heading]
+            self.assertEqual(field["state"], "buyer-review-and-manual-entry-required")
+            self.assertIn(controlled_value, field["scaffold"])
+        self.assertEqual(
+            complete_bridge["Test environment available?"],
+            "Partly — examples only",
+        )
+        self.assertEqual(
+            complete_bridge["Public-data boundary"],
+            [
+                {
+                    "state": "buyer-review-and-manual-entry-required",
+                    "manual_checkbox_label": "I confirm this issue contains no credentials, personal/customer data, private code, private URLs, or production access details.",
+                },
+                {
+                    "state": "buyer-review-and-manual-entry-required",
+                    "manual_checkbox_label": "I understand that production activation, credentials, payments, and account changes are outside the first public inquiry.",
+                },
+            ],
+        )
+        for bridge in (initial_bridge, partial_bridge, complete_bridge):
+            for field in (
+                "external_action_authorized", "issue_created", "provider_observed", "queue_admitted",
+            ):
+                self.assertIs(bridge[field], False)
+            self.assertEqual(bridge["authority"], "none")
         for packet in (initial_packet, partial_packet, complete_packet):
             for field in (
                 "evidence", "contract", "award", "payment", "external_action",
@@ -1083,6 +1147,39 @@ class PublicationCandidateTest(unittest.TestCase):
             ],
         )
         self.assertEqual(checkboxes.count("required: true"), 2)
+
+        bridge_source = INTAKE_EXPERIENCE.read_text(encoding="utf-8")
+        bridge_match = re.search(
+            r"const ISSUE_FORM_BRIDGE_CONTRACT_JSON = `(.*?)`;", bridge_source, re.DOTALL
+        )
+        self.assertIsNotNone(bridge_match)
+        bridge = json.loads(bridge_match.group(1))  # type: ignore[union-attr]
+        headings = [label for _kind, _id, label, _block in controls]
+        environment_options = re.findall(r'^        - "([^\n]+)"$', dropdown, re.MULTILINE)
+        boundary_statements = re.findall(
+            r"^        - label: ([^\n]+)\n          required: true$", checkboxes, re.MULTILINE
+        )
+        self.assertEqual(
+            bridge,
+            {
+                "schema": "external-buyer-issue-form-bridge-v1",
+                "route": "existing-github-issue-form",
+                "headings": headings,
+                "environment_mapping": {
+                    "sanitized-test-environment": environment_options[0],
+                    "sanitized-example-only": environment_options[1],
+                    "discovery-before-artifact": environment_options[2],
+                },
+                "public_data_boundary_statements": boundary_statements,
+            },
+        )
+        for controlled_mapping in (
+            "WORKFLOW_SCAFFOLDS", "SOURCE_SCAFFOLDS", "TARGET_SCAFFOLDS",
+            "FAILURE_SCAFFOLDS", "PROOF_SCAFFOLDS",
+        ):
+            self.assertIn(f"const {controlled_mapping} = Object.freeze", bridge_source)
+        for forbidden in ("materialize(", "queue_admitted: true", "external_action_authorized: true"):
+            self.assertNotIn(forbidden, bridge_source)
 
     def test_pages_deploys_only_sealed_static_directory(self) -> None:
         workflow = PAGES_WORKFLOW.read_text(encoding="utf-8")
