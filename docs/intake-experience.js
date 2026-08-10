@@ -38,10 +38,104 @@ const ISSUE_FORM_GUIDANCE_JSON = `{
 }`;
 const ISSUE_FORM_GUIDANCE = Object.freeze(JSON.parse(ISSUE_FORM_GUIDANCE_JSON));
 
+const ISSUE_FORM_BRIDGE_CONTRACT_JSON = `{
+  "schema": "external-buyer-issue-form-bridge-v1",
+  "route": "existing-github-issue-form",
+  "headings": [
+    "One workflow",
+    "Expensive failure",
+    "Five-day proof",
+    "Test environment available?",
+    "Public-data boundary"
+  ],
+  "environment_mapping": {
+    "sanitized-test-environment": "Yes — sanitized test environment and examples",
+    "sanitized-example-only": "Partly — examples only",
+    "discovery-before-artifact": "No — discovery and contract first"
+  },
+  "public_data_boundary_statements": [
+    "I confirm this issue contains no credentials, personal/customer data, private code, private URLs, or production access details.",
+    "I understand that production activation, credentials, payments, and account changes are outside the first public inquiry."
+  ]
+}`;
+const ISSUE_FORM_BRIDGE_CONTRACT = Object.freeze(JSON.parse(ISSUE_FORM_BRIDGE_CONTRACT_JSON));
+
+const WORKFLOW_SCAFFOLDS = Object.freeze({
+  "agent-result-to-internal-tool": "an agent result entering one internal tool",
+  "model-artifact-to-runtime": "a model artifact crossing into one runtime boundary",
+  "async-job-status": "one asynchronous job status entering a review decision",
+  "data-receipt": "one data receipt entering an internal review boundary",
+});
+const SOURCE_SCAFFOLDS = Object.freeze({
+  "buyer-declared-sanitized-sample-artifact": "a buyer-declared sanitized sample artifact",
+  "source-interface-description-only": "a source interface description only",
+});
+const TARGET_SCAFFOLDS = Object.freeze({
+  "one-internal-review-boundary": "one internal review boundary",
+  "one-bounded-runtime-adapter": "one bounded runtime adapter",
+});
+const FAILURE_SCAFFOLDS = Object.freeze({
+  "missing-evidence": "missing evidence",
+  "stale-evidence": "stale evidence",
+  "malformed-artifact": "a malformed artifact",
+  "contradictory-evidence": "contradictory evidence",
+});
+const PROOF_SCAFFOLDS = Object.freeze({
+  "valid-fixture-plus-hostile-fail-closed": "one valid fixture passes while hostile fixtures fail closed with named reasons",
+  "bounded-polling-terminal-state": "a bounded polling path reaches a named terminal state without inventing success",
+  "decision-trace-known-limits": "a decision trace and known-limits report make the first boundary reviewable",
+});
+
 const intakeChoices = Array.from(document.querySelectorAll("[data-intake-field]"));
 const intakePacket = document.querySelector("[data-intake-packet]");
+const issueFormBridge = document.querySelector("[data-issue-form-bridge]");
 const intakeReset = document.querySelector("[data-intake-reset]");
 const intakeState = { ...INTAKE_DEFAULTS };
+
+function buildIssueFormBridge(complete) {
+  const environment = ISSUE_FORM_BRIDGE_CONTRACT.environment_mapping[intakeState.test_environment];
+  if (!complete || !environment) {
+    return {
+      schema: ISSUE_FORM_BRIDGE_CONTRACT.schema,
+      state: "held-incomplete-local-draft",
+      route: ISSUE_FORM_BRIDGE_CONTRACT.route,
+      headings: ISSUE_FORM_BRIDGE_CONTRACT.headings,
+      reason: "Choose all controlled planning values before the manual Issue Form scaffold appears.",
+      authority: "none",
+      external_action_authorized: false,
+      issue_created: false,
+      provider_observed: false,
+      queue_admitted: false,
+    };
+  }
+  return {
+    schema: ISSUE_FORM_BRIDGE_CONTRACT.schema,
+    state: "buyer-review-and-manual-entry-required",
+    route: ISSUE_FORM_BRIDGE_CONTRACT.route,
+    "One workflow": {
+      state: "buyer-review-and-manual-entry-required",
+      scaffold: `Review whether ${WORKFLOW_SCAFFOLDS[intakeState.workflow]} from ${SOURCE_SCAFFOLDS[intakeState.source]} to ${TARGET_SCAFFOLDS[intakeState.target]} is the one public workflow to describe.`,
+    },
+    "Expensive failure": {
+      state: "buyer-review-and-manual-entry-required",
+      scaffold: `Review whether ${FAILURE_SCAFFOLDS[intakeState.costly_failure]} is the costly failure that the first boundary must hold instead of treating as success.`,
+    },
+    "Five-day proof": {
+      state: "buyer-review-and-manual-entry-required",
+      scaffold: `Review whether ${PROOF_SCAFFOLDS[intakeState.five_day_evidence]} is the observable five-day proof for this first slice.`,
+    },
+    "Test environment available?": environment,
+    "Public-data boundary": ISSUE_FORM_BRIDGE_CONTRACT.public_data_boundary_statements.map((statement) => ({
+      state: "buyer-review-and-manual-entry-required",
+      manual_checkbox_label: statement,
+    })),
+    authority: "none",
+    external_action_authorized: false,
+    issue_created: false,
+    provider_observed: false,
+    queue_admitted: false,
+  };
+}
 
 function buildIntakePacket() {
   const complete = Object.values(intakeState).every((value) => value !== null);
@@ -84,7 +178,9 @@ function buildIntakePacket() {
 }
 
 function renderIntakePacket() {
-  intakePacket.textContent = JSON.stringify(buildIntakePacket(), null, 2);
+  const packet = buildIntakePacket();
+  intakePacket.textContent = JSON.stringify(packet, null, 2);
+  issueFormBridge.textContent = JSON.stringify(buildIssueFormBridge(packet.completion_status === "complete-local-draft"), null, 2);
   intakeChoices.forEach((choice) => {
     const selected = intakeState[choice.dataset.intakeField] === choice.dataset.intakeValue;
     choice.classList.toggle("is-selected", selected);
