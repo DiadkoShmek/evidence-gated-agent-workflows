@@ -21,6 +21,7 @@ LANDING_EN = ROOT / "docs" / "en.html"
 LANDING_STYLE = ROOT / "docs" / "styles.css"
 PROOF_EXPERIENCE = ROOT / "docs" / "proof-experience.js"
 INTAKE_EXPERIENCE = ROOT / "docs" / "intake-experience.js"
+OPERATING_CORE_EXPERIENCE = ROOT / "docs" / "operating-core-experience.js"
 INQUIRY = ROOT / ".github" / "ISSUE_TEMPLATE" / "client-inquiry.yml"
 PAGES_WORKFLOW = ROOT / ".github" / "workflows" / "pages.yml"
 PROOF_WORKFLOW = ROOT / ".github" / "workflows" / "proof.yml"
@@ -308,6 +309,100 @@ console.log(JSON.stringify({ initial, partial, complete, reset: snapshot() }));
     return outcome
 
 
+def replay_operating_core_map_dom(language: str) -> dict[str, object]:
+    """Run the local control-surface map against its declared minimal DOM."""
+    harness = r'''
+const fs = require("fs");
+const vm = require("vm");
+
+const fieldSelectors = [
+  "[data-core-stage-id]", "[data-core-title]", "[data-core-reference]",
+  "[data-core-buyer]", "[data-core-limit]", "[data-core-authority]",
+  "[data-core-external]", "[data-core-production]", "[data-core-provider]",
+];
+const fields = Object.fromEntries(fieldSelectors.map((selector) => [selector, { textContent: "" }]));
+const controls = [
+  "system-boundary", "evidence-decision", "bounded-lifecycle", "human-authority", "receipt-handoff",
+].map((id) => {
+  const control = {
+    dataset: { coreStage: id }, attributes: {}, handlers: {}, selected: false,
+    classList: { toggle(name, selected) {
+      if (name !== "is-selected") throw new Error(`unexpected class ${name}`);
+      control.selected = Boolean(selected);
+    } },
+    setAttribute(name, value) { control.attributes[name] = String(value); },
+    addEventListener(name, handler) {
+      if (name !== "click" || control.handlers.click) throw new Error(`unexpected listener ${name}`);
+      control.handlers.click = handler;
+    },
+  };
+  return control;
+});
+const document = {
+  documentElement: { lang: process.argv.at(-2) },
+  querySelectorAll(selector) {
+    if (selector !== "[data-core-stage]") throw new Error(`unexpected query ${selector}`);
+    return controls;
+  },
+  querySelector(selector) {
+    if (!(selector in fields)) throw new Error(`unexpected query ${selector}`);
+    return fields[selector];
+  },
+};
+function snapshot() {
+  return {
+    stage: fields["[data-core-stage-id]"].textContent,
+    title: fields["[data-core-title]"].textContent,
+    reference: fields["[data-core-reference]"].textContent,
+    buyer: fields["[data-core-buyer]"].textContent,
+    limit: fields["[data-core-limit]"].textContent,
+    authority: fields["[data-core-authority]"].textContent,
+    external: fields["[data-core-external]"].textContent,
+    production: fields["[data-core-production]"].textContent,
+    provider: fields["[data-core-provider]"].textContent,
+    controls: controls.map((control) => ({
+      id: control.dataset.coreStage, classSelected: control.selected,
+      ariaPressed: control.attributes["aria-pressed"],
+    })),
+  };
+}
+function forbiddenCapability(name) {
+  const fail = () => { throw new Error(`forbidden capability used: ${name}`); };
+  return new Proxy(fail, { get: fail, set: fail, apply: fail, construct: fail });
+}
+const sourcePath = process.argv.at(-1);
+vm.runInNewContext(fs.readFileSync(sourcePath, "utf8"), {
+  document, Array, Map, Object, String,
+  fetch: forbiddenCapability("fetch"), XMLHttpRequest: forbiddenCapability("XMLHttpRequest"),
+  WebSocket: forbiddenCapability("WebSocket"), EventSource: forbiddenCapability("EventSource"),
+  navigator: forbiddenCapability("navigator"), window: forbiddenCapability("window"),
+  location: forbiddenCapability("location"), history: forbiddenCapability("history"),
+  localStorage: forbiddenCapability("localStorage"), sessionStorage: forbiddenCapability("sessionStorage"),
+  indexedDB: forbiddenCapability("indexedDB"), caches: forbiddenCapability("caches"),
+}, { filename: sourcePath });
+const initial = snapshot();
+const stages = {};
+for (const control of controls) {
+  if (typeof control.handlers.click !== "function") {
+    throw new Error(`missing ${control.dataset.coreStage} click handler`);
+  }
+  control.handlers.click();
+  stages[control.dataset.coreStage] = snapshot();
+}
+console.log(JSON.stringify({ initial, stages }));
+'''
+    completed = subprocess.run(
+        ["node", "-e", harness, language, str(OPERATING_CORE_EXPERIENCE)],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    outcome = json.loads(completed.stdout)
+    if not isinstance(outcome, dict):
+        raise AssertionError("operating core runtime output must be an object")
+    return outcome
+
+
 class PublicationCandidateTest(unittest.TestCase):
     def is_cache_path(self, path: Path) -> bool:
         return path.name == "__pycache__" or path.suffix in {".pyc", ".pyo"}
@@ -326,7 +421,7 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertTrue(EGOH.is_dir())
         self.assertTrue(CAPABILITY.is_file())
         paths = set(self.tracked_paths())
-        paths.update({CAPABILITY, LANDING, LANDING_EN, LANDING_STYLE, PROOF_EXPERIENCE, INTAKE_EXPERIENCE})
+        paths.update({CAPABILITY, LANDING, LANDING_EN, LANDING_STYLE, PROOF_EXPERIENCE, INTAKE_EXPERIENCE, OPERATING_CORE_EXPERIENCE})
         paths.update(path for path in EGOH.rglob("*") if path.is_file())
         return sorted(
             path for path in paths if path != MANIFEST and not self.is_cache_path(path)
@@ -403,8 +498,8 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertIn('href="index.html"', english)
         for page in (landing, english):
             scripts = re.findall(r'<script\s+src="([^"]+)"\s+defer></script>', page)
-            self.assertEqual(scripts, ["proof-experience.js", "intake-experience.js"])
-            self.assertEqual(page.lower().count("<script"), 2)
+            self.assertEqual(scripts, ["proof-experience.js", "intake-experience.js", "operating-core-experience.js"])
+            self.assertEqual(page.lower().count("<script"), 3)
             self.assertNotIn("<form", page.lower())
             self.assertNotIn("http://", page.lower())
             self.assertNotRegex(page, r"(?:/home/|\.openclaw|Дзеркало|Комната поля|Omnigen)")
@@ -428,7 +523,7 @@ class PublicationCandidateTest(unittest.TestCase):
             resource_urls = re.findall(
                 r'<(?:link|script|img|source|iframe|audio|video)\b[^>]*\b(?:href|src|srcset)="([^"]+)"', page,
             )
-            self.assertEqual(resource_urls, ["styles.css", "proof-experience.js", "intake-experience.js"])
+            self.assertEqual(resource_urls, ["styles.css", "proof-experience.js", "intake-experience.js", "operating-core-experience.js"])
             self.assertNotRegex(page.lower(), r'<link\b[^>]*\brel="?preload\b')
         self.assertLess(len(LANDING_STYLE.read_bytes()), 32 * 1024)
 
@@ -476,6 +571,102 @@ class PublicationCandidateTest(unittest.TestCase):
         )
         for pattern in prohibited_claim_patterns:
             self.assertNotRegex(progression_text.lower(), pattern)
+
+    def test_operating_core_map_has_exact_bilingual_stage_machine_and_one_purchasable_step(self) -> None:
+        ukrainian = LANDING.read_text(encoding="utf-8")
+        english = LANDING_EN.read_text(encoding="utf-8")
+        expected_stages = [
+            "system-boundary", "evidence-decision", "bounded-lifecycle",
+            "human-authority", "receipt-handoff",
+        ]
+        for page in (ukrainian, english):
+            section = re.search(r'<section id="operating-core".*?</section>', page, re.DOTALL)
+            self.assertIsNotNone(section)
+            markup = section.group(0)  # type: ignore[union-attr]
+            self.assertEqual(re.findall(r'data-core-stage="([a-z-]+)"', markup), expected_stages)
+            self.assertEqual(
+                re.findall(r'data-core-stage="[a-z-]+" aria-pressed="(true|false)"', markup),
+                ["true", "false", "false", "false", "false"],
+            )
+            for field in (
+                "stage-id", "title", "reference", "buyer", "limit", "authority",
+                "external", "production", "provider",
+            ):
+                self.assertIn(f"data-core-{field}", markup)
+        self.assertIn("Перший slice operating core, не chatbot-проєкт.", ukrainian)
+        self.assertIn("The first slice of an operating core, not a chatbot project.", english)
+        self.assertIn("Єдиний purchasable крок зараз — fixed sprint вище.", ukrainian)
+        self.assertIn("The fixed sprint above remains the only purchasable step now.", english)
+
+    def test_operating_core_runtime_replays_all_stages_and_static_bootstrap_exactly(self) -> None:
+        expected_controls = [
+            "system-boundary", "evidence-decision", "bounded-lifecycle",
+            "human-authority", "receipt-handoff",
+        ]
+        expected_copy = {
+            "en": {
+                "system-boundary": ("System boundary", "Typed source-to-target boundary", "Named source, target, owner, and schema", "No client-system access or production."),
+                "evidence-decision": ("Evidence decision", "Fail-closed decision trace", "Agreed valid and hostile fixtures", "No client evidence or certification claim."),
+                "bounded-lifecycle": ("Bounded lifecycle", "Fingerprint, bounded retries, terminal states", "Platform version and test environment", "No live worker or multi-writer claim."),
+                "human-authority": ("Human authority", "Named human decision boundary", "Human-approved action and decision owner", "No automatic activation or external action."),
+                "receipt-handoff": ("Receipt / handoff", "Fixture hashes, decision, and known limits", "Reviewable handoff and next-sprint decision", "No provider observation or production receipt."),
+            },
+            "uk": {
+                "system-boundary": ("Межа системи", "Typed source-to-target boundary", "Названі source, target, owner та schema", "Немає доступу до client system чи production."),
+                "evidence-decision": ("Evidence decision", "Fail-closed decision trace", "Погоджені valid та hostile fixtures", "Немає client evidence чи certification claim."),
+                "bounded-lifecycle": ("Bounded lifecycle", "Fingerprint, bounded retries, terminal states", "Platform version і test environment", "Немає live worker чи multi-writer claim."),
+                "human-authority": ("Людська влада", "Named human decision boundary", "Human-approved action і decision owner", "Немає automatic activation чи external action."),
+                "receipt-handoff": ("Receipt / handoff", "Fixture hashes, decision і known limits", "Reviewable handoff і next-sprint decision", "Немає provider observation чи production receipt."),
+            },
+        }
+        pages = {"en": LANDING_EN.read_text(encoding="utf-8"), "uk": LANDING.read_text(encoding="utf-8")}
+        for language, page in pages.items():
+            replay = replay_operating_core_map_dom(language)
+            snapshots = {"system-boundary": replay["initial"], **replay["stages"]}
+            self.assertEqual(list(replay["stages"]), expected_controls)
+            for stage in expected_controls:
+                snapshot = snapshots[stage]
+                title, reference, buyer, limit = expected_copy[language][stage]
+                self.assertEqual(
+                    (snapshot["stage"], snapshot["title"], snapshot["reference"], snapshot["buyer"], snapshot["limit"]),
+                    (stage, title, reference, buyer, limit),
+                )
+                self.assertEqual(
+                    (snapshot["authority"], snapshot["external"], snapshot["production"], snapshot["provider"]),
+                    ("none", "false", "false", "false"),
+                )
+                self.assertEqual([control["id"] for control in snapshot["controls"]], expected_controls)
+                selected = [control for control in snapshot["controls"] if control["classSelected"]]
+                self.assertEqual(selected, [{"id": stage, "classSelected": True, "ariaPressed": "true"}])
+                self.assertEqual(
+                    [control["ariaPressed"] for control in snapshot["controls"]],
+                    ["true" if control["id"] == stage else "false" for control in snapshot["controls"]],
+                )
+            static = {}
+            for field, tag in (
+                ("stage", "dd"), ("title", "h3"), ("reference", "dd"), ("buyer", "dd"),
+                ("limit", "dd"), ("authority", "dd"), ("external", "dd"),
+                ("production", "dd"), ("provider", "dd"),
+            ):
+                attribute = "stage-id" if field == "stage" else field
+                match = re.search(rf'data-core-{attribute}>([^<]+)</{tag}>', page)
+                self.assertIsNotNone(match, field)
+                static[field] = match.group(1)  # type: ignore[union-attr]
+            expected_static = {
+                key: snapshots["system-boundary"][key]
+                for key in ("stage", "title", "reference", "buyer", "limit", "authority", "external", "production", "provider")
+            }
+            self.assertEqual(static, expected_static)
+        source = OPERATING_CORE_EXPERIENCE.read_text(encoding="utf-8").lower()
+        for forbidden in (
+            "fetch(", "xmlhttprequest", "sendbeacon", "clipboard", "window.location",
+            "document.location", "urlsearchparams", "window.history", "window.open",
+            "location.assign", "location.replace", "history.pushstate", "history.replacestate",
+            "prefill", "serviceworker", "caches", "localstorage", "sessionstorage",
+            "indexeddb", "document.cookie", "websocket", "eventsource", "http://",
+            "https://", "import ", "import(",
+        ):
+            self.assertNotIn(forbidden, source)
 
     def test_failure_trace_explorer_replays_only_checked_in_synthetic_outcomes(self) -> None:
         landing = LANDING.read_text(encoding="utf-8")
