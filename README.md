@@ -78,6 +78,14 @@ unknown IDs. It does not claim multi-writer persistence safety.
 The worker is intentionally fake: this is not a ComfyUI, GPU, n8n, or
 production deployment claim.
 
+### [Operating-core composition demo](operating-core-demo/README.md)
+
+Composes the checked-in evidence gate, bounded fake lifecycle, and EGOH owner
+APIs into one frozen synthetic chain. Only `draft` enters the lifecycle; only
+exact `complete` reaches a local `review-required` handoff. All other paths
+hold with zero effects and no authority. It is a local reference, not a
+provider, production, delivery, or external-action claim.
+
 ### [Evidence-Gated Operator Handoff](egoh-demo/README.md)
 
 A synthetic, local-only contract that accepts a narrowly shaped evidence packet

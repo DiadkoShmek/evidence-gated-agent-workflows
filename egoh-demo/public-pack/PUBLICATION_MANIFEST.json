@@ -4,6 +4,7 @@
   "exclusions": [
     ".git/**",
     ".pytest_cache/**",
+    "**/.pytest_cache/**",
     "**/__pycache__/**",
     "**/*.pyc",
     "**/*.pyo",
@@ -40,7 +41,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "a6b5ceaed9cd1983b64ade14645ead33849a876aebbb4cad0e7be806a50da7af"
+      "sha256": "606eaa112574906c3ded44a8cbac0bc857f62162b11fdd23f62eb424f5ebd395"
     },
     {
       "path": "async-polling-contract/README.md",
@@ -199,13 +200,41 @@
       "sha256": "2aec807bcc1b5243c9d0e2e94a7565200674b7e5f58747301ac168ae5b09cdf9"
     },
     {
+      "path": "generate_publication_manifest.py",
+      "sha256": "ccb9689d1fe03815f569efd697985282a50a706171ebd2d9986544d3be9872d7"
+    },
+    {
+      "path": "operating-core-demo/README.md",
+      "sha256": "bbcf0d48ea839a4de9812a5e0bc8a46e6d0c9a2c7001d140fbf1bf7f3f81a537"
+    },
+    {
+      "path": "operating-core-demo/fixtures/clean-complete.json",
+      "sha256": "497aa0ac29d6c964bee585c90f8a9231555ea3495da9038667b21f5dcdae5653"
+    },
+    {
+      "path": "operating-core-demo/operating_core_demo.py",
+      "sha256": "8379b487740a2630d388b60c616ac9817f09a7a1730b11af6104140bde925f15"
+    },
+    {
+      "path": "operating-core-demo/run_demo.py",
+      "sha256": "8ed98cc9767adde45b98a2da61139e5f9ac4a11721d74ea83223beefb0258f5e"
+    },
+    {
+      "path": "operating-core-demo/tests/__init__.py",
+      "sha256": "0caca0262d7d92b17cbef55cb1f87ad7979bec75dd2468fd6fcee4408497b1b2"
+    },
+    {
+      "path": "operating-core-demo/tests/test_operating_core_demo.py",
+      "sha256": "33f111d4c0f2f1f2deff5e68dc08b78dec031dba8ecbfd10a29239ec78e2c99d"
+    },
+    {
       "path": "run_proof.py",
-      "sha256": "4b094e8f7119f8b2580a8d4a7b7e7f7b13518928d9b1044842a3d2b36ca796d4"
+      "sha256": "8376d19687825b4d3e022433fc810d37696d49243b1d1008c7c9294e741dfbcb"
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "96dcb5a05305247b8444649a0fe521014b3feae5d91194e20a37e91da5b81dee"
+      "sha256": "032c75e0097df77bf9fc085908696c398c3dcea57b8ceb76fcce4845f881b928"
     }
   ],
-  "tree_sha256": "6097b3f7b5dfbbe19be811ec5632efebef92f22114150ce877fc124be7859bd0"
+  "tree_sha256": "687bb43414a7df26c7baa7bd902330ed97d74afdb7c7f74a892a480f8a7a017f"
 }
