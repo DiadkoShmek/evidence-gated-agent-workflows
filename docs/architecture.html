@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A runnable architecture for fail-closed AI memory, evaluation, tool, and workflow handoffs: exact contracts, bounded uncertainty, replay control, and explicit authority.">
+  <title>Architecture of an evidence-gated AI handoff — Artur Onysko</title>
+  <link rel="canonical" href="https://diadkoshmek.github.io/evidence-gated-agent-workflows/architecture.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Architecture of an evidence-gated AI handoff">
+  <meta property="og:description" content="The code-level invariants behind one fail-closed AI or data boundary, with hostile tests and a runnable public proof.">
+  <meta property="og:url" content="https://diadkoshmek.github.io/evidence-gated-agent-workflows/architecture.html">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Architecture of an evidence-gated AI handoff">
+  <meta name="twitter:description" content="Exact contracts, bounded uncertainty, replay control, and explicit effect authority.">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Architecture of an evidence-gated AI handoff","description":"A runnable architecture for fail-closed AI memory, evaluation, tool, and workflow handoffs.","url":"https://diadkoshmek.github.io/evidence-gated-agent-workflows/architecture.html","author":{"@type":"Person","name":"Artur Onysko"},"inLanguage":"en"}</script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="nav shell">
+    <a class="mark" href="en.html" aria-label="Service home">AO<span>/proof</span></a>
+    <nav aria-label="Architecture navigation">
+      <a href="#invariants">Invariants</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#hostiles">Hostile proof</a>
+      <a class="nav-cta" href="mailto:onyskoartur@gmail.com?subject=One%20broken%20AI%20handoff">Bring one boundary</a>
+    </nav>
+  </header>
+
+  <main>
+    <article>
+      <header class="article-hero shell">
+        <p class="eyebrow">Architecture note · runnable public reference</p>
+        <h1>The system boundary<br><em>is the product.</em></h1>
+        <p class="lede">An agent can reason well and still corrupt the next system. The reliability layer belongs where memory, retrieval, evaluations, tools, or workflow state cross an authority boundary—not in another prompt telling the model to be careful.</p>
+        <div class="actions">
+          <a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows">Inspect and run the code</a>
+          <a class="button secondary" href="case-study.html">Read the practical case</a>
+        </div>
+      </header>
+
+      <div class="article-shell shell">
+        <section id="invariants">
+          <p class="eyebrow">Four invariants</p>
+          <h2>Reasoning may be probabilistic. Promotion must be explicit.</h2>
+          <ol>
+            <li><strong>Exact contracts:</strong> expected keys, types, identity, source generation, and authority are checked before an artifact becomes eligible.</li>
+            <li><strong>Content and evidence-time binding:</strong> the public gate binds fact identifiers and hashes, rejects stale facts, and holds conflicting independent sources. Product-specific request, agent, dataset, prompt, or target-state identity belongs in the adapter contract when that boundary requires it.</li>
+            <li><strong>Bounded uncertainty:</strong> retries have a finite attempt budget and named terminal states. An unknown effect is not silently converted into success.</li>
+            <li><strong>Explicit authority:</strong> a review receipt is not a send, write, deployment, order, or payment permit. External action remains false until its real owner grants it.</li>
+          </ol>
+          <div class="article-callout"><p><strong>Design rule:</strong> validate the exact artifact, own the lifecycle, record the decision, then hand off. Never infer effect authority from a plausible output.</p></div>
+        </section>
+
+        <section id="pipeline">
+          <p class="eyebrow">The pipeline</p>
+          <h2>One narrow path from untrusted bytes to a reviewable decision.</h2>
+          <pre><code>untrusted artifact
+  → strict decoder and exact keyset
+  → evidence admission and freshness/conflict checks
+  → bounded lifecycle with request fingerprint
+  → owned decision journal and replay check
+  → review-required handoff
+
+external_action_authorized = false</code></pre>
+          <p>The checked-in operating core composes four small owners instead of hiding the boundary in a framework:</p>
+          <dl class="article-decision">
+            <dt>Evidence gate</dt><dd>draft | escalate | hold, with a named reason</dd>
+            <dt>Polling contract</dt><dd>fingerprint reuse, finite attempts, backoff, timeout, unknown-id terminal state</dd>
+            <dt>EGOH journal</dt><dd>scenario + evidence digest + decision replay, with conflicting records refused</dd>
+            <dt>Operating core</dt><dd>only admitted evidence enters the lifecycle; complete work still requires a separately accepted EGOH observation before review</dd>
+          </dl>
+        </section>
+
+        <section>
+          <p class="eyebrow">Uncertain effects</p>
+          <h2>A timeout is a state, not permission to try blindly again.</h2>
+          <p>When an external system may have accepted a request before the connection failed, an automatic retry can duplicate the effect. The public polling contract reuses a previously submitted operation for the same fingerprint and ends in explicit terminal states when completion cannot be established. Payload-equivalence enforcement belongs in a real adapter built around that contract; the synthetic polling reference does not claim it.</p>
+          <ul>
+            <li>Repeated fingerprint: reuse the polling operation already owned by that fingerprint.</li>
+            <li>EGOH replay: reuse only the same scenario, evidence digest, and decision; reject a conflicting record.</li>
+            <li>Polling timeout or unknown operation identity: stop in the named terminal state; the composed core does not create a handoff.</li>
+            <li>Complete lifecycle: continue only if a separate EGOH observation is accepted; then produce a review-required handoff, never autonomous external authority.</li>
+          </ul>
+        </section>
+
+        <section id="hostiles">
+          <p class="eyebrow">Hostile proof</p>
+          <h2>The refusal paths are part of the deliverable.</h2>
+          <ul>
+            <li><strong>Missing:</strong> a required fact, score, trace, or source never arrived.</li>
+            <li><strong>Stale:</strong> evidence is structurally correct but outside the accepted epoch.</li>
+            <li><strong>Conflicting:</strong> independent fresh sources disagree.</li>
+            <li><strong>Substituted:</strong> the artifact identity or bytes drift after validation.</li>
+            <li><strong>Duplicate:</strong> a replay tries to create a second owner or effect.</li>
+            <li><strong>Unknown outcome:</strong> transport ended before effect identity was proven.</li>
+          </ul>
+          <pre><code>git clone https://github.com/DiadkoShmek/evidence-gated-agent-workflows.git
+cd evidence-gated-agent-workflows
+python3 run_proof.py</code></pre>
+          <p>The command exercises dependency-free synthetic fixtures for evidence admission, bounded polling, replay/conflict handling, and the composed operating boundary.</p>
+          <p>This repository is a public reference. It does not establish production safety, client results, certification, SLA, delivery, demand, or revenue. A real engagement begins with sanitized artifacts and one named failure boundary.</p>
+        </section>
+
+        <section>
+          <p class="eyebrow">The fixed engineering cut</p>
+          <h2>Bring one boundary your team cannot afford to guess about.</h2>
+          <div class="article-cta">
+            <p><strong>Fail-Closed Provenance Adapter Sprint</strong><br>One sanitized source-to-target handoff · 3–5 working days · $1,500 fixed.</p>
+            <p>Useful seams include memory write → next-agent context, trace → evaluation dataset, evaluation run → release decision, tool result → workflow action, or sandbox artifact → later continuation.</p>
+            <div class="actions"><a class="button primary" href="mailto:onyskoartur@gmail.com?subject=One%20broken%20AI%20handoff">Email one technical boundary</a><a class="button secondary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Use the public issue form</a></div>
+            <p>Do not send credentials, personal/customer data, private code, or production access details. Start with a sanitized summary only.</p>
+          </div>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <footer class="shell">
+    <span>Artur Onysko · AI workflow reliability</span>
+    <span><a href="en.html">Fixed-scope service</a> · <a href="case-study.html">Technical case</a> · <a href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows">Public proof</a></span>
+  </footer>
+</body>
+</html>

@@ -26,6 +26,7 @@ CAPABILITY = ROOT / "CAPABILITY_UA.md"
 LANDING = ROOT / "docs" / "index.html"
 LANDING_EN = ROOT / "docs" / "en.html"
 CASE_STUDY = ROOT / "docs" / "case-study.html"
+ARCHITECTURE = ROOT / "docs" / "architecture.html"
 ROBOTS = ROOT / "docs" / "robots.txt"
 SITEMAP = ROOT / "docs" / "sitemap.xml"
 LANDING_STYLE = ROOT / "docs" / "styles.css"
@@ -54,7 +55,7 @@ PRIVATE_MARKER = re.compile(
     re.IGNORECASE,
 )
 PUBLIC_CONTACT_EMAIL = "onyskoartur" + chr(64) + "gmail.com"
-PUBLIC_CONTACT_PATHS = {"docs/case-study.html", "docs/en.html", "docs/index.html"}
+PUBLIC_CONTACT_PATHS = {"docs/architecture.html", "docs/case-study.html", "docs/en.html", "docs/index.html"}
 
 
 def sha256_file(path: Path) -> str:
@@ -433,15 +434,32 @@ class PublicationCandidateTest(unittest.TestCase):
         )
         self.assertEqual(
             sitemap.count("<url>"),
-            3,
+            4,
         )
         self.assertIn("https://diadkoshmek.github.io/evidence-gated-agent-workflows/case-study.html", sitemap)
         for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
             self.assertNotIn(forbidden, case_study)
 
+    def test_architecture_note_is_runnable_bounded_and_linked(self) -> None:
+        architecture = ARCHITECTURE.read_text(encoding="utf-8")
+        english = LANDING_EN.read_text(encoding="utf-8")
+        sitemap = SITEMAP.read_text(encoding="utf-8")
+
+        self.assertIn('<link rel="canonical" href="https://diadkoshmek.github.io/evidence-gated-agent-workflows/architecture.html">', architecture)
+        self.assertIn('"@type":"TechArticle"', architecture)
+        self.assertIn("python3 run_proof.py", architecture)
+        self.assertIn("external_action_authorized = false", architecture)
+        self.assertIn("the synthetic polling reference does not claim it", architecture)
+        self.assertIn("complete work still requires a separately accepted EGOH observation", architecture)
+        self.assertIn("does not establish production safety", architecture)
+        self.assertIn('href="architecture.html"', english)
+        self.assertIn("https://diadkoshmek.github.io/evidence-gated-agent-workflows/architecture.html", sitemap)
+        for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
+            self.assertNotIn(forbidden, architecture)
+
     def test_exact_public_contact_is_private_first_and_strictly_allowlisted(self) -> None:
         expected_href = f"mailto:{PUBLIC_CONTACT_EMAIL}?subject=One%20broken%20AI%20handoff"
-        for path in (CASE_STUDY, LANDING_EN, LANDING):
+        for path in (ARCHITECTURE, CASE_STUDY, LANDING_EN, LANDING):
             content = path.read_text(encoding="utf-8")
             self.assertIn(expected_href, content)
             self.assertIn("sanitized summary", content)
