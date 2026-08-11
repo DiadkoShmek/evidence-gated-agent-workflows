@@ -61,15 +61,15 @@
     },
     {
       "path": "docs/case-study.html",
-      "sha256": "1003cbc9debedd9173dd2e876f8c8241ebbc3d18963434205097d1d461dcd69b"
+      "sha256": "920c0ab354576d442648a3ef53a4b1444c4741e7f584f75f599cdb79fa861943"
     },
     {
       "path": "docs/en.html",
-      "sha256": "2ca33a7223cdedeb5b0049b2d16fd161e197c040b1975998663ec1e807a9b21d"
+      "sha256": "14467e9cec3ad5fc1ab0b5eee78742639fad89eeb86b965ea964f0e0069808de"
     },
     {
       "path": "docs/index.html",
-      "sha256": "08f55fd74e8eabc0c7de464277f8fc373c4caa0a0b6cc1f654b9abc815779cab"
+      "sha256": "9ff9eb9baf537992ee867fb29553db8dfeb13ac6d6be9ff60ec5980f97bb46d5"
     },
     {
       "path": "docs/intake-experience.js",
@@ -209,7 +209,7 @@
     },
     {
       "path": "evidence-gate/tests/test_evidence_gate.py",
-      "sha256": "2aec807bcc1b5243c9d0e2e94a7565200674b7e5f58747301ac168ae5b09cdf9"
+      "sha256": "ff1f0ca9f401351ad8f6c4001fd48bd16b2c72402d4eeaba19c1057199d08463"
     },
     {
       "path": "generate_publication_manifest.py",
@@ -245,8 +245,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "a31a232ceb5a9935a435f64999a7827e6e7b2e113cd3de663b0945cbbb218cdf"
+      "sha256": "5dda7b4d3ff85eac898af64cc305b31895fd08f6bfd2f9514645fa984018b987"
     }
   ],
-  "tree_sha256": "4df626ccf56f7b7368d95507c88b00620ddceec7633f58976428435fa6d6598b"
+  "tree_sha256": "9479f1deff93dab338da616d3f5f8921348fd22af4de60094a80b13d79dc5af3"
 }
