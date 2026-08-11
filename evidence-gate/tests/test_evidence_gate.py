@@ -19,7 +19,7 @@ PRIVATE_MARKER = re.compile(
     re.IGNORECASE,
 )
 PUBLIC_CONTACT_EMAIL = "onyskoartur" + chr(64) + "gmail.com"
-PUBLIC_CONTACT_PATHS = {"docs/architecture.html", "docs/case-study.html", "docs/en.html", "docs/index.html"}
+PUBLIC_CONTACT_PATHS = {"docs/ai-systems-sprint.html", "docs/architecture.html", "docs/case-study.html", "docs/en.html", "docs/index.html"}
 
 
 def fixture(name):
@@ -123,7 +123,7 @@ class EvidenceGateTest(unittest.TestCase):
 
     def test_public_marker_scan_covers_root_async_and_workflow_files(self):
         tracked = {path.relative_to(PUBLIC_ROOT).as_posix() for path in tracked_public_text_paths()}
-        self.assertTrue({"README.md", "PROFILE.md", "async-polling-contract/contract.py", ".github/workflows/proof.yml"} <= tracked)
+        self.assertTrue({"README.md", "PROFILE.md", "async-polling-contract/contract.py", "docs/ai-systems-sprint.html", ".github/workflows/proof.yml"} <= tracked)
 
         with tempfile.TemporaryDirectory() as directory:
             leaked = Path(directory) / "candidate.md"
