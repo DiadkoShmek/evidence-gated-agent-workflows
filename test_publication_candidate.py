@@ -25,6 +25,9 @@ PACK = ROOT / "INTEGRATION_RELIABILITY_ACCEPTANCE_PACK.md"
 CAPABILITY = ROOT / "CAPABILITY_UA.md"
 LANDING = ROOT / "docs" / "index.html"
 LANDING_EN = ROOT / "docs" / "en.html"
+CASE_STUDY = ROOT / "docs" / "case-study.html"
+ROBOTS = ROOT / "docs" / "robots.txt"
+SITEMAP = ROOT / "docs" / "sitemap.xml"
 LANDING_STYLE = ROOT / "docs" / "styles.css"
 PROOF_EXPERIENCE = ROOT / "docs" / "proof-experience.js"
 INTAKE_EXPERIENCE = ROOT / "docs" / "intake-experience.js"
@@ -408,6 +411,32 @@ console.log(JSON.stringify({ initial, stages }));
 
 
 class PublicationCandidateTest(unittest.TestCase):
+    def test_technical_case_study_is_indexable_bounded_and_linked(self) -> None:
+        case_study = CASE_STUDY.read_text(encoding="utf-8")
+        english = LANDING_EN.read_text(encoding="utf-8")
+        ukrainian = LANDING.read_text(encoding="utf-8")
+        robots = ROBOTS.read_text(encoding="utf-8")
+        sitemap = SITEMAP.read_text(encoding="utf-8")
+
+        self.assertIn('<link rel="canonical" href="https://diadkoshmek.github.io/evidence-gated-agent-workflows/case-study.html">', case_study)
+        self.assertIn('"@type":"TechArticle"', case_study)
+        self.assertIn("python3 run_proof.py", case_study)
+        self.assertIn("External action authorized</dt><dd>false", case_study)
+        self.assertIn("does not establish production safety", case_study)
+        self.assertIn('href="case-study.html"', english)
+        self.assertIn('href="case-study.html"', ukrainian)
+        self.assertEqual(
+            robots,
+            "User-agent: *\nAllow: /\n\nSitemap: https://diadkoshmek.github.io/evidence-gated-agent-workflows/sitemap.xml\n",
+        )
+        self.assertEqual(
+            sitemap.count("<url>"),
+            3,
+        )
+        self.assertIn("https://diadkoshmek.github.io/evidence-gated-agent-workflows/case-study.html", sitemap)
+        for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
+            self.assertNotIn(forbidden, case_study)
+
     def tracked_paths(self) -> list[Path]:
         completed = subprocess.run(
             ["git", "-C", str(ROOT), "ls-files", "-z"], check=True, capture_output=True

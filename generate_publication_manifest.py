@@ -60,7 +60,7 @@ def content_paths(root: Path = ROOT) -> list[Path]:
     """
     paths = _tracked_paths(root)
     paths.add(root / Path(__file__).name)
-    for directory in (root / "egoh-demo", root / "operating-core-demo"):
+    for directory in (root / "docs", root / "egoh-demo", root / "operating-core-demo"):
         if directory.is_dir():
             paths.update(path for path in directory.rglob("*") if path.is_file())
     return sorted(
