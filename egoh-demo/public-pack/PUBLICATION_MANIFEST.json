@@ -41,7 +41,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "606eaa112574906c3ded44a8cbac0bc857f62162b11fdd23f62eb424f5ebd395"
+      "sha256": "46964d21b2dd497da0d9487b2ee3b651bbb7068a591ef71e9581fd045c7ce24e"
     },
     {
       "path": "async-polling-contract/README.md",
@@ -73,7 +73,7 @@
     },
     {
       "path": "docs/index.html",
-      "sha256": "9ff9eb9baf537992ee867fb29553db8dfeb13ac6d6be9ff60ec5980f97bb46d5"
+      "sha256": "72048b9dfd34e92b1e3c9bc62a78a7aee89b0e55d8a41c2418cbcf777ddd664a"
     },
     {
       "path": "docs/intake-experience.js",
@@ -249,8 +249,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "f5cd56dad83451f880780854b2c8eaa43eaa734e066c44faff37bf0bcff45bbd"
+      "sha256": "bbf3566eb338b97cd3180edb9e85bef6e36cadb469395ae83f4dd0d0ba0e08eb"
     }
   ],
-  "tree_sha256": "7f0b9e9d417164e8e840c171aeb9bcf5223f0e7a812aac53018b211ee4575707"
+  "tree_sha256": "ab1096fac86a788977047f0aa034d2ad1416afe0097add04e3046058ab55ff84"
 }

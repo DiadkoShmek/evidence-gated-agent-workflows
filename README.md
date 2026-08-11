@@ -3,6 +3,22 @@
 Two small, dependency-free Python references for automation systems that must
 fail honestly instead of inventing a successful result.
 
+## For AI engineers
+
+Read the [architecture of the evidence-gated boundary](https://diadkoshmek.github.io/evidence-gated-agent-workflows/architecture.html)
+before the service page. It separates four checked owners instead of presenting
+one vague “AI safety” layer:
+
+- exact evidence admission with fact identity, hashes, freshness and conflicts;
+- fingerprint reuse and bounded terminal states for asynchronous polling;
+- scenario/evidence/decision replay and conflict refusal in the EGOH journal;
+- a composed synthetic core that requires lifecycle completion and independent
+  EGOH acceptance before producing a review-required handoff.
+
+The public reference keeps external action authority false. Descriptor-bound
+source/target revalidation is implemented only when a real adapter contract
+requires it; it is not claimed by the synthetic demo.
+
 ## Work with me
 
 I offer a fixed-scope **Fail-Closed Provenance Adapter Sprint**. You bring one
@@ -13,6 +29,7 @@ known-limits report, and engineering handoff. The fixed pilot price is
 **$1,500**.
 
 [View the service page](https://diadkoshmek.github.io/evidence-gated-agent-workflows/)
+or [inspect the architecture](https://diadkoshmek.github.io/evidence-gated-agent-workflows/architecture.html)
 or [open a scoped public workflow inquiry](https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml).
 Do not put credentials, personal/customer data, private code, or production
 access details in a public issue.
