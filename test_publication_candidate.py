@@ -491,6 +491,18 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertIn("external authority  → false unless separately granted", page)
         self.assertIn("does not claim production safety", page)
         self.assertIn("sanitized summary only", page)
+        self.assertIn(
+            '<a class="button secondary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows">Run the public proof</a>',
+            page,
+        )
+        self.assertIn(
+            '<a class="button secondary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/releases/tag/public-proof-v1.4.0">Download immutable public proof v1.4</a>',
+            page,
+        )
+        self.assertIn(
+            "The repository link follows source changes; v1.4 is the immutable release snapshot with its published checksum.",
+            page,
+        )
         self.assertIn('href="ai-systems-sprint.html"', english)
         self.assertIn('href="ai-systems-sprint.html"', ukrainian)
         self.assertIn('href="ai-systems-sprint.html"', architecture)
