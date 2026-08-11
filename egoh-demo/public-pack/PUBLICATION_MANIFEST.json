@@ -217,7 +217,7 @@
     },
     {
       "path": "evidence-gate/tests/test_evidence_gate.py",
-      "sha256": "08d46eae61e679b5b4686bce814650e357d3208dd78641a39beda384e5b4556a"
+      "sha256": "4c5e05006d507b5bd8c88c9b69ebcfc236e7fe94407b416c3aa84f312a74e19a"
     },
     {
       "path": "generate_publication_manifest.py",
@@ -256,5 +256,5 @@
       "sha256": "8c91a6aee26967b0f9de623d7dc8fc8fd9716869bce8359c3a98aeed185c78ff"
     }
   ],
-  "tree_sha256": "34cbe2ccb974a7aab7d0b7a212ef4f82212fe6729d2abd9ab31ee0b7ab966ddb"
+  "tree_sha256": "157ee7dc79ff313706a6d4e0c6bfaa6fe492c96cb7456d81de0e7355651eae3a"
 }
