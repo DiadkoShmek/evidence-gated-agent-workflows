@@ -41,7 +41,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "46964d21b2dd497da0d9487b2ee3b651bbb7068a591ef71e9581fd045c7ce24e"
+      "sha256": "1a8dc22eaca9529c15e1bd6450e28275b2b0a2583a7d6e865cb45ff6baba401c"
     },
     {
       "path": "async-polling-contract/README.md",
@@ -60,8 +60,12 @@
       "sha256": "e7bcf8e280a8f00f070ffc405dede233dfdca0044818955143adfe0a8050afc0"
     },
     {
+      "path": "docs/ai-systems-sprint.html",
+      "sha256": "a767bcab1f03ba6ba886a7079268629b6857eb71a89ef3909317a83afc9ba0d3"
+    },
+    {
       "path": "docs/architecture.html",
-      "sha256": "06d56ad1ae64424fc6ffd57273c548576a4f991074e221613cec32fd00c7e3e8"
+      "sha256": "122c7234468e9906f164c466a26604aed8051c7946eab987b3d1699b20061973"
     },
     {
       "path": "docs/case-study.html",
@@ -69,11 +73,11 @@
     },
     {
       "path": "docs/en.html",
-      "sha256": "cf39c914af0e2950479a35c84f018fbfe023381ed2bcb78b534b18c13f06d399"
+      "sha256": "04088a193a045cb7525361893db6070e6124d042434e51f86c2c87fa6e35d576"
     },
     {
       "path": "docs/index.html",
-      "sha256": "72048b9dfd34e92b1e3c9bc62a78a7aee89b0e55d8a41c2418cbcf777ddd664a"
+      "sha256": "9b2ba2649c4973773f9d04ff815e20cbd293b6538ba39337b3e1f98ac474024b"
     },
     {
       "path": "docs/intake-experience.js",
@@ -93,7 +97,7 @@
     },
     {
       "path": "docs/sitemap.xml",
-      "sha256": "7d656f704a26af46a5d1a3f2434da36efd77678cc210d189784633d041993e33"
+      "sha256": "0f3985389e54446b1caeabd95c1c7a3a5756d7480e4dbec53c806ede808e7fad"
     },
     {
       "path": "docs/styles.css",
@@ -249,8 +253,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "bbf3566eb338b97cd3180edb9e85bef6e36cadb469395ae83f4dd0d0ba0e08eb"
+      "sha256": "8c91a6aee26967b0f9de623d7dc8fc8fd9716869bce8359c3a98aeed185c78ff"
     }
   ],
-  "tree_sha256": "ab1096fac86a788977047f0aa034d2ad1416afe0097add04e3046058ab55ff84"
+  "tree_sha256": "34cbe2ccb974a7aab7d0b7a212ef4f82212fe6729d2abd9ab31ee0b7ab966ddb"
 }
