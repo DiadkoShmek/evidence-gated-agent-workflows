@@ -53,6 +53,8 @@ PRIVATE_MARKER = re.compile(
     r"[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}",
     re.IGNORECASE,
 )
+PUBLIC_CONTACT_EMAIL = "onyskoartur" + chr(64) + "gmail.com"
+PUBLIC_CONTACT_PATHS = {"docs/case-study.html", "docs/en.html", "docs/index.html"}
 
 
 def sha256_file(path: Path) -> str:
@@ -436,6 +438,14 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertIn("https://diadkoshmek.github.io/evidence-gated-agent-workflows/case-study.html", sitemap)
         for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
             self.assertNotIn(forbidden, case_study)
+
+    def test_exact_public_contact_is_private_first_and_strictly_allowlisted(self) -> None:
+        expected_href = f"mailto:{PUBLIC_CONTACT_EMAIL}?subject=One%20broken%20AI%20handoff"
+        for path in (CASE_STUDY, LANDING_EN, LANDING):
+            content = path.read_text(encoding="utf-8")
+            self.assertIn(expected_href, content)
+            self.assertIn("sanitized summary", content)
+            self.assertIn("issues/new?template=client-inquiry.yml", content)
 
     def tracked_paths(self) -> list[Path]:
         completed = subprocess.run(
@@ -1392,8 +1402,11 @@ class PublicationCandidateTest(unittest.TestCase):
         for path in self.all_candidate_paths():
             self.assertTrue(path.is_file(), path.name)
             self.assertFalse(path.is_symlink(), path.name)
+            relative = str(path.relative_to(ROOT))
             for match in PRIVATE_MARKER.finditer(path.read_text(encoding="utf-8")):
-                findings.append((str(path.relative_to(ROOT)), match.group(0)))
+                if relative in PUBLIC_CONTACT_PATHS and match.group(0).lower() == PUBLIC_CONTACT_EMAIL:
+                    continue
+                findings.append((relative, match.group(0)))
         self.assertEqual(findings, [])
 
     def test_egoh_candidate_contains_no_caches(self) -> None:
