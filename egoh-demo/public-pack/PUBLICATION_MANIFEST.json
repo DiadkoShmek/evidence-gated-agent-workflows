@@ -65,19 +65,19 @@
     },
     {
       "path": "docs/architecture.html",
-      "sha256": "36666d25f8ce4bb7b734a6c8ad16b00a504d65b6dca8cc9b2c17760f31a6b2a3"
+      "sha256": "e4540ca8bb10c7de91957265a72fc34a57adc10ef0df22efcf4ba7f4e51bb338"
     },
     {
       "path": "docs/case-study.html",
-      "sha256": "485e74bd010fe55e16e46173a67692b7230054339854455d15cd393ffa44b617"
+      "sha256": "cab0e07c5e00a8ed98a833c934d397c961176a7f2b402ea4d7fc4998e69e3faa"
     },
     {
       "path": "docs/en.html",
-      "sha256": "3774b8d8d1ccf4ef6740fc2894578f154393d8a1fbec639d42a097ceec683c52"
+      "sha256": "71fe98ae07b42a3172677ad21438c503b0d6975bce6047fb271f4538d3ba004d"
     },
     {
       "path": "docs/index.html",
-      "sha256": "bcfec061f49384fec0212fc32ebbbd33c76afe2f2a94dbc09701457b0e83319c"
+      "sha256": "b417d08ff95f8e2024b8e5e3e9835f18fa1f8117f47d4e245d194c4db7f34915"
     },
     {
       "path": "docs/intake-experience.js",
@@ -253,8 +253,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "1a8ffc942d810b24142890860cd53d22cf8b6c6acf9114629ba6934a68f0d7e3"
+      "sha256": "df8c96a75fa9841ba60148534da960d38a4c8df9018b84b0fed4336b7c560ca5"
     }
   ],
-  "tree_sha256": "87f9e37945eb1376d94da976a2cbe4194e708aef6fd6e32e71ae8cb8739ccd5c"
+  "tree_sha256": "eeee1d0f5485db2bef98bc6cc4539b4c7489f1414f3ea4efa98b06a5089c2afa"
 }
