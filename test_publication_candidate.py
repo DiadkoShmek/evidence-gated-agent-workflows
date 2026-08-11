@@ -473,6 +473,11 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertIn('<link rel="canonical" href="https://diadkoshmek.github.io/evidence-gated-agent-workflows/ai-systems-sprint.html">', page)
         self.assertIn('"@type":"Service"', page)
         self.assertIn('"price":"1500"', page)
+        self.assertIn("Not a platform subscription or a migration.", page)
+        self.assertIn("AI Systems Proof Sprint — $1,500 fixed", page)
+        self.assertIn("Release Integrity Pack — $4,500 fixed", page)
+        self.assertIn("only as a separately scoped follow-on after a completed Proof Sprint", page)
+        self.assertNotIn("$7,500", page)
         for seam in (
             "Memory or retrieval → next-agent context",
             "Dataset or evaluation → release decision",
