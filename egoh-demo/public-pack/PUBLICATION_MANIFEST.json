@@ -61,11 +61,11 @@
     },
     {
       "path": "docs/en.html",
-      "sha256": "63cc73f98e57db3dac9776d81c4323358ab6fb845dcebb6ada7209a2417ca6a3"
+      "sha256": "eadb6094289ab904f52e6a2948f00baeb468d97a69c7fcaf09fb32c669d652c3"
     },
     {
       "path": "docs/index.html",
-      "sha256": "27f4a6ba95d12533175945cdd9a73e856b16b3ba999f756dd5539347a6a78654"
+      "sha256": "c014be294290be6e0ef3ee37693f6fe57266293f7f60621208581b35e43b4c68"
     },
     {
       "path": "docs/intake-experience.js",
@@ -81,7 +81,7 @@
     },
     {
       "path": "docs/styles.css",
-      "sha256": "a6b1ef043f11edf98964971e8c920f7c68359a89a504b36c0d5c6ac73b108e62"
+      "sha256": "97965041d15d499c546d60ce2146c96eb13bf763ac92a4d228bef83a9f4d755f"
     },
     {
       "path": "egoh-demo/README.md",
@@ -236,5 +236,5 @@
       "sha256": "6f7eb7a1bd697c00cc7adc25274e6b9b0174be72ee9c7a1147d5d6ffe6b28a36"
     }
   ],
-  "tree_sha256": "d82d3cebdbf61a2f73ff59dea55f5a2ba1f7de6472e424abce48db35d0d1b09f"
+  "tree_sha256": "b2dcd64ce39729118d98a4b2f6be91fbf0a5bfbaf21f5a4967631c38082dc917"
 }
