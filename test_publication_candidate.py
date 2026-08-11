@@ -494,7 +494,15 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertIn('href="ai-systems-sprint.html"', ukrainian)
         self.assertIn('href="ai-systems-sprint.html"', architecture)
         self.assertIn("https://diadkoshmek.github.io/evidence-gated-agent-workflows/ai-systems-sprint.html", sitemap)
-        self.assertIn("AI Systems Proof Sprint", (ROOT / "README.md").read_text(encoding="utf-8"))
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("**AI Systems Proof Sprint**: one fail-closed provenance", readme)
+        self.assertIn("fixed first-step price is **$1,500**.", readme)
+        self.assertIn("one bounded fail-closed provenance adapter", readme)
+        self.assertIn(
+            "https://diadkoshmek.github.io/evidence-gated-agent-workflows/ai-systems-sprint.html",
+            readme,
+        )
+        self.assertNotIn("I offer a fixed-scope **Fail-Closed Provenance Adapter Sprint**", readme)
         for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
             self.assertNotIn(forbidden, page)
 

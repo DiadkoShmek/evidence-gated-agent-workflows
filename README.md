@@ -26,14 +26,14 @@ and acceptance criteria.
 
 ## Work with me
 
-I offer a fixed-scope **Fail-Closed Provenance Adapter Sprint**. You bring one
-sanitized AI or data artifact, its expected schema, the source and target
-interface descriptions, and one costly failure the handoff must refuse. In
-3–5 working days I build a bounded adapter, hostile test suite, decision trace,
-known-limits report, and engineering handoff. The fixed pilot price is
-**$1,500**.
+I offer a fixed-scope **AI Systems Proof Sprint**: one fail-closed provenance
+adapter for one sanitized AI or data handoff. You bring its expected schema,
+the source and target interface descriptions, and one costly failure the
+handoff must refuse. In 3–5 working days I build a bounded adapter, hostile
+test suite, decision trace, known-limits report, and engineering handoff. The
+fixed first-step price is **$1,500**.
 
-[View the service page](https://diadkoshmek.github.io/evidence-gated-agent-workflows/)
+[View the AI Systems Proof Sprint](https://diadkoshmek.github.io/evidence-gated-agent-workflows/ai-systems-sprint.html)
 or [inspect the architecture](https://diadkoshmek.github.io/evidence-gated-agent-workflows/architecture.html)
 or [open a scoped public workflow inquiry](https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml).
 Do not put credentials, personal/customer data, private code, or production
@@ -52,12 +52,12 @@ checked-in demo; they are not a safety guarantee for a client adapter.
 
 ## A staged system, with one purchasable first step
 
-The fixed sprint is deliberately the only item for sale now: **one fail-closed handoff**
+The fixed AI Systems Proof Sprint is deliberately the only item for sale now: **one fail-closed handoff**
 with a bounded acceptance proof. It is the evidence needed to decide whether any larger
 system work is justified.
 
-1. **Now — fixed purchasable sprint.** The Fail-Closed Provenance Adapter
-   Sprint above produces one bounded adapter, hostile proof, decision trace,
+1. **Now — fixed purchasable sprint.** The AI Systems Proof Sprint above
+   produces one bounded fail-closed provenance adapter, hostile proof, decision trace,
    known-limits report, and handoff.
 2. **After Stage 1 evidence — separately scoped hardening.** If that proof
    reveals a real boundary worth carrying forward, a later written scope can
