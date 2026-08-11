@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A practical, runnable pattern for making one AI or data handoff reject stale, missing, substituted, malformed, or contradictory evidence.">
+  <title>How to make one AI handoff fail closed — Artur Onysko</title>
+  <link rel="canonical" href="https://diadkoshmek.github.io/evidence-gated-agent-workflows/case-study.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to make one AI handoff fail closed">
+  <meta property="og:description" content="A practical, runnable pattern for stopping believable but ineligible AI artifacts before they change the next system.">
+  <meta property="og:url" content="https://diadkoshmek.github.io/evidence-gated-agent-workflows/case-study.html">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to make one AI handoff fail closed">
+  <meta name="twitter:description" content="Five hostile cases, one named decision trace, and a runnable public proof.">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"How to make one AI handoff fail closed","description":"A practical, runnable pattern for stopping believable but ineligible AI or data artifacts before they change the next system.","url":"https://diadkoshmek.github.io/evidence-gated-agent-workflows/case-study.html","author":{"@type":"Person","name":"Artur Onysko"},"inLanguage":"en"}</script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="nav shell">
+    <a class="mark" href="en.html" aria-label="Service home">AO<span>/proof</span></a>
+    <nav aria-label="Article navigation">
+      <a href="#failure">Failure</a>
+      <a href="#contract">Contract</a>
+      <a href="#proof">Proof</a>
+      <a class="nav-cta" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Bring one workflow</a>
+    </nav>
+  </header>
+
+  <main>
+    <article>
+      <header class="article-hero shell">
+        <p class="eyebrow">Technical case · runnable public reference</p>
+        <h1>How to make one AI handoff <em>fail closed.</em></h1>
+        <p class="lede">The dangerous workflow failure is often not an exception. It is a believable artifact that reaches the next system even though its identity, freshness, structure, or authority is wrong.</p>
+        <div class="actions">
+          <a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows">Run the proof</a>
+          <a class="button secondary" href="en.html">See the fixed sprint</a>
+        </div>
+      </header>
+
+      <div class="article-shell shell">
+        <section id="failure">
+          <p class="eyebrow">The failure</p>
+          <h2>“Looks valid” is not an acceptance rule.</h2>
+          <p>Consider an AI receptionist that emits a booking outcome, a document pipeline that emits extracted fields, or an agent that proposes a CRM update. The output may be well-formed and still be ineligible.</p>
+          <ul>
+            <li>It belongs to an older request or source generation.</li>
+            <li>It was substituted after an earlier validation.</li>
+            <li>Required evidence is missing while the payload still looks plausible.</li>
+            <li>Two fresh sources contradict each other.</li>
+            <li>The target state already changed, so replay would duplicate an effect.</li>
+          </ul>
+          <div class="article-callout"><p><strong>Core rule:</strong> the adapter does not ask whether the output looks useful. It asks whether the exact artifact is eligible to cross this exact boundary now.</p></div>
+        </section>
+
+        <section id="contract">
+          <p class="eyebrow">The bounded contract</p>
+          <h2>One source. One target. Named refusal reasons.</h2>
+          <p>A useful first reliability layer stays deliberately small. It binds the source artifact, the target interface, the decision owner, the expensive false promotion, and the evidence required for acceptance.</p>
+          <h3>Minimum inputs</h3>
+          <ol>
+            <li>One sanitized source artifact and its expected schema.</li>
+            <li>Source and target interface descriptions.</li>
+            <li>One costly outcome the handoff must refuse.</li>
+            <li>One valid fixture and the hostile fixtures that must stop.</li>
+          </ol>
+          <h3>Minimum output</h3>
+          <dl class="article-decision">
+            <dt>Decision</dt><dd>draft | escalate | hold</dd>
+            <dt>Named reason</dt><dd>EVIDENCE_COMPLETE | MISSING_EVIDENCE | STALE_EVIDENCE | CONFLICTING_EVIDENCE | HUMAN_ESCALATION_REQUIRED</dd>
+            <dt>External action authorized</dt><dd>false</dd>
+            <dt>Human review</dt><dd>explicit</dd>
+          </dl>
+        </section>
+
+        <section id="proof">
+          <p class="eyebrow">The hostile proof</p>
+          <h2>Test the refusal path, not only the happy path.</h2>
+          <p>The public repository includes dependency-free references for evidence decisions, bounded polling, replay handling, and a synthetic operator handoff. The important tests are the ones that try to make an unsafe artifact look acceptable.</p>
+          <ul>
+            <li><strong>Missing:</strong> a required evidence source is absent.</li>
+            <li><strong>Stale:</strong> the artifact is structurally valid but outside its allowed epoch.</li>
+            <li><strong>Substituted:</strong> the path or bytes change after an earlier check.</li>
+            <li><strong>Contradictory:</strong> individually valid sources disagree.</li>
+            <li><strong>Replay:</strong> the same operation arrives again after an uncertain outcome.</li>
+          </ul>
+          <pre><code>git clone https://github.com/DiadkoShmek/evidence-gated-agent-workflows.git
+cd evidence-gated-agent-workflows
+python3 run_proof.py</code></pre>
+          <p>The checked-in proof demonstrates only the synthetic public reference. It does not establish production safety, client results, certification, SLA, delivery, demand, or revenue.</p>
+        </section>
+
+        <section>
+          <p class="eyebrow">The purchasable first step</p>
+          <h2>Apply the pattern to one real handoff.</h2>
+          <div class="article-cta">
+            <p><strong>Fail-Closed Provenance Adapter Sprint</strong><br>One sanitized source-to-target handoff · 3–5 working days · $1,500 fixed.</p>
+            <p>The sprint begins only after the source, target, costly failure, and testable acceptance boundary are specific enough to write down.</p>
+            <a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Describe one broken handoff</a>
+          </div>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <footer class="shell">
+    <span>Artur Onysko · AI workflow reliability</span>
+    <span><a href="en.html">Fixed-scope service</a> · <a href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows">Public proof</a></span>
+  </footer>
+</body>
+</html>

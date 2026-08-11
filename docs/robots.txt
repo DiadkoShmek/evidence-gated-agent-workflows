@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://diadkoshmek.github.io/evidence-gated-agent-workflows/sitemap.xml
