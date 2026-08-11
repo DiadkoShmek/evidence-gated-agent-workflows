@@ -27,6 +27,7 @@ LANDING = ROOT / "docs" / "index.html"
 LANDING_EN = ROOT / "docs" / "en.html"
 CASE_STUDY = ROOT / "docs" / "case-study.html"
 ARCHITECTURE = ROOT / "docs" / "architecture.html"
+AI_SYSTEMS_SPRINT = ROOT / "docs" / "ai-systems-sprint.html"
 ROBOTS = ROOT / "docs" / "robots.txt"
 SITEMAP = ROOT / "docs" / "sitemap.xml"
 LANDING_STYLE = ROOT / "docs" / "styles.css"
@@ -55,7 +56,7 @@ PRIVATE_MARKER = re.compile(
     re.IGNORECASE,
 )
 PUBLIC_CONTACT_EMAIL = "onyskoartur" + chr(64) + "gmail.com"
-PUBLIC_CONTACT_PATHS = {"docs/architecture.html", "docs/case-study.html", "docs/en.html", "docs/index.html"}
+PUBLIC_CONTACT_PATHS = {"docs/ai-systems-sprint.html", "docs/architecture.html", "docs/case-study.html", "docs/en.html", "docs/index.html"}
 
 
 def sha256_file(path: Path) -> str:
@@ -434,7 +435,7 @@ class PublicationCandidateTest(unittest.TestCase):
         )
         self.assertEqual(
             sitemap.count("<url>"),
-            4,
+            5,
         )
         self.assertIn("https://diadkoshmek.github.io/evidence-gated-agent-workflows/case-study.html", sitemap)
         for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
@@ -462,9 +463,39 @@ class PublicationCandidateTest(unittest.TestCase):
         for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
             self.assertNotIn(forbidden, architecture)
 
+    def test_ai_systems_sprint_is_specific_bounded_and_linked(self) -> None:
+        page = AI_SYSTEMS_SPRINT.read_text(encoding="utf-8")
+        english = LANDING_EN.read_text(encoding="utf-8")
+        ukrainian = LANDING.read_text(encoding="utf-8")
+        architecture = ARCHITECTURE.read_text(encoding="utf-8")
+        sitemap = SITEMAP.read_text(encoding="utf-8")
+
+        self.assertIn('<link rel="canonical" href="https://diadkoshmek.github.io/evidence-gated-agent-workflows/ai-systems-sprint.html">', page)
+        self.assertIn('"@type":"Service"', page)
+        self.assertIn('"price":"1500"', page)
+        for seam in (
+            "Memory or retrieval → next-agent context",
+            "Dataset or evaluation → release decision",
+            "Tool or model result → external effect",
+            "Workflow or sandbox state → later continuation",
+        ):
+            self.assertIn(seam, page)
+        for deliverable in ("Boundary contract", "Bounded adapter", "Hostile proof", "Decision receipt", "Engineering handoff"):
+            self.assertIn(deliverable, page)
+        self.assertIn("external authority  → false unless separately granted", page)
+        self.assertIn("does not claim production safety", page)
+        self.assertIn("sanitized summary only", page)
+        self.assertIn('href="ai-systems-sprint.html"', english)
+        self.assertIn('href="ai-systems-sprint.html"', ukrainian)
+        self.assertIn('href="ai-systems-sprint.html"', architecture)
+        self.assertIn("https://diadkoshmek.github.io/evidence-gated-agent-workflows/ai-systems-sprint.html", sitemap)
+        self.assertIn("AI Systems Proof Sprint", (ROOT / "README.md").read_text(encoding="utf-8"))
+        for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
+            self.assertNotIn(forbidden, page)
+
     def test_exact_public_contact_is_private_first_and_strictly_allowlisted(self) -> None:
         expected_href = f"mailto:{PUBLIC_CONTACT_EMAIL}?subject=One%20broken%20AI%20handoff"
-        for path in (ARCHITECTURE, CASE_STUDY, LANDING_EN, LANDING):
+        for path in (AI_SYSTEMS_SPRINT, ARCHITECTURE, CASE_STUDY, LANDING_EN, LANDING):
             content = path.read_text(encoding="utf-8")
             self.assertIn(expected_href, content)
             self.assertIn("sanitized summary", content)

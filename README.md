@@ -19,6 +19,11 @@ The public reference keeps external action authority false. Descriptor-bound
 source/target revalidation is implemented only when a real adapter contract
 requires it; it is not claimed by the synthetic demo.
 
+For teams working on agent memory, retrieval, evaluation, tool execution, or
+durable workflow state, the [AI Systems Proof Sprint](https://diadkoshmek.github.io/evidence-gated-agent-workflows/ai-systems-sprint.html)
+maps four purchasable code seams to exact evidence, refusal paths, deliverables,
+and acceptance criteria.
+
 ## Work with me
 
 I offer a fixed-scope **Fail-Closed Provenance Adapter Sprint**. You bring one

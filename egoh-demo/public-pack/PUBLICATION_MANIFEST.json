@@ -41,7 +41,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "f4aff6718fee90e3c8f817e752c60aee6843e20365cf2484cf98cc9df0906539"
+      "sha256": "126147c2d6668e0ed75c1a675e5d31f844a8ff0910ec582c92198d96dfe8cb6a"
     },
     {
       "path": "async-polling-contract/README.md",
@@ -60,8 +60,12 @@
       "sha256": "e7bcf8e280a8f00f070ffc405dede233dfdca0044818955143adfe0a8050afc0"
     },
     {
+      "path": "docs/ai-systems-sprint.html",
+      "sha256": "2dc41c65d849cdc4feb0db1680a6b7f084eb47836b1ee6ed684a420243967b69"
+    },
+    {
       "path": "docs/architecture.html",
-      "sha256": "54ba1a76e06199628c8fefa633f8d6abb9e4389552bd4f392ef51294fb43c9a8"
+      "sha256": "36666d25f8ce4bb7b734a6c8ad16b00a504d65b6dca8cc9b2c17760f31a6b2a3"
     },
     {
       "path": "docs/case-study.html",
@@ -69,11 +73,11 @@
     },
     {
       "path": "docs/en.html",
-      "sha256": "7086b719f271549cf88b22467098c0787232f1dfb5044e3bc2c9fec1fdafef2e"
+      "sha256": "3774b8d8d1ccf4ef6740fc2894578f154393d8a1fbec639d42a097ceec683c52"
     },
     {
       "path": "docs/index.html",
-      "sha256": "60f195a1014e1ee961d3c3140857309e3ccc953d5f29e6d92178297473bb8195"
+      "sha256": "bcfec061f49384fec0212fc32ebbbd33c76afe2f2a94dbc09701457b0e83319c"
     },
     {
       "path": "docs/intake-experience.js",
@@ -93,7 +97,7 @@
     },
     {
       "path": "docs/sitemap.xml",
-      "sha256": "7d656f704a26af46a5d1a3f2434da36efd77678cc210d189784633d041993e33"
+      "sha256": "0f3985389e54446b1caeabd95c1c7a3a5756d7480e4dbec53c806ede808e7fad"
     },
     {
       "path": "docs/styles.css",
@@ -213,7 +217,7 @@
     },
     {
       "path": "evidence-gate/tests/test_evidence_gate.py",
-      "sha256": "08d46eae61e679b5b4686bce814650e357d3208dd78641a39beda384e5b4556a"
+      "sha256": "4c5e05006d507b5bd8c88c9b69ebcfc236e7fe94407b416c3aa84f312a74e19a"
     },
     {
       "path": "generate_publication_manifest.py",
@@ -249,8 +253,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "d919b74e8f84d27b1adbb9df9cee09342ccbf9836e00a370a5e756dc14a96b77"
+      "sha256": "593c2001c1a4b43595dcfbe1e172934112c1fc493a51a5785c3a250570da70b8"
     }
   ],
-  "tree_sha256": "ea9c8012034c71192e0250f68a5a5345f7f4d45dedb68f3d9bf36ba5e45c26d4"
+  "tree_sha256": "f09693c50bb9f954befce78aa86a281ed55cd731e718f1f30697c4adfef2a55f"
 }
