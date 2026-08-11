@@ -62,15 +62,17 @@
   → evidence admission and freshness/conflict checks
   → bounded lifecycle with request fingerprint
   → owned decision journal and replay check
+  → receipt-last immutable publication and descriptor revalidation
   → review-required handoff
 
 external_action_authorized = false</code></pre>
-          <p>The checked-in operating core composes four small owners instead of hiding the boundary in a framework:</p>
+          <p>The checked-in public proof separates five small owners instead of hiding the boundary in a framework:</p>
           <dl class="article-decision">
             <dt>Evidence gate</dt><dd>draft | escalate | hold, with a named reason</dd>
             <dt>Polling contract</dt><dd>fingerprint reuse, finite attempts, backoff, timeout, unknown-id terminal state</dd>
             <dt>EGOH journal</dt><dd>scenario + evidence digest + decision replay, with conflicting records refused</dd>
             <dt>Operating core</dt><dd>only admitted evidence enters the lifecycle; complete work still requires a separately accepted EGOH observation before review</dd>
+            <dt>Immutable artifact handoff</dt><dd>artifact bytes publish before the receipt; held nofollow descriptors and terminal inode/byte revalidation refuse partial or replaced bundles</dd>
           </dl>
         </section>
 
@@ -93,14 +95,14 @@ external_action_authorized = false</code></pre>
             <li><strong>Missing:</strong> a required fact, score, trace, or source never arrived.</li>
             <li><strong>Stale:</strong> evidence is structurally correct but outside the accepted epoch.</li>
             <li><strong>Conflicting:</strong> independent fresh sources disagree.</li>
-            <li><strong>Digest mismatch:</strong> EGOH receives evidence whose declared digest does not match its canonical bytes. A client adapter can extend this into descriptor-bound source and target revalidation where required.</li>
+            <li><strong>Digest or namespace mismatch:</strong> EGOH rejects altered evidence digests; the immutable artifact demo separately refuses receipt/artifact digest conflict, symlinks, and replaced filesystem generations.</li>
             <li><strong>Duplicate:</strong> a replay tries to create a second owner or effect.</li>
             <li><strong>Unknown outcome:</strong> transport ended before effect identity was proven.</li>
           </ul>
           <pre><code>git clone https://github.com/DiadkoShmek/evidence-gated-agent-workflows.git
 cd evidence-gated-agent-workflows
 python3 run_proof.py</code></pre>
-          <p>The command exercises dependency-free synthetic fixtures for evidence admission, bounded polling, replay/conflict handling, and the composed operating boundary.</p>
+          <p>The command exercises dependency-free synthetic fixtures for evidence admission, bounded polling, replay/conflict handling, the composed operating boundary, and one receipt-last descriptor-pinned artifact handoff.</p>
           <p>This repository is a public reference. It does not establish production safety, client results, certification, SLA, delivery, demand, or revenue. A real engagement begins with sanitized artifacts and one named failure boundary.</p>
         </section>
 

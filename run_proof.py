@@ -25,6 +25,8 @@ def main() -> None:
     run(ROOT / "async-polling-contract", "demo.py")
     run(ROOT / "operating-core-demo", "-m", "unittest", "-v", "tests.test_operating_core_demo")
     run(ROOT / "operating-core-demo", "run_demo.py")
+    run(ROOT / "immutable-artifact-handoff-demo", "-m", "unittest", "discover", "-s", "tests", "-v")
+    run(ROOT / "immutable-artifact-handoff-demo", "run_demo.py")
     run(ROOT / "egoh-demo", "-m", "unittest", "-v", "tests.test_egoh_demo")
     run(
         ROOT / "egoh-demo",
