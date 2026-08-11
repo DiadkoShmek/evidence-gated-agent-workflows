@@ -468,6 +468,7 @@ class PublicationCandidateTest(unittest.TestCase):
         english = LANDING_EN.read_text(encoding="utf-8")
         ukrainian = LANDING.read_text(encoding="utf-8")
         architecture = ARCHITECTURE.read_text(encoding="utf-8")
+        case_study = CASE_STUDY.read_text(encoding="utf-8")
         sitemap = SITEMAP.read_text(encoding="utf-8")
 
         self.assertIn('<link rel="canonical" href="https://diadkoshmek.github.io/evidence-gated-agent-workflows/ai-systems-sprint.html">', page)
@@ -503,6 +504,10 @@ class PublicationCandidateTest(unittest.TestCase):
             readme,
         )
         self.assertNotIn("I offer a fixed-scope **Fail-Closed Provenance Adapter Sprint**", readme)
+        for public_cta in (architecture, case_study):
+            self.assertIn("<strong>AI Systems Proof Sprint</strong>", public_cta)
+            self.assertIn("One fail-closed provenance adapter for a sanitized source-to-target handoff", public_cta)
+            self.assertNotIn("Fail-Closed Provenance Adapter Sprint", public_cta)
         for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
             self.assertNotIn(forbidden, page)
 
@@ -627,8 +632,8 @@ class PublicationCandidateTest(unittest.TestCase):
             self.assertEqual(main.group(0).count("$1,500"), 1)  # type: ignore[union-attr]
             self.assertLess(len(page.encode("utf-8")), 32 * 1024)
         self.assertTrue(PROOF_EXPERIENCE.is_file())
-        self.assertIn("Фіксований інженерний спринт", landing)
-        self.assertIn("Fail-Closed Provenance Adapter Sprint", english)
+        self.assertIn("AI Systems Proof Sprint · фіксований інженерний спринт", landing)
+        self.assertIn("AI Systems Proof Sprint · 3–5 day fixed-scope engineering sprint", english)
         self.assertIn("does not prove", english)
         self.assertIn("Ілюстративне browser-local відтворення", landing)
         self.assertNotIn("url(", style.lower())
@@ -649,8 +654,8 @@ class PublicationCandidateTest(unittest.TestCase):
                 LANDING.read_text(encoding="utf-8"),
                 {
                     "language": "uk",
-                    "title": "Fail-Closed Provenance Adapter Sprint — Артур Онисько",
-                    "description": "Фіксований $1,500 sprint на 3–5 днів: fail-closed adapter, hostile proof і review-only handoff для однієї AI або data передачі.",
+                    "title": "AI Systems Proof Sprint — Артур Онисько",
+                    "description": "AI Systems Proof Sprint: фіксований $1,500 sprint на 3–5 днів для однієї AI або data передачі: fail-closed provenance adapter, hostile proof і review-only handoff.",
                     "canonical": base,
                 },
             ),
@@ -658,8 +663,8 @@ class PublicationCandidateTest(unittest.TestCase):
                 LANDING_EN.read_text(encoding="utf-8"),
                 {
                     "language": "en",
-                    "title": "Fail-Closed Provenance Adapter Sprint — Artur Onysko",
-                    "description": "A $1,500, 3–5 day fixed-scope sprint: a fail-closed adapter, hostile proof, and review-only handoff for one AI or data workflow.",
+                    "title": "AI Systems Proof Sprint — Artur Onysko",
+                    "description": "AI Systems Proof Sprint: a $1,500, 3–5 day fixed-scope sprint for one AI or data workflow, delivered as a fail-closed provenance adapter, hostile proof, and review-only handoff.",
                     "canonical": base + "en.html",
                 },
             ),
@@ -677,7 +682,7 @@ class PublicationCandidateTest(unittest.TestCase):
             )
             for property_name, content in (
                 ("og:type", "website"),
-                ("og:site_name", "Fail-Closed Provenance Adapter Sprint"),
+                ("og:site_name", "AI Systems Proof Sprint"),
                 ("og:title", expected["title"]),
                 ("og:description", expected["description"]),
                 ("og:url", expected["canonical"]),
@@ -698,7 +703,7 @@ class PublicationCandidateTest(unittest.TestCase):
                 {
                     "@context": "https://schema.org",
                     "@type": "Service",
-                    "name": "Fail-Closed Provenance Adapter Sprint",
+                    "name": "AI Systems Proof Sprint",
                     "description": expected["description"],
                     "url": expected["canonical"],
                     "inLanguage": expected["language"],
