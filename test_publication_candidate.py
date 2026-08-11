@@ -1287,7 +1287,20 @@ class PublicationCandidateTest(unittest.TestCase):
 
     def test_public_inquiry_warns_without_claiming_enforced_sanitization(self) -> None:
         inquiry = INQUIRY.read_text(encoding="utf-8")
+        self.assertIn("name: AI Systems Proof Sprint — scoped inquiry", inquiry)
+        self.assertIn(
+            "description: Describe one sanitized AI or data handoff for the fixed $1,500, 3–5 working day first step; this form is review-only.",
+            inquiry,
+        )
         self.assertIn("This is a public issue", inquiry)
+        self.assertIn(
+            "This review-only form is for the AI Systems Proof Sprint: one fixed $1,500, 3–5 working day first step delivering one fail-closed provenance adapter, hostile proof, and reviewable handoff.",
+            inquiry,
+        )
+        self.assertIn(
+            "Submitting this form does not purchase a sprint, accept a contract, reserve capacity, or authorize a production or external action.",
+            inquiry,
+        )
         for forbidden in ("email", "phone", "password", "token", "api key", "upload"):
             self.assertNotRegex(inquiry.lower(), rf"id:\s*{re.escape(forbidden)}")
         for required in ("id: workflow", "id: failure", "id: proof", "id: boundary"):

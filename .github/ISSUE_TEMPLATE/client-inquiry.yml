@@ -1,5 +1,5 @@
-name: Scoped workflow inquiry
-description: Describe one unreliable AI or data handoff without sharing private data.
+name: AI Systems Proof Sprint — scoped inquiry
+description: Describe one sanitized AI or data handoff for the fixed $1,500, 3–5 working day first step; this form is review-only.
 title: "[inquiry] "
 labels: ["client-inquiry", "review-required"]
 body:
@@ -7,6 +7,8 @@ body:
     attributes:
       value: |
         This is a public issue. Do not include credentials, personal data, customer records, private URLs, proprietary code, or security-sensitive details. A public summary is enough to decide whether a private next step is useful.
+        This review-only form is for the AI Systems Proof Sprint: one fixed $1,500, 3–5 working day first step delivering one fail-closed provenance adapter, hostile proof, and reviewable handoff.
+        Submitting this form does not purchase a sprint, accept a contract, reserve capacity, or authorize a production or external action.
   - type: input
     id: workflow
     attributes:
