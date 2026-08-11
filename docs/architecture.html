@@ -44,7 +44,7 @@
           <p class="eyebrow">Four invariants</p>
           <h2>Reasoning may be probabilistic. Promotion must be explicit.</h2>
           <ol>
-            <li><strong>Exact contracts:</strong> expected keys, types, identity, source generation, and authority are checked before an artifact becomes eligible.</li>
+            <li><strong>Exact public contract:</strong> expected keys and types, case and fact identities, evidence hashes, freshness, conflicts, and false external authority are checked before the synthetic artifact becomes eligible.</li>
             <li><strong>Content and evidence-time binding:</strong> the public gate binds fact identifiers and hashes, rejects stale facts, and holds conflicting independent sources. Product-specific request, agent, dataset, prompt, or target-state identity belongs in the adapter contract when that boundary requires it.</li>
             <li><strong>Bounded uncertainty:</strong> retries have a finite attempt budget and named terminal states. An unknown effect is not silently converted into success.</li>
             <li><strong>Explicit authority:</strong> a review receipt is not a send, write, deployment, order, or payment permit. External action remains false until its real owner grants it.</li>
@@ -91,7 +91,7 @@ external_action_authorized = false</code></pre>
             <li><strong>Missing:</strong> a required fact, score, trace, or source never arrived.</li>
             <li><strong>Stale:</strong> evidence is structurally correct but outside the accepted epoch.</li>
             <li><strong>Conflicting:</strong> independent fresh sources disagree.</li>
-            <li><strong>Substituted:</strong> the artifact identity or bytes drift after validation.</li>
+            <li><strong>Digest mismatch:</strong> EGOH receives evidence whose declared digest does not match its canonical bytes. A client adapter can extend this into descriptor-bound source and target revalidation where required.</li>
             <li><strong>Duplicate:</strong> a replay tries to create a second owner or effect.</li>
             <li><strong>Unknown outcome:</strong> transport ended before effect identity was proven.</li>
           </ul>
