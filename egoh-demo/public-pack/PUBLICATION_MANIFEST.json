@@ -13,7 +13,7 @@
   "files": [
     {
       "path": ".github/ISSUE_TEMPLATE/client-inquiry.yml",
-      "sha256": "b0911298e7dfff0409fb451534290048c786953800b4ec14d6e6b260b179bef9"
+      "sha256": "40f233c1008f96153d3286657019cdef9b11aa89185c5660f2a572013e9b324c"
     },
     {
       "path": ".github/workflows/pages.yml",
@@ -253,8 +253,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "1c40198ed28ef0cd12175a3b75f91ad3f15956b210858682e2890a6b7dddd9e4"
+      "sha256": "30ffec1b85f3f4d4588ae507107de4277becb4ece622b079cf4520b5a633c6ab"
     }
   ],
-  "tree_sha256": "e953dbd218d7078a9ed708b5806001319cbe1cb70321536f2694c167d8cc9cb9"
+  "tree_sha256": "67e08635913668e4e1663d162d8a9cfdd0055f1fcc52a58782357aeb5849312c"
 }
