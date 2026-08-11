@@ -60,12 +60,16 @@
       "sha256": "e7bcf8e280a8f00f070ffc405dede233dfdca0044818955143adfe0a8050afc0"
     },
     {
+      "path": "docs/architecture.html",
+      "sha256": "bf1bd9bef6630f693cacf62c2d7f55f9cf971efb7506d491eb2b2c239d05c60b"
+    },
+    {
       "path": "docs/case-study.html",
       "sha256": "485e74bd010fe55e16e46173a67692b7230054339854455d15cd393ffa44b617"
     },
     {
       "path": "docs/en.html",
-      "sha256": "8ef7f3819fbcdabefc2c982c4cb07bfeba90baa8db2bf8efcf94e7ef3f0b462e"
+      "sha256": "7086b719f271549cf88b22467098c0787232f1dfb5044e3bc2c9fec1fdafef2e"
     },
     {
       "path": "docs/index.html",
@@ -89,7 +93,7 @@
     },
     {
       "path": "docs/sitemap.xml",
-      "sha256": "3bfb522b5ee2f25e6876669b207a4eb41e7abf4a60a511a19b622d1ee2528907"
+      "sha256": "7d656f704a26af46a5d1a3f2434da36efd77678cc210d189784633d041993e33"
     },
     {
       "path": "docs/styles.css",
@@ -209,7 +213,7 @@
     },
     {
       "path": "evidence-gate/tests/test_evidence_gate.py",
-      "sha256": "ff1f0ca9f401351ad8f6c4001fd48bd16b2c72402d4eeaba19c1057199d08463"
+      "sha256": "08d46eae61e679b5b4686bce814650e357d3208dd78641a39beda384e5b4556a"
     },
     {
       "path": "generate_publication_manifest.py",
@@ -245,8 +249,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "54570b85d91854c4e2619af0d3390a3e3b15109626b9b84580a02c80f258b9aa"
+      "sha256": "b440b7579ab48d69b9d61aafd76c94081cd9653c68df3a7e7d934f0a46c1af98"
     }
   ],
-  "tree_sha256": "f3e29abe4115eab83eef0c7dbb01c695d44424ff8b416d295b11ef73adcd4a84"
+  "tree_sha256": "e48a62402867c84a67f10f4b44d810aca286a6f9c2f6ecb076daadada63c5ce6"
 }

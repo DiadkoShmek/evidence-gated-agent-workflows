@@ -19,7 +19,7 @@ PRIVATE_MARKER = re.compile(
     re.IGNORECASE,
 )
 PUBLIC_CONTACT_EMAIL = "onyskoartur" + chr(64) + "gmail.com"
-PUBLIC_CONTACT_PATHS = {"docs/case-study.html", "docs/en.html", "docs/index.html"}
+PUBLIC_CONTACT_PATHS = {"docs/architecture.html", "docs/case-study.html", "docs/en.html", "docs/index.html"}
 
 
 def fixture(name):
