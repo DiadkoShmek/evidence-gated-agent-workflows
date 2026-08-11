@@ -456,6 +456,8 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertNotIn("source generation, and authority are checked", architecture)
         self.assertIn("does not establish production safety", architecture)
         self.assertIn('href="architecture.html"', english)
+        self.assertIn('href="architecture.html"', LANDING.read_text(encoding="utf-8"))
+        self.assertIn("architecture of the evidence-gated boundary", (ROOT / "README.md").read_text(encoding="utf-8"))
         self.assertIn("https://diadkoshmek.github.io/evidence-gated-agent-workflows/architecture.html", sitemap)
         for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
             self.assertNotIn(forbidden, architecture)
