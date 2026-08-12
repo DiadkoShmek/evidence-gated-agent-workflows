@@ -513,11 +513,11 @@ class PublicationCandidateTest(unittest.TestCase):
             page,
         )
         self.assertIn(
-            '<a class="button secondary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/releases/tag/public-proof-v1.5.0">Download immutable public proof v1.5</a>',
+            '<a class="button secondary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/releases/tag/public-proof-v1.6.0">Download immutable public proof v1.6</a>',
             page,
         )
         self.assertIn(
-            "The repository link follows source changes; v1.5 is the immutable release snapshot with its published checksum.",
+            "The repository link follows source changes; v1.6 is the immutable release snapshot with its published checksum.",
             page,
         )
         self.assertEqual(page.count('href="en.html#intake"'), 2)
