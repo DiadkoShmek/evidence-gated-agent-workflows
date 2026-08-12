@@ -6,7 +6,7 @@ fail honestly instead of inventing a successful result.
 ## For AI engineers
 
 Read the [architecture of the evidence-gated boundary](https://diadkoshmek.github.io/evidence-gated-agent-workflows/architecture.html)
-before the service page. It separates six checked owners instead of presenting
+before the service page. It separates seven checked owners instead of presenting
 one vague “AI safety” layer:
 
 - exact evidence admission with fact identity, hashes, freshness and conflicts;
@@ -18,6 +18,8 @@ one vague “AI safety” layer:
   before a local review-required handoff.
 - typed action request, pre-state and simulator binding in a frozen pre-effect
   commitment before a deterministic local simulation receipt.
+- exact source hashes and deterministic lexical retrieval before a raw-free
+  `local-context-review-ready` result with every effect authority false.
 
 The public reference keeps external action authority false. Its immutable
 artifact demo proves one synthetic local filesystem boundary; a client adapter
@@ -129,6 +131,14 @@ identity conflict, schema or argument drift, foreign/expired review fixtures,
 caller-supplied authority and simulator mismatch hold without a receipt. The
 result is raw-free `review-required` metadata with every real effect counter at
 zero—not a real tool call, authenticated approval, or execution-safety claim.
+
+### [Bounded local-context review](bounded-rag-review/README.md)
+
+Binds synthetic local source text to exact SHA-256 identities, ranks it by
+deterministic lexical overlap, and exposes only raw-free source metadata for a
+review-only result. Irrelevant queries, digest conflicts, duplicate sources,
+noncanonical requests and every non-review effect hold. This is not semantic
+RAG quality, an LLM answer, a vector database, or a production retrieval claim.
 
 ### [Evidence-Gated Operator Handoff](egoh-demo/README.md)
 

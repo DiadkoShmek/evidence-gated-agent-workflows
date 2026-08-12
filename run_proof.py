@@ -29,6 +29,8 @@ def main() -> None:
     run(ROOT / "immutable-artifact-handoff-demo", "run_demo.py")
     run(ROOT / "agent-action-admission-demo", "-m", "unittest", "discover", "-s", "tests", "-v")
     run(ROOT / "agent-action-admission-demo", "run_demo.py")
+    run(ROOT / "bounded-rag-review", "-m", "unittest", "-v", "test_bounded_rag_review.py")
+    run(ROOT / "bounded-rag-review", "run_demo.py")
     run(ROOT / "egoh-demo", "-m", "unittest", "-v", "tests.test_egoh_demo")
     run(
         ROOT / "egoh-demo",

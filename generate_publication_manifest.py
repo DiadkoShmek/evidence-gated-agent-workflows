@@ -66,6 +66,7 @@ def content_paths(root: Path = ROOT) -> list[Path]:
         root / "operating-core-demo",
         root / "immutable-artifact-handoff-demo",
         root / "agent-action-admission-demo",
+        root / "bounded-rag-review",
     ):
         if directory.is_dir():
             paths.update(path for path in directory.rglob("*") if path.is_file())
