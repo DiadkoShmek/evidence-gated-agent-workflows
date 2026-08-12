@@ -41,7 +41,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "42a61c9584d8ad8dcaa813aab21a43aae248c55a7239d7286502d0ac368a55e2"
+      "sha256": "b79977c083d05bb0b043fd7e0cef7849f6d8187141478c53d8163364f2248671"
     },
     {
       "path": "agent-action-admission-demo/README.md",
@@ -80,12 +80,28 @@
       "sha256": "e7bcf8e280a8f00f070ffc405dede233dfdca0044818955143adfe0a8050afc0"
     },
     {
+      "path": "bounded-rag-review/README.md",
+      "sha256": "d2405d0211c63163339201af2244c59cdcb277720b71621e60bcaf25a7346f5e"
+    },
+    {
+      "path": "bounded-rag-review/bounded_rag_review.py",
+      "sha256": "184bd7b3b243fc4e33d2006d6abb676dacc5bf365e38179dd65ff237929511b1"
+    },
+    {
+      "path": "bounded-rag-review/run_demo.py",
+      "sha256": "0d7667f0d1da3989f77b77d68b17a3c3a88f5b1f94b7c7f2c43f25aab92ed940"
+    },
+    {
+      "path": "bounded-rag-review/test_bounded_rag_review.py",
+      "sha256": "cdb622fae4d8bfd68facd25b1e5fc6d080cf64c1ef0d27b619a3423f84fc2631"
+    },
+    {
       "path": "docs/ai-systems-sprint.html",
       "sha256": "514a34b75e3f4ea82e686006a548eb84d42b1f9eb2f54879e80e6f7f46918b9c"
     },
     {
       "path": "docs/architecture.html",
-      "sha256": "b0e5d2330740de2ae3f4a16f04332975aeb5e2c82ab990fd12fffeed84473ad3"
+      "sha256": "e8df5a1c090b628099d2d65ebad65e7146151742820cf5ca3d57ff2e85c4a1e0"
     },
     {
       "path": "docs/case-study.html",
@@ -241,7 +257,7 @@
     },
     {
       "path": "generate_publication_manifest.py",
-      "sha256": "61a4b16ce1326aa5018e85a976738c416cd4fa05769ac0ce37c63cc44d8de086"
+      "sha256": "de4707a77028f9b1fcf5b992d7ff788c2fe8b76d94c51c50b6475bc6beb29db2"
     },
     {
       "path": "immutable-artifact-handoff-demo/README.md",
@@ -289,12 +305,12 @@
     },
     {
       "path": "run_proof.py",
-      "sha256": "5e1f972fe3850a7e2cc108b00ac39b395887f2ae1960e7f95d0199d8ceee8f68"
+      "sha256": "9657e9ba34360e50f33826a28d742734dfadce98e484286a47afbadcc5ffd17a"
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "04bf7bea47958db525cc7e89f631ad173c9e11179d5a4693218414da746c5f49"
+      "sha256": "9f747ccbaa6e80f138aa75f648c919961bccacfd99164f4ab60ccdcc2d71c479"
     }
   ],
-  "tree_sha256": "19c569db4552699f6002b66c813e44412971f6729d1b40714a02a08ba2893cf4"
+  "tree_sha256": "12fdbfcf152bf572f0a786441059b9088c006afbd2a91967876840ad96da51a7"
 }
