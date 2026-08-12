@@ -93,11 +93,11 @@
     },
     {
       "path": "docs/en.html",
-      "sha256": "72efaf997113a5201947351ed04958b20e39a586246ada56b4d136144a75b264"
+      "sha256": "cfbefba527a299dfe88925691e19758feda7b192e04bf054b27888415258d19d"
     },
     {
       "path": "docs/index.html",
-      "sha256": "e80139e82c8a729dd97b37e587f9eae25a3725914f7f3ebf1fc5752be2410d47"
+      "sha256": "219d3782093765210c45bc8490ddf1a924b95d3f2f92731c723e7bbd5fc3878f"
     },
     {
       "path": "docs/intake-experience.js",
@@ -293,8 +293,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "656acda468857c924ae8b5a760737be2e3b51917f44fdf0ee061402f86d12793"
+      "sha256": "c36d2bdaa16b32655567d1a4d3c218b9d1c532bb810b51d18030ae926bce9c6a"
     }
   ],
-  "tree_sha256": "3a34678b345a59fab031cfef8594d469c6b30a5a5f60d587eb18e19671cc9646"
+  "tree_sha256": "0226973840ede7b7001649858875276dfbde0eaf15e0c6fbe18975ef65c6616e"
 }
