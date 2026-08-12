@@ -1334,6 +1334,21 @@ class PublicationCandidateTest(unittest.TestCase):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertNotIn("sanitized workflow inquiry", readme)
 
+    def test_agent_action_demo_routes_manually_to_local_intake_without_prefill(self) -> None:
+        readme = (ROOT / "agent-action-admission-demo" / "README.md").read_text(
+            encoding="utf-8"
+        )
+        intake_url = (
+            "https://diadkoshmek.github.io/"
+            "evidence-gated-agent-workflows/en.html#intake"
+        )
+        self.assertEqual(readme.count(intake_url), 1)
+        self.assertIn("manually select **Agent result to internal tool**", readme)
+        self.assertIn("does not copy", readme)
+        self.assertIn("prefill the public Issue Form", readme)
+        self.assertIn("or submit anything", readme)
+        self.assertNotRegex(intake_url, r"[?&](?:workflow|failure|proof|boundary)=")
+
     def test_public_inquiry_binds_exact_first_sprint_intake_contract(self) -> None:
         inquiry = INQUIRY.read_text(encoding="utf-8")
         self.assertRegex(inquiry, re.compile(r'^title: "\[inquiry\] "$', re.MULTILINE))
