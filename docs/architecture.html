@@ -72,7 +72,7 @@ external_action_authorized = false</code></pre>
             <dt>Polling contract</dt><dd>fingerprint reuse, finite attempts, backoff, timeout, unknown-id terminal state</dd>
             <dt>EGOH journal</dt><dd>scenario + evidence digest + decision replay, with conflicting records refused</dd>
             <dt>Operating core</dt><dd>only admitted evidence enters the lifecycle; complete work still requires a separately accepted EGOH observation before review</dd>
-            <dt>Immutable artifact handoff</dt><dd>artifact bytes publish before the receipt; held nofollow descriptors and terminal inode/byte revalidation refuse partial or replaced bundles</dd>
+            <dt>Immutable artifact handoff</dt><dd>artifact bytes publish before the receipt; held nofollow descriptors validate one historical byte family, while a later load must revalidate current canonical paths</dd>
             <dt>Agent action admission</dt><dd>a typed request, exact pre-state, tool manifest and simulator contract are committed before a fixed local transition is recomputed into raw-free review metadata</dd>
           </dl>
         </section>
