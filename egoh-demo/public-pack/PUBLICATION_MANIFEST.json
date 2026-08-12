@@ -41,7 +41,27 @@
     },
     {
       "path": "README.md",
-      "sha256": "99fc3e8c4e414e93f6db1bf067188a7e18aa7130767ba869357977280cf7aef3"
+      "sha256": "d3a39b8a9cdcca5528731389fb53b307e21ef9d33d9f2fce818765cccf69197d"
+    },
+    {
+      "path": "agent-action-admission-demo/README.md",
+      "sha256": "abdbbaa27fc55e910484dc424c5ea919169b36ac86f32e60b8edd73f9e4c3cf3"
+    },
+    {
+      "path": "agent-action-admission-demo/agent_action_admission.py",
+      "sha256": "3f84a0f3f8970084cfbc96fb1134bfc3d73f1ef5e3abca77c421473ae479033c"
+    },
+    {
+      "path": "agent-action-admission-demo/run_demo.py",
+      "sha256": "127e3d6ace5e07bc783d241bfd8850918de126ba5f565122648c8bda34906672"
+    },
+    {
+      "path": "agent-action-admission-demo/tests/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "agent-action-admission-demo/tests/test_agent_action_admission.py",
+      "sha256": "9380ff35787716dc9d66295b5ca70952173ccb6bac861ac542ef0ad3ab5a94f4"
     },
     {
       "path": "async-polling-contract/README.md",
@@ -61,11 +81,11 @@
     },
     {
       "path": "docs/ai-systems-sprint.html",
-      "sha256": "55da551aa3651867f7f2fcc2577b56b43f9fdbd8c2940a48513021d5a79477bb"
+      "sha256": "640d41bc4d0f664572154c7c471a32c57c3cb5b5a3f7e0c2067bc57dc7218d9e"
     },
     {
       "path": "docs/architecture.html",
-      "sha256": "8a8c4cce75c85a05829bbb96edf476938bec406a91d88d4f3c802738fc445662"
+      "sha256": "f5913c758fa2247abf9c3d2c251a6ebfe46a74144d1e3ef60121abed148d4184"
     },
     {
       "path": "docs/case-study.html",
@@ -221,7 +241,7 @@
     },
     {
       "path": "generate_publication_manifest.py",
-      "sha256": "5965f4b9bc1e4c797c6620ccbf66fe5706a342894c38335690103e5d6251f583"
+      "sha256": "61a4b16ce1326aa5018e85a976738c416cd4fa05769ac0ce37c63cc44d8de086"
     },
     {
       "path": "immutable-artifact-handoff-demo/README.md",
@@ -269,12 +289,12 @@
     },
     {
       "path": "run_proof.py",
-      "sha256": "efc4b4df9a72389a95afa75bf30efd8044664900afd45a822549c64533dc20e9"
+      "sha256": "5e1f972fe3850a7e2cc108b00ac39b395887f2ae1960e7f95d0199d8ceee8f68"
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "86f4aa1e3bf9dacdb6a3983e2ba4af2a14fd80bbe83d27efa15694f8b1293e2b"
+      "sha256": "9537b950fa4c245281327662d83ae2c2c065e1c7e6929c741443568340f7a8f5"
     }
   ],
-  "tree_sha256": "d96ccd7246503ea10e24aba637e6c2f3be47c3c529c8c81df26963700f86d572"
+  "tree_sha256": "ddd34880265c34277c7607aae935e6c5daf730be6611cf18bc794305428290c4"
 }
