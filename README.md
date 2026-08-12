@@ -6,7 +6,7 @@ fail honestly instead of inventing a successful result.
 ## For AI engineers
 
 Read the [architecture of the evidence-gated boundary](https://diadkoshmek.github.io/evidence-gated-agent-workflows/architecture.html)
-before the service page. It separates five checked owners instead of presenting
+before the service page. It separates six checked owners instead of presenting
 one vague “AI safety” layer:
 
 - exact evidence admission with fact identity, hashes, freshness and conflicts;
@@ -16,6 +16,8 @@ one vague “AI safety” layer:
   EGOH acceptance before producing a review-required handoff;
 - receipt-last immutable artifact publication and descriptor-pinned readback
   before a local review-required handoff.
+- typed action request, pre-state and simulator binding in a frozen pre-effect
+  commitment before a deterministic local simulation receipt.
 
 The public reference keeps external action authority false. Its immutable
 artifact demo proves one synthetic local filesystem boundary; a client adapter
@@ -118,6 +120,15 @@ loads the bundle through held nofollow descriptors before producing a local
 digest conflict, partial publication, replay conflict, and concurrent writers
 fail closed. It proves this checked-in local fixture only—not a deployment,
 provider, model, trading, or external-effect boundary.
+
+### [Agent action admission](agent-action-admission-demo/README.md)
+
+Commits one strict typed action request, exact pre-state, tool manifest and
+simulator contract before a fixed pure transition model runs. Unknown tools,
+identity conflict, schema or argument drift, foreign/expired review fixtures,
+caller-supplied authority and simulator mismatch hold without a receipt. The
+result is raw-free `review-required` metadata with every real effect counter at
+zero—not a real tool call, authenticated approval, or execution-safety claim.
 
 ### [Evidence-Gated Operator Handoff](egoh-demo/README.md)
 
