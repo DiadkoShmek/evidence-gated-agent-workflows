@@ -455,6 +455,7 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertIn("six small owners", architecture)
         self.assertNotIn("five small owners", architecture)
         self.assertIn("Immutable artifact handoff", architecture)
+        self.assertIn("historical byte family", architecture)
         self.assertIn("Agent action admission", architecture)
         self.assertIn("typed pre-effect commitment before deterministic local simulation", architecture)
         self.assertIn("receipt-last descriptor-pinned artifact handoff", architecture)
