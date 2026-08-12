@@ -20,9 +20,12 @@ REQUEST_SCHEMA = "synthetic-agent-action-request-v1"
 REVIEW_SCHEMA = "synthetic-action-review-fixture-v1"
 COMMITMENT_SCHEMA = "agent-action-pre-effect-commitment-v1"
 RECEIPT_SCHEMA = "agent-action-simulation-receipt-v1"
+OWNER_SNAPSHOT_SCHEMA = "agent-action-owner-snapshot-v1"
 SIMULATOR_CONTRACT = "set-ticket-priority-deterministic-simulator-v1"
 SIMULATOR_CONTRACT_SHA256 = hashlib.sha256(SIMULATOR_CONTRACT.encode("ascii")).hexdigest()
 MAX_REVIEW_TTL_SECONDS = 3_600
+MAX_OWNER_SNAPSHOT_BYTES = 262_144
+MAX_OWNER_SNAPSHOT_COMMITMENTS = 64
 TOOL_MANIFEST = {
     "name": "set-ticket-priority",
     "schema_version": "1",
@@ -55,7 +58,15 @@ def _reject_duplicate_pairs(pairs: list[tuple[str, object]]) -> dict[str, object
 
 
 def _load_canonical_json(raw: object, reason: str) -> dict[str, Any]:
-    if type(raw) is not bytes or not raw or len(raw) > 16_384:
+    return _load_canonical_json_bounded(raw, reason, 16_384)
+
+
+def _load_canonical_json_bounded(
+    raw: object,
+    reason: str,
+    maximum_bytes: int,
+) -> dict[str, Any]:
+    if type(raw) is not bytes or not raw or len(raw) > maximum_bytes:
         raise AdmissionError(reason)
     try:
         decoded = raw.decode("utf-8")
@@ -182,6 +193,100 @@ class CommitmentOwner:
             raise AdmissionError("commitment-not-current")
         _assert_commitment_consistent(current)
         return current
+
+    def export_snapshot(self) -> bytes:
+        """Export one private caller-held continuity packet, never a receipt."""
+        if len(self._by_action_id) > MAX_OWNER_SNAPSHOT_COMMITMENTS:
+            raise AdmissionError("owner-snapshot-commitments-invalid")
+        commitments = []
+        for action_id in sorted(self._by_action_id):
+            commitment = self.require_current(self._by_action_id[action_id])
+            commitments.append({**commitment.public(), "request_hex": commitment._request_bytes.hex()})
+        payload = {
+            "schema": OWNER_SNAPSHOT_SCHEMA,
+            "tool_manifest_sha256": sha256_json(TOOL_MANIFEST),
+            "simulator_contract_sha256": SIMULATOR_CONTRACT_SHA256,
+            "commitments": commitments,
+        }
+        snapshot = {**payload, "snapshot_sha256": sha256_json(payload)}
+        encoded = canonical_json(snapshot).encode("utf-8")
+        if len(encoded) > MAX_OWNER_SNAPSHOT_BYTES:
+            raise AdmissionError("owner-snapshot-too-large")
+        return encoded
+
+    @classmethod
+    def restore_snapshot(cls, raw_snapshot: bytes) -> "CommitmentOwner":
+        """Rebuild process-local ownership from an exact caller-held packet."""
+        snapshot = _load_canonical_json_bounded(
+            raw_snapshot,
+            "owner-snapshot-json-invalid",
+            MAX_OWNER_SNAPSHOT_BYTES,
+        )
+        _exact_dict(
+            snapshot,
+            {
+                "schema",
+                "tool_manifest_sha256",
+                "simulator_contract_sha256",
+                "commitments",
+                "snapshot_sha256",
+            },
+            "owner-snapshot-schema-invalid",
+        )
+        payload = {key: value for key, value in snapshot.items() if key != "snapshot_sha256"}
+        if snapshot["schema"] != OWNER_SNAPSHOT_SCHEMA or snapshot["snapshot_sha256"] != sha256_json(payload):
+            raise AdmissionError("owner-snapshot-binding-invalid")
+        if snapshot["tool_manifest_sha256"] != sha256_json(TOOL_MANIFEST):
+            raise AdmissionError("owner-snapshot-tool-manifest-drift")
+        if snapshot["simulator_contract_sha256"] != SIMULATOR_CONTRACT_SHA256:
+            raise AdmissionError("owner-snapshot-simulator-drift")
+        entries = snapshot["commitments"]
+        if type(entries) is not list or len(entries) > MAX_OWNER_SNAPSHOT_COMMITMENTS:
+            raise AdmissionError("owner-snapshot-commitments-invalid")
+        owner = cls()
+        previous_action_id: str | None = None
+        public_keys = {
+            "schema",
+            "action_id",
+            "request_sha256",
+            "tool_manifest_sha256",
+            "pre_state_sha256",
+            "expected_state_sha256",
+            "simulator_contract_sha256",
+            "commitment_sha256",
+        }
+        for entry_value in entries:
+            entry = _exact_dict(
+                entry_value,
+                public_keys | {"request_hex"},
+                "owner-snapshot-commitment-invalid",
+            )
+            action_id = entry["action_id"]
+            if (
+                type(action_id) is not str
+                or not ACTION_ID.fullmatch(action_id)
+                or previous_action_id is not None
+                and action_id <= previous_action_id
+            ):
+                raise AdmissionError("owner-snapshot-order-invalid")
+            request_hex = entry["request_hex"]
+            if (
+                type(request_hex) is not str
+                or len(request_hex) > 32_768
+                or len(request_hex) % 2
+                or re.fullmatch(r"[0-9a-f]*", request_hex) is None
+            ):
+                raise AdmissionError("owner-snapshot-request-invalid")
+            request_bytes = bytes.fromhex(request_hex)
+            commitment = Commitment(
+                **{key: entry[key] for key in public_keys},
+                _request_bytes=request_bytes,
+                _owner_nonce=owner.__nonce,
+            )
+            _assert_commitment_consistent(commitment)
+            owner._by_action_id[action_id] = commitment
+            previous_action_id = action_id
+        return owner
 
 
 def _assert_commitment_consistent(commitment: Commitment) -> None:

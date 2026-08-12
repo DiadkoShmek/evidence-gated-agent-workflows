@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 from datetime import datetime, timezone
 
 from agent_action_admission import COMMITMENT_SCHEMA, REVIEW_SCHEMA, CommitmentOwner, canonical_json, simulate_for_review
@@ -17,6 +18,10 @@ def main() -> None:
     owner = CommitmentOwner()
     commitment, replayed = owner.commit(canonical_json(request).encode("utf-8"))
     assert commitment.schema == COMMITMENT_SCHEMA
+    continuity_packet = owner.export_snapshot()
+    owner = CommitmentOwner.restore_snapshot(continuity_packet)
+    commitment, restart_replayed = owner.commit(canonical_json(request).encode("utf-8"))
+    assert restart_replayed
     review = {
         "schema": REVIEW_SCHEMA,
         "action_id": request["action_id"],
@@ -33,7 +38,13 @@ def main() -> None:
         canonical_json(review).encode("utf-8"),
         now=datetime(2026, 8, 12, 0, 30, tzinfo=timezone.utc),
     )
-    print(json.dumps({"status": receipt["status"], "commitment_replayed": replayed, "receipt": receipt}, sort_keys=True))
+    print(json.dumps({
+        "status": receipt["status"],
+        "commitment_replayed": replayed,
+        "restart_replayed": restart_replayed,
+        "continuity_packet_sha256": hashlib.sha256(continuity_packet).hexdigest(),
+        "receipt": receipt,
+    }, sort_keys=True))
 
 
 if __name__ == "__main__":
