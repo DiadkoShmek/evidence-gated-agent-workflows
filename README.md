@@ -1,23 +1,25 @@
 # Evidence-gated Agent Workflows
 
-Two small, dependency-free Python references for automation systems that must
+Small, dependency-free Python references for automation systems that must
 fail honestly instead of inventing a successful result.
 
 ## For AI engineers
 
 Read the [architecture of the evidence-gated boundary](https://diadkoshmek.github.io/evidence-gated-agent-workflows/architecture.html)
-before the service page. It separates four checked owners instead of presenting
+before the service page. It separates five checked owners instead of presenting
 one vague “AI safety” layer:
 
 - exact evidence admission with fact identity, hashes, freshness and conflicts;
 - fingerprint reuse and bounded terminal states for asynchronous polling;
 - scenario/evidence/decision replay and conflict refusal in the EGOH journal;
 - a composed synthetic core that requires lifecycle completion and independent
-  EGOH acceptance before producing a review-required handoff.
+  EGOH acceptance before producing a review-required handoff;
+- receipt-last immutable artifact publication and descriptor-pinned readback
+  before a local review-required handoff.
 
-The public reference keeps external action authority false. Descriptor-bound
-source/target revalidation is implemented only when a real adapter contract
-requires it; it is not claimed by the synthetic demo.
+The public reference keeps external action authority false. Its immutable
+artifact demo proves one synthetic local filesystem boundary; a client adapter
+still needs its own source, target, identity, authority, and effect contract.
 
 For teams working on agent memory, retrieval, evaluation, tool execution, or
 durable workflow state, the [AI Systems Proof Sprint](https://diadkoshmek.github.io/evidence-gated-agent-workflows/ai-systems-sprint.html)
@@ -107,6 +109,15 @@ APIs into one frozen synthetic chain. Only `draft` enters the lifecycle; only
 exact `complete` reaches a local `review-required` handoff. All other paths
 hold with zero effects and no authority. It is a local reference, not a
 provider, production, delivery, or external-action claim.
+
+### [Immutable artifact handoff](immutable-artifact-handoff-demo/README.md)
+
+Publishes synthetic artifact bytes first and a canonical receipt last, then
+loads the bundle through held nofollow descriptors before producing a local
+`review-required` handoff. Missing receipts, namespace replacement, symlinks,
+digest conflict, partial publication, replay conflict, and concurrent writers
+fail closed. It proves this checked-in local fixture only—not a deployment,
+provider, model, trading, or external-effect boundary.
 
 ### [Evidence-Gated Operator Handoff](egoh-demo/README.md)
 

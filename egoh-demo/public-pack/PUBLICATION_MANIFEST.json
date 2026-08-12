@@ -41,7 +41,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "bd60a1cb27c55e5bcfa1fd5145bdd2fa2ef0dfa9cd4728fdf8727845e6dcd197"
+      "sha256": "99fc3e8c4e414e93f6db1bf067188a7e18aa7130767ba869357977280cf7aef3"
     },
     {
       "path": "async-polling-contract/README.md",
@@ -61,11 +61,11 @@
     },
     {
       "path": "docs/ai-systems-sprint.html",
-      "sha256": "1c7c1e6ed961d8a9b5d9e797bfc862a7986b530a77cb6ad739be8618105ba75a"
+      "sha256": "e481b7295ea677247244b2894263e69a30d3e831e206400ddff33864db11cd6a"
     },
     {
       "path": "docs/architecture.html",
-      "sha256": "2144d2fae6530d203f2953a00dee9ea808b109e642fd8f6a9f2bb53d0ea839eb"
+      "sha256": "8a8c4cce75c85a05829bbb96edf476938bec406a91d88d4f3c802738fc445662"
     },
     {
       "path": "docs/case-study.html",
@@ -221,7 +221,27 @@
     },
     {
       "path": "generate_publication_manifest.py",
-      "sha256": "bbbe79da5bf7b719f6a934da3afd50413fc098f287db6c69bcd9c419f1ff9f8d"
+      "sha256": "5965f4b9bc1e4c797c6620ccbf66fe5706a342894c38335690103e5d6251f583"
+    },
+    {
+      "path": "immutable-artifact-handoff-demo/README.md",
+      "sha256": "1e2fb493517d283e962aa5892cdb2464cc208cadbc617de1c541e5ae3edb6030"
+    },
+    {
+      "path": "immutable-artifact-handoff-demo/immutable_artifact_handoff.py",
+      "sha256": "a21b7b2e41096bba1e64d986fd88b02f1a6b759c11fca79c4da58f5064395df2"
+    },
+    {
+      "path": "immutable-artifact-handoff-demo/run_demo.py",
+      "sha256": "452cf3d85887c10e6d1f2991ac549ac08b4765993e6532bdfe6a4dd0c811d59b"
+    },
+    {
+      "path": "immutable-artifact-handoff-demo/tests/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "immutable-artifact-handoff-demo/tests/test_immutable_artifact_handoff.py",
+      "sha256": "d49586341dbd7c1eb31c6a97deef234cb70f4407c9b1f40b5d69d128f1f6f10e"
     },
     {
       "path": "operating-core-demo/README.md",
@@ -249,12 +269,12 @@
     },
     {
       "path": "run_proof.py",
-      "sha256": "8376d19687825b4d3e022433fc810d37696d49243b1d1008c7c9294e741dfbcb"
+      "sha256": "efc4b4df9a72389a95afa75bf30efd8044664900afd45a822549c64533dc20e9"
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "30ffec1b85f3f4d4588ae507107de4277becb4ece622b079cf4520b5a633c6ab"
+      "sha256": "0462357c28e29851e263b7b35d85b99f3997065825135d406cab56a8595a5eaa"
     }
   ],
-  "tree_sha256": "67e08635913668e4e1663d162d8a9cfdd0055f1fcc52a58782357aeb5849312c"
+  "tree_sha256": "74f38200c940197374f7d93b83f68feac65a302db01a045df1c79cccbec18c67"
 }
