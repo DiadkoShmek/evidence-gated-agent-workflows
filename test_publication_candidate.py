@@ -521,6 +521,14 @@ class PublicationCandidateTest(unittest.TestCase):
             "The repository link follows source changes; v1.7 is the immutable release snapshot with its published checksum.",
             page,
         )
+        issue_url = "https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml"
+        hero = re.search(r'<header class="article-hero shell">.*?</header>', page, re.DOTALL)
+        self.assertIsNotNone(hero)
+        hero_markup = hero.group(0)  # type: ignore[union-attr]
+        self.assertEqual(hero_markup.count(issue_url), 1)
+        self.assertIn(">Use the review-only issue form</a>", hero_markup)
+        self.assertIn('href="en.html#intake">Build a local review draft</a>', hero_markup)
+        self.assertEqual(page.count(issue_url), 2)
         self.assertEqual(page.count('href="en.html#intake"'), 2)
         self.assertEqual(page.count('>Build a local review draft</a>'), 2)
         intake = re.search(r'<section id="intake".*?</section>', english, re.DOTALL)
