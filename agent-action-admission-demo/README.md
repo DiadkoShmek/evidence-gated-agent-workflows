@@ -26,3 +26,8 @@ client adapter needs its own source, target, identity, authority, and uncertain
 effect contract. The V1 owner and replay identity are process-local and vanish
 on restart; the demo trusts its current Python process and is not a sandbox
 against code that deliberately mutates private in-process state.
+
+Have a real agent result that must not silently become an internal tool action?
+[Map that one boundary to a browser-local review draft](https://diadkoshmek.github.io/evidence-gated-agent-workflows/en.html#intake),
+then manually select **Agent result to internal tool**. The page does not copy
+this synthetic fixture, prefill the public Issue Form, or submit anything.
