@@ -30,6 +30,7 @@ HANDOFF_SCHEMA = "immutable-artifact-review-handoff-v1"
 ARTIFACT_NAME = "artifact.json"
 MAX_BYTES = 128 * 1024
 _TOKEN_FIELDS = ("st_dev", "st_ino", "st_mode", "st_uid", "st_gid", "st_nlink", "st_size", "st_mtime_ns", "st_ctime_ns")
+_IDENTITY_FIELDS = ("st_dev", "st_ino", "st_mode", "st_uid", "st_gid")
 
 
 def _sha256(raw: bytes) -> str:
@@ -42,6 +43,11 @@ def _canonical(value: Mapping[str, Any]) -> bytes:
 
 def _token(info: os.stat_result) -> tuple[int, ...]:
     return tuple(int(getattr(info, field)) for field in _TOKEN_FIELDS)
+
+
+def _identity_token(info: os.stat_result) -> tuple[int, ...]:
+    """Bind an ancestor entry without treating unrelated sibling churn as replacement."""
+    return tuple(int(getattr(info, field)) for field in _IDENTITY_FIELDS)
 
 
 def _name(value: str, reason: str) -> str:
@@ -204,7 +210,7 @@ class _HeldRoot:
                     raise _Held("root-ancestor-invalid")
                 os.close(fd)
                 fd = next_fd
-                components.append((part, _token(info)))
+                components.append((part, _identity_token(info)))
         except Exception:
             os.close(fd)
             raise
@@ -369,8 +375,9 @@ def _terminal_rewalk(
             if prior.token != current.token:
                 raise _Held(f"{label}-directory-replaced")
 
-        # The final mutable reads: newly held leaves are rehashed/read back and
-        # then this function immediately returns the already validated handoff.
+        # These held-FD reads define the historical validation linearization.
+        # A later pathname mutation cannot change the bytes returned here and
+        # is intentionally outside the current-path claim (which is false).
         for held_file, label in ((fresh_artifact, "artifact"), (fresh_manifest, "manifest"), (fresh_receipt, "receipt")):
             held_file.reattest(label)
         return handoff
@@ -441,6 +448,8 @@ def _load(root_path: Path, generation: str, after_read: Callable[[str], None] | 
             "artifact_sha256": artifact_hash,
             "manifest_sha256": manifest_hash,
             "review_status": "review-required",
+            "read_linearization": "HELD_FD_BYTES_AT_VALIDATION",
+            "canonical_path_current_after_return_claimed": False,
             "authority": AUTHORITY,
         }
         return _terminal_rewalk(root, generation, receipt_file, receipts, manifest_file, artifact_file, bundles, bundle, handoff)
