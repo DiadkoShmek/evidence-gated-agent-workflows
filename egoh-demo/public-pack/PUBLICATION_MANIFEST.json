@@ -17,7 +17,7 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "sha256": "1312b8fb88e1ec51d73306b86c662032a4525559e889833a20c420cec84a5635"
+      "sha256": "8f93d20f24042a08771f346464f03b1ade22aeb52e5d746918d6666515626eea"
     },
     {
       "path": ".github/workflows/proof.yml",
@@ -293,8 +293,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "7c547fbe5cc017d677390b6d1211015052b580616c56d23454bde0704802ddc2"
+      "sha256": "22542f61023d934e7b0e8005feedd2ca47461eae6bb52ce89d79b5f8721390e7"
     }
   ],
-  "tree_sha256": "68166aa76050c7e973c5fd66056d88a7d2ff1ad82dfc8f3b79142bea7cd25c02"
+  "tree_sha256": "77b39eb4b80c62444711f27daa19d11daaab382197d81c902ea60f4e31496ed1"
 }
