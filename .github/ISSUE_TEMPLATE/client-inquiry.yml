@@ -43,6 +43,19 @@ body:
         - "No — discovery and contract first"
     validations:
       required: true
+  - type: dropdown
+    id: discovery
+    attributes:
+      label: How did you find this sprint?
+      description: Buyer-declared acquisition source for aggregate inquiry-funnel measurement; this is not authenticated attribution.
+      options:
+        - "GitHub profile"
+        - "GitHub repository or release"
+        - "Search"
+        - "Referral or recommendation"
+        - "Other public source"
+    validations:
+      required: true
   - type: checkboxes
     id: boundary
     attributes:

@@ -13,7 +13,7 @@
   "files": [
     {
       "path": ".github/ISSUE_TEMPLATE/client-inquiry.yml",
-      "sha256": "40f233c1008f96153d3286657019cdef9b11aa89185c5660f2a572013e9b324c"
+      "sha256": "e067131ce872756d5bd222751ef5f3ef8c20f238f83141cbca4ced9c8b850fa9"
     },
     {
       "path": ".github/workflows/pages.yml",
@@ -93,15 +93,15 @@
     },
     {
       "path": "docs/en.html",
-      "sha256": "71fe98ae07b42a3172677ad21438c503b0d6975bce6047fb271f4538d3ba004d"
+      "sha256": "e6939cd9946270427491a8a0ed5638e4453086b1403589fb226505ac6ce9ec15"
     },
     {
       "path": "docs/index.html",
-      "sha256": "b417d08ff95f8e2024b8e5e3e9835f18fa1f8117f47d4e245d194c4db7f34915"
+      "sha256": "5d3516e16a1ddb0182733d6ba3bdbab6df6565078d7844ce071d7e128d9dff86"
     },
     {
       "path": "docs/intake-experience.js",
-      "sha256": "7f1c83a640b53e6500948334123fa40b043e5d5f2b2519199a300bd9f48a887f"
+      "sha256": "c72b4d0080032877fbaee74b381c1b89fc32439d6e19e5b4d2f476d52f3568e1"
     },
     {
       "path": "docs/operating-core-experience.js",
@@ -293,8 +293,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "4baad2d77cf4d083a8d359d2b39f21076cc03c830f45f98cb1668eada0e049cb"
+      "sha256": "3ab98c8cfda9402d50b6ceed7bc026a4dd11130acdcfa0ff5d3ed8b7e0292fba"
     }
   ],
-  "tree_sha256": "1d06c6f806c0b053d5e61cc9bf378c8868867b08733e1ba4e5fd5011dc6b3ae7"
+  "tree_sha256": "a16a7f7de9088659fac83ab5102d5f440e5bf00b6b97c09e09aabeceb2950e08"
 }
