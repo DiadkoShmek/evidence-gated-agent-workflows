@@ -452,13 +452,23 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertIn("external_action_authorized = false", architecture)
         self.assertIn("the synthetic polling reference does not claim it", architecture)
         self.assertIn("complete work still requires a separately accepted EGOH observation", architecture)
+        self.assertIn("five small owners", architecture)
+        self.assertIn("Immutable artifact handoff", architecture)
+        self.assertIn("receipt-last descriptor-pinned artifact handoff", architecture)
+        self.assertIn("symlinks, and replaced filesystem generations", architecture)
         self.assertIn("case and fact identities, evidence hashes, freshness, conflicts", architecture)
-        self.assertIn("A client adapter can extend this", architecture)
+        self.assertNotIn("A client adapter can extend this", architecture)
         self.assertNotIn("source generation, and authority are checked", architecture)
         self.assertIn("does not establish production safety", architecture)
         self.assertIn('href="architecture.html"', english)
         self.assertIn('href="architecture.html"', LANDING.read_text(encoding="utf-8"))
-        self.assertIn("architecture of the evidence-gated boundary", (ROOT / "README.md").read_text(encoding="utf-8"))
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("architecture of the evidence-gated boundary", readme)
+        self.assertIn("five checked owners", readme)
+        self.assertNotIn("four checked owners", readme)
+        self.assertIn("receipt-last immutable artifact publication", readme)
+        self.assertIn("Immutable artifact handoff", readme)
+        self.assertNotIn("it is not claimed by the synthetic demo", readme)
         self.assertIn("https://diadkoshmek.github.io/evidence-gated-agent-workflows/architecture.html", sitemap)
         for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
             self.assertNotIn(forbidden, architecture)
@@ -503,6 +513,13 @@ class PublicationCandidateTest(unittest.TestCase):
             "The repository link follows source changes; v1.4 is the immutable release snapshot with its published checksum.",
             page,
         )
+        self.assertEqual(page.count('href="en.html#intake"'), 2)
+        self.assertEqual(page.count('>Build a local review draft</a>'), 2)
+        intake = re.search(r'<section id="intake".*?</section>', english, re.DOTALL)
+        self.assertIsNotNone(intake)
+        self.assertIn("browser-local planning draft", intake.group(0))  # type: ignore[union-attr]
+        self.assertIn('"automatic_submit": false', intake.group(0))  # type: ignore[union-attr]
+        self.assertIn("Manually open the existing English public GitHub Issue Form", intake.group(0))  # type: ignore[union-attr]
         self.assertIn('href="ai-systems-sprint.html"', english)
         self.assertIn('href="ai-systems-sprint.html"', ukrainian)
         self.assertIn('href="ai-systems-sprint.html"', architecture)
