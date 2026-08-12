@@ -1347,6 +1347,11 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertIn("does not copy", readme)
         self.assertIn("prefill the public Issue Form", readme)
         self.assertIn("or submit anything", readme)
+        self.assertIn("fresh Python process", readme)
+        self.assertIn("caller-held and integrity-checked, not", readme)
+        self.assertIn("authenticated storage", readme)
+        self.assertIn("trusted caller can construct a different internally", readme)
+        self.assertIn("consistent packet", readme)
         self.assertNotRegex(intake_url, r"[?&](?:workflow|failure|proof|boundary)=")
 
     def test_public_inquiry_binds_exact_first_sprint_intake_contract(self) -> None:
