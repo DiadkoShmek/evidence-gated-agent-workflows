@@ -415,6 +415,32 @@ console.log(JSON.stringify({ initial, stages }));
 
 
 class PublicationCandidateTest(unittest.TestCase):
+    def assert_article_review_intake_topology(self, page: str, *, email_label: str) -> None:
+        issue_url = "https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml"
+        nav = re.search(r'<nav\b.*?</nav>', page, re.DOTALL)
+        self.assertIsNotNone(nav)
+        self.assertIn(
+            f'<a class="nav-cta" href="{issue_url}">Start review-only intake</a>',
+            nav.group(0),  # type: ignore[union-attr]
+        )
+        self.assertNotIn("mailto:", nav.group(0))  # type: ignore[union-attr]
+        article_cta = re.search(r'<div class="article-cta">.*?</div>\s*</section>', page, re.DOTALL)
+        self.assertIsNotNone(article_cta)
+        self.assertIn(
+            f'<a class="button primary" href="{issue_url}">Start review-only intake</a>',
+            article_cta.group(0),  # type: ignore[union-attr]
+        )
+        self.assertIn(
+            f'<a class="button secondary" href="mailto:{PUBLIC_CONTACT_EMAIL}?subject=One%20broken%20AI%20handoff">{email_label}</a>',
+            article_cta.group(0),  # type: ignore[union-attr]
+        )
+        self.assertEqual(page.count(issue_url), 2)
+        self.assertEqual(page.count('class="button primary" href="mailto:'), 0)
+        self.assertEqual(
+            page.count(f'href="mailto:{PUBLIC_CONTACT_EMAIL}?subject=One%20broken%20AI%20handoff"'),
+            1,
+        )
+
     def test_technical_case_study_is_indexable_bounded_and_linked(self) -> None:
         case_study = CASE_STUDY.read_text(encoding="utf-8")
         english = LANDING_EN.read_text(encoding="utf-8")
@@ -438,6 +464,9 @@ class PublicationCandidateTest(unittest.TestCase):
             5,
         )
         self.assertIn("https://diadkoshmek.github.io/evidence-gated-agent-workflows/case-study.html", sitemap)
+        self.assert_article_review_intake_topology(
+            case_study, email_label="Email one broken handoff",
+        )
         for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
             self.assertNotIn(forbidden, case_study)
 
@@ -476,6 +505,9 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertIn("Agent action admission", readme)
         self.assertNotIn("it is not claimed by the synthetic demo", readme)
         self.assertIn("https://diadkoshmek.github.io/evidence-gated-agent-workflows/architecture.html", sitemap)
+        self.assert_article_review_intake_topology(
+            architecture, email_label="Email one technical boundary",
+        )
         for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
             self.assertNotIn(forbidden, architecture)
 

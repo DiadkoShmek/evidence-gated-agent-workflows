@@ -85,11 +85,11 @@
     },
     {
       "path": "docs/architecture.html",
-      "sha256": "a54154772ba134b467c0dcc47a92d88088f583ada0646a3e6d33f46c99a23d68"
+      "sha256": "b0e5d2330740de2ae3f4a16f04332975aeb5e2c82ab990fd12fffeed84473ad3"
     },
     {
       "path": "docs/case-study.html",
-      "sha256": "cab0e07c5e00a8ed98a833c934d397c961176a7f2b402ea4d7fc4998e69e3faa"
+      "sha256": "effe87535c1c30ff2663514bb7bf9e6cab6a24fd1088c3cbd2f8cbadec71578a"
     },
     {
       "path": "docs/en.html",
@@ -293,8 +293,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "b808a428c3c17af432fcacaa9e308e28d4b9e9d7dedcec24fa6a44d14559e7ad"
+      "sha256": "04bf7bea47958db525cc7e89f631ad173c9e11179d5a4693218414da746c5f49"
     }
   ],
-  "tree_sha256": "068ea555934c4edae523936459bd5f3c67807d69e02938096f04dbb4aedf33ac"
+  "tree_sha256": "19c569db4552699f6002b66c813e44412971f6729d1b40714a02a08ba2893cf4"
 }
