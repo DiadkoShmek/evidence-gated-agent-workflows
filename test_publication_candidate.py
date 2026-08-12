@@ -1497,14 +1497,35 @@ class PublicationCandidateTest(unittest.TestCase):
         verify_block, deploy_block = workflow.split("\n  deploy:\n", 1)
         self.assertIn("needs: verify", workflow)
         self.assertIn("run: python3 run_proof.py", verify_block)
-        self.assertIn("path: docs", workflow)
+        self.assertIn("path: docs", verify_block)
         self.assertIn("contents: read", workflow)
         self.assertIn("pages: write", workflow)
         self.assertIn("id-token: write", workflow)
         self.assertNotIn("pull_request", workflow)
         self.assertNotRegex(workflow, r"uses:\s+actions/[^\s]+@v\d")
+        self.assertIn("actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d", verify_block)
+        self.assertIn("actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9", verify_block)
+        self.assertIn("actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128", deploy_block)
+        proof_step = "run: python3 run_proof.py"
+        configure_step = "actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d"
+        upload_step = "actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9"
+        self.assertEqual(verify_block.count(proof_step), 1)
+        self.assertEqual(verify_block.count(configure_step), 1)
+        self.assertEqual(verify_block.count(upload_step), 1)
+        self.assertLess(verify_block.index(proof_step), verify_block.index(configure_step))
+        self.assertLess(verify_block.index(configure_step), verify_block.index(upload_step))
+        self.assertNotIn("actions/configure-pages@", deploy_block)
+        self.assertNotIn("actions/upload-pages-artifact@", deploy_block)
+        self.assertNotIn("actions/checkout@", deploy_block)
         self.assertNotIn("setup-node", deploy_block)
         self.assertNotIn("run: python3 run_proof.py", deploy_block)
+        workflow_permissions = workflow.split("\npermissions:\n", 1)[1].split("\n\nconcurrency:\n", 1)[0]
+        self.assertEqual(workflow_permissions, "  contents: read")
+        self.assertNotIn("pages: write", verify_block)
+        self.assertNotIn("id-token: write", verify_block)
+        deploy_permissions = deploy_block.split("    permissions:\n", 1)[1].split("    environment:\n", 1)[0]
+        self.assertEqual(deploy_permissions, "      pages: write\n      id-token: write\n")
+        self.assertNotIn("contents: write", deploy_permissions)
 
     def test_proof_contract_declares_and_provisions_node_runtime_exactly(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
