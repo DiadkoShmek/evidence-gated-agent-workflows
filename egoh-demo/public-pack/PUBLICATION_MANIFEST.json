@@ -17,11 +17,11 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "sha256": "3d9dbe4cdfd334fe8495094faa5df3f3145509afc12cbcedef27fd15242a5f8f"
+      "sha256": "1312b8fb88e1ec51d73306b86c662032a4525559e889833a20c420cec84a5635"
     },
     {
       "path": ".github/workflows/proof.yml",
-      "sha256": "51d97b4e2b6f51f594cc1a11e384c958d485685ec666fdf0a32c97055781a341"
+      "sha256": "5983c87b97f87ddab341ff570cddbc8334d8b7dd4c093acfd3754d5e1ce06cda"
     },
     {
       "path": ".gitignore",
@@ -293,8 +293,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "c5b7cea9286d6ec5852c45f6b2b76579ce3e0741ef7d075b82172b03c11303a4"
+      "sha256": "f5afc42b64cfb43e7a95923f13bf63a257bc23a9912566d204d0485892dab6c2"
     }
   ],
-  "tree_sha256": "a11ae2b2a5261c9ea29f9637487e4fb3d81c5ac5186345582df1fd6017bbe751"
+  "tree_sha256": "628063c993f7b3b013db1e269ab615a2954ca4305abc642bbefb870fe71b73ea"
 }

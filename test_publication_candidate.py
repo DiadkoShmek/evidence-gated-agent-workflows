@@ -1504,9 +1504,9 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertIn("Python standard library and\nno installed packages", readme)
         self.assertIn("built-in `vm`, not npm or installed JavaScript packages", readme)
         expected_actions = (
-            "actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
-            "actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
-            "actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
+            "actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
         )
         for workflow_path in (PROOF_WORKFLOW, PAGES_WORKFLOW):
             workflow = workflow_path.read_text(encoding="utf-8")
@@ -1516,10 +1516,32 @@ class PublicationCandidateTest(unittest.TestCase):
             self.assertIn('node-version: "24.14.0"', workflow)
             self.assertIn("run: python3 run_proof.py", workflow)
             self.assertLess(
-                workflow.index("uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020"),
+                workflow.index("uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020"),
                 workflow.index("run: python3 run_proof.py"),
             )
             self.assertNotRegex(workflow, r"uses:\s+actions/[^\s]+@v\d")
+        pages = PAGES_WORKFLOW.read_text(encoding="utf-8")
+        proof = PROOF_WORKFLOW.read_text(encoding="utf-8")
+        proof_permissions = proof.split("\npermissions:\n", 1)[1].split("\njobs:\n", 1)[0]
+        self.assertEqual(proof_permissions, "  contents: read\n")
+        self.assertNotIn("write", proof_permissions)
+        self.assertNotIn("id-token", proof_permissions)
+        for action in (
+            "actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d",
+            "actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9",
+            "actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128",
+        ):
+            self.assertIn(f"uses: {action}", pages)
+        combined = pages + proof
+        for retired_pin in (
+            "11d5960a326750d5838078e36cf38b85af677262",
+            "a26af69be951a213d495a4c3e4e4022e16d87065",
+            "49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "983d7736d9b0ae728b81ab479565c72886d7745b",
+            "56afc609e74202658d3ffba0e8f6dda462b719fa",
+            "d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e",
+        ):
+            self.assertNotIn(retired_pin, combined)
 
     def test_one_command_proof_pins_valid_fixture_epoch_and_expected_decision(self) -> None:
         runner = (ROOT / "run_proof.py").read_text(encoding="utf-8")
