@@ -698,6 +698,21 @@ class PublicationCandidateTest(unittest.TestCase):
             self.assertIsNotNone(main)
             self.assertEqual(main.group(0).count("$1,500"), 1)  # type: ignore[union-attr]
             self.assertLess(len(page.encode("utf-8")), 32 * 1024)
+            issue_url = "https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml"
+            nav = re.search(r'<nav\b.*?</nav>', page, re.DOTALL)
+            self.assertIsNotNone(nav)
+            self.assertIn(f'class="nav-cta" href="{issue_url}"', nav.group(0))  # type: ignore[union-attr]
+            self.assertNotIn("mailto:", nav.group(0))  # type: ignore[union-attr]
+            self.assertEqual(
+                page.count(f'class="button primary" href="{issue_url}"'),
+                3,
+            )
+            self.assertEqual(page.count('class="button primary" href="mailto:'), 0)
+            self.assertEqual(
+                page.count(f'href="mailto:{PUBLIC_CONTACT_EMAIL}?subject=One%20broken%20AI%20handoff"'),
+                2,
+            )
+            self.assertEqual(page.count(issue_url), 5)
         self.assertTrue(PROOF_EXPERIENCE.is_file())
         self.assertIn("AI Systems Proof Sprint · фіксований інженерний спринт", landing)
         self.assertIn("AI Systems Proof Sprint · 3–5 day fixed-scope engineering sprint", english)
