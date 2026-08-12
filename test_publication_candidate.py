@@ -1191,7 +1191,8 @@ class PublicationCandidateTest(unittest.TestCase):
                 bridge["headings"],
                 [
                     "One workflow", "Expensive failure", "Five-day proof",
-                    "Test environment available?", "Public-data boundary",
+                    "Test environment available?", "How did you find this sprint?",
+                    "Public-data boundary",
                 ],
             )
             self.assertIn("Choose all controlled planning values", bridge["reason"])
@@ -1201,11 +1202,13 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertEqual(
             [key for key in complete_bridge if key in {
                 "One workflow", "Expensive failure", "Five-day proof",
-                "Test environment available?", "Public-data boundary",
+                "Test environment available?", "How did you find this sprint?",
+                "Public-data boundary",
             }],
             [
                 "One workflow", "Expensive failure", "Five-day proof",
-                "Test environment available?", "Public-data boundary",
+                "Test environment available?", "How did you find this sprint?",
+                "Public-data boundary",
             ],
         )
         for heading, controlled_value in (
@@ -1219,6 +1222,17 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertEqual(
             complete_bridge["Test environment available?"],
             "Partly — examples only",
+        )
+        self.assertEqual(
+            complete_bridge["How did you find this sprint?"],
+            {
+                "state": "buyer-selection-required-in-public-form",
+                "options": [
+                    "GitHub profile", "GitHub repository or release", "Search",
+                    "Referral or recommendation", "Other public source",
+                ],
+                "attribution_class": "buyer-declared-not-authenticated",
+            },
         )
         self.assertEqual(
             complete_bridge["Public-data boundary"],
@@ -1254,14 +1268,16 @@ class PublicationCandidateTest(unittest.TestCase):
                 set(packet["issue_form_guidance"]),
                 {
                     "route", "headings", "environment_mapping",
-                    "manual_public_summary_required", "public_data_boundary_requirements",
+                    "manual_public_summary_required", "buyer_declared_acquisition_source_options",
+                    "public_data_boundary_requirements",
                 },
             )
             self.assertEqual(
                 packet["issue_form_guidance"]["headings"],
                 [
                     "One workflow", "Expensive failure", "Five-day proof",
-                    "Test environment available?", "Public-data boundary",
+                    "Test environment available?", "How did you find this sprint?",
+                    "Public-data boundary",
                 ],
             )
             self.assertEqual(
@@ -1279,6 +1295,13 @@ class PublicationCandidateTest(unittest.TestCase):
                     "failure": "manual-public-summary-required",
                     "proof": "manual-public-summary-required",
                 },
+            )
+            self.assertEqual(
+                packet["issue_form_guidance"]["buyer_declared_acquisition_source_options"],
+                [
+                    "GitHub profile", "GitHub repository or release", "Search",
+                    "Referral or recommendation", "Other public source",
+                ],
             )
             self.assertEqual(
                 set(packet["issue_form_guidance"]["manual_public_summary_required"]),
@@ -1376,6 +1399,7 @@ class PublicationCandidateTest(unittest.TestCase):
                 ("textarea", "failure", "Expensive failure"),
                 ("textarea", "proof", "Five-day proof"),
                 ("dropdown", "environment", "Test environment available?"),
+                ("dropdown", "discovery", "How did you find this sprint?"),
                 ("checkboxes", "boundary", "Public-data boundary"),
             ],
         )
@@ -1385,7 +1409,7 @@ class PublicationCandidateTest(unittest.TestCase):
                 for _control_type, control_id, _label, block in controls
                 if re.search(r"^    validations:\n      required: true$", block, re.MULTILINE)
             ],
-            ["workflow", "failure", "proof", "environment"],
+            ["workflow", "failure", "proof", "environment", "discovery"],
         )
         dropdown = controls[3][3]
         self.assertEqual(
@@ -1396,7 +1420,20 @@ class PublicationCandidateTest(unittest.TestCase):
                 "No — discovery and contract first",
             ],
         )
-        checkboxes = controls[4][3]
+        discovery = controls[4][3]
+        self.assertEqual(
+            re.findall(r'^        - "([^\n]+)"$', discovery, re.MULTILINE),
+            [
+                "GitHub profile",
+                "GitHub repository or release",
+                "Search",
+                "Referral or recommendation",
+                "Other public source",
+            ],
+        )
+        self.assertIn("buyer-declared", discovery.lower())
+        self.assertIn("not authenticated attribution", discovery.lower())
+        checkboxes = controls[5][3]
         self.assertEqual(
             re.findall(r"^        - label: ([^\n]+)\n          required: true$", checkboxes, re.MULTILINE),
             [
@@ -1428,6 +1465,13 @@ class PublicationCandidateTest(unittest.TestCase):
                     "sanitized-example-only": environment_options[1],
                     "discovery-before-artifact": environment_options[2],
                 },
+                "buyer_declared_acquisition_source_options": [
+                    "GitHub profile",
+                    "GitHub repository or release",
+                    "Search",
+                    "Referral or recommendation",
+                    "Other public source",
+                ],
                 "public_data_boundary_statements": boundary_statements,
             },
         )

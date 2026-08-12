@@ -19,6 +19,7 @@ const ISSUE_FORM_GUIDANCE_JSON = `{
     "Expensive failure",
     "Five-day proof",
     "Test environment available?",
+    "How did you find this sprint?",
     "Public-data boundary"
   ],
   "environment_mapping": {
@@ -31,6 +32,13 @@ const ISSUE_FORM_GUIDANCE_JSON = `{
     "failure": "manual-public-summary-required",
     "proof": "manual-public-summary-required"
   },
+  "buyer_declared_acquisition_source_options": [
+    "GitHub profile",
+    "GitHub repository or release",
+    "Search",
+    "Referral or recommendation",
+    "Other public source"
+  ],
   "public_data_boundary_requirements": {
     "I confirm this issue contains no credentials, personal/customer data, private code, private URLs, or production access details.": "manual-checkbox-attestation-required",
     "I understand that production activation, credentials, payments, and account changes are outside the first public inquiry.": "manual-checkbox-attestation-required"
@@ -46,6 +54,7 @@ const ISSUE_FORM_BRIDGE_CONTRACT_JSON = `{
     "Expensive failure",
     "Five-day proof",
     "Test environment available?",
+    "How did you find this sprint?",
     "Public-data boundary"
   ],
   "environment_mapping": {
@@ -53,6 +62,13 @@ const ISSUE_FORM_BRIDGE_CONTRACT_JSON = `{
     "sanitized-example-only": "Partly — examples only",
     "discovery-before-artifact": "No — discovery and contract first"
   },
+  "buyer_declared_acquisition_source_options": [
+    "GitHub profile",
+    "GitHub repository or release",
+    "Search",
+    "Referral or recommendation",
+    "Other public source"
+  ],
   "public_data_boundary_statements": [
     "I confirm this issue contains no credentials, personal/customer data, private code, private URLs, or production access details.",
     "I understand that production activation, credentials, payments, and account changes are outside the first public inquiry."
@@ -125,6 +141,11 @@ function buildIssueFormBridge(complete) {
       scaffold: `Review whether ${PROOF_SCAFFOLDS[intakeState.five_day_evidence]} is the observable five-day proof for this first slice.`,
     },
     "Test environment available?": environment,
+    "How did you find this sprint?": {
+      state: "buyer-selection-required-in-public-form",
+      options: ISSUE_FORM_BRIDGE_CONTRACT.buyer_declared_acquisition_source_options,
+      attribution_class: "buyer-declared-not-authenticated",
+    },
     "Public-data boundary": ISSUE_FORM_BRIDGE_CONTRACT.public_data_boundary_statements.map((statement) => ({
       state: "buyer-review-and-manual-entry-required",
       manual_checkbox_label: statement,
