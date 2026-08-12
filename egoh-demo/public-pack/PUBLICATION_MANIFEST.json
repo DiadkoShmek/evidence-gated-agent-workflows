@@ -97,7 +97,7 @@
     },
     {
       "path": "docs/ai-systems-sprint.html",
-      "sha256": "514a34b75e3f4ea82e686006a548eb84d42b1f9eb2f54879e80e6f7f46918b9c"
+      "sha256": "a7476f84ebce674840b5c4e23312307b105f66e15130bf6f74dc15da585fb9bf"
     },
     {
       "path": "docs/architecture.html",
@@ -309,8 +309,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "9f747ccbaa6e80f138aa75f648c919961bccacfd99164f4ab60ccdcc2d71c479"
+      "sha256": "f60ed15a297f224c62839c0a9e35537a9863ed156c2f498003bc27c3daa9a195"
     }
   ],
-  "tree_sha256": "12fdbfcf152bf572f0a786441059b9088c006afbd2a91967876840ad96da51a7"
+  "tree_sha256": "2ccbcb95c6e53eb0192a05b361fb46a1600881c8334105bc63ba06574e37ea6c"
 }
