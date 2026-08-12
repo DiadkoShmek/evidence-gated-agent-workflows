@@ -64,6 +64,65 @@ class AgentActionAdmissionTests(unittest.TestCase):
         with self.assertRaisesRegex(admission.AdmissionError, "action-identity-conflict"):
             owner.commit(raw(changed))
 
+    def test_caller_held_snapshot_restores_replay_and_simulation_after_restart(self) -> None:
+        owner = admission.CommitmentOwner()
+        original, _ = owner.commit(raw(request()))
+        snapshot = owner.export_snapshot()
+
+        restored = admission.CommitmentOwner.restore_snapshot(snapshot)
+        current, replayed = restored.commit(raw(request()))
+        self.assertTrue(replayed)
+        self.assertEqual(current.public(), original.public())
+        receipt = admission.simulate_for_review(
+            restored,
+            current,
+            raw(review(current)),
+            now=NOW,
+        )
+        self.assertEqual(receipt["commitment_sha256"], original.commitment_sha256)
+        self.assertNotIn("T-101", admission.canonical_json(receipt))
+
+    def test_snapshot_rejects_tamper_duplicate_reorder_and_contract_drift(self) -> None:
+        owner = admission.CommitmentOwner()
+        owner.commit(raw(request("action-a")))
+        owner.commit(raw(request("action-b")))
+        snapshot = owner.export_snapshot()
+        decoded = admission._load_canonical_json_bounded(
+            snapshot,
+            "test-invalid",
+            admission.MAX_OWNER_SNAPSHOT_BYTES,
+        )
+
+        tampered = copy.deepcopy(decoded)
+        tampered["commitments"][0]["request_hex"] = raw(request("action-b")).hex()
+        tampered_payload = {key: value for key, value in tampered.items() if key != "snapshot_sha256"}
+        tampered["snapshot_sha256"] = admission.sha256_json(tampered_payload)
+        reordered = copy.deepcopy(decoded)
+        reordered["commitments"].reverse()
+        reordered_payload = {key: value for key, value in reordered.items() if key != "snapshot_sha256"}
+        reordered["snapshot_sha256"] = admission.sha256_json(reordered_payload)
+        drifted = copy.deepcopy(decoded)
+        drifted["simulator_contract_sha256"] = "f" * 64
+        drifted_payload = {key: value for key, value in drifted.items() if key != "snapshot_sha256"}
+        drifted["snapshot_sha256"] = admission.sha256_json(drifted_payload)
+
+        cases = (
+            (snapshot[:-1] + b' ,"schema":"agent-action-owner-snapshot-v1"}', "json-duplicate-key"),
+            (raw(tampered), "commitment-mutated"),
+            (raw(reordered), "owner-snapshot-order-invalid"),
+            (raw(drifted), "owner-snapshot-simulator-drift"),
+        )
+        for packet, reason in cases:
+            with self.subTest(reason=reason), self.assertRaisesRegex(admission.AdmissionError, reason):
+                admission.CommitmentOwner.restore_snapshot(packet)
+
+    def test_snapshot_owner_count_is_bounded_before_export(self) -> None:
+        owner = admission.CommitmentOwner()
+        for index in range(admission.MAX_OWNER_SNAPSHOT_COMMITMENTS + 1):
+            owner.commit(raw(request(f"bounded-{index}")))
+        with self.assertRaisesRegex(admission.AdmissionError, "owner-snapshot-commitments-invalid"):
+            owner.export_snapshot()
+
     def test_noncanonical_duplicate_extra_and_unknown_tool_hold(self) -> None:
         canonical = raw(request())
         with self.assertRaisesRegex(admission.AdmissionError, "json-noncanonical"):

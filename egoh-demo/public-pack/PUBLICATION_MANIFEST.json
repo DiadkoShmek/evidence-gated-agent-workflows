@@ -45,15 +45,15 @@
     },
     {
       "path": "agent-action-admission-demo/README.md",
-      "sha256": "0339abf8f4f324b266c6a780571f861ba457b52b60341a258c4b43d55e9824c6"
+      "sha256": "9547da9f73a935ce471b7359bc0800185498b88629dd63c18d87a684253e9232"
     },
     {
       "path": "agent-action-admission-demo/agent_action_admission.py",
-      "sha256": "3f84a0f3f8970084cfbc96fb1134bfc3d73f1ef5e3abca77c421473ae479033c"
+      "sha256": "07b6fb9c9b432e900d1cc5c37bd8ccc6e945b66b5111af1786c3c76f58367664"
     },
     {
       "path": "agent-action-admission-demo/run_demo.py",
-      "sha256": "127e3d6ace5e07bc783d241bfd8850918de126ba5f565122648c8bda34906672"
+      "sha256": "4726d3c28bb96b9c4c1e4a3bb904de7616a9239a7c471a2be5ba7d03ab749846"
     },
     {
       "path": "agent-action-admission-demo/tests/__init__.py",
@@ -61,7 +61,7 @@
     },
     {
       "path": "agent-action-admission-demo/tests/test_agent_action_admission.py",
-      "sha256": "9380ff35787716dc9d66295b5ca70952173ccb6bac861ac542ef0ad3ab5a94f4"
+      "sha256": "52b2f15d0bb4d96b4789d9edeb916b0a89fa584c741791ca27d55beb6b4cd19d"
     },
     {
       "path": "async-polling-contract/README.md",
@@ -293,8 +293,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "08315b51438b94d63c1cdcd242c558c814efbc1872e04a1263693bf3d2107751"
+      "sha256": "bca7e992f6eecc5f69f3ed1098bdfcef654922d720b81cab68151e53f94d071e"
     }
   ],
-  "tree_sha256": "6059de19ae69c612fd0505de10352c27a4b135c3be9637e0ce3d89265ae77c52"
+  "tree_sha256": "05aaba88c47e4806a4d85f0a0841086b2b577906553cddc40497f221d502c425"
 }
