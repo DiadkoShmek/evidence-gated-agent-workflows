@@ -522,13 +522,35 @@ class PublicationCandidateTest(unittest.TestCase):
             page,
         )
         issue_url = "https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml"
+        nav = re.search(r'<nav aria-label="AI systems sprint navigation">.*?</nav>', page, re.DOTALL)
+        self.assertIsNotNone(nav)
+        self.assertIn(
+            f'<a class="nav-cta" href="{issue_url}">Start review-only intake</a>',
+            nav.group(0),  # type: ignore[union-attr]
+        )
+        self.assertNotIn("mailto:", nav.group(0))  # type: ignore[union-attr]
         hero = re.search(r'<header class="article-hero shell">.*?</header>', page, re.DOTALL)
         self.assertIsNotNone(hero)
         hero_markup = hero.group(0)  # type: ignore[union-attr]
         self.assertEqual(hero_markup.count(issue_url), 1)
-        self.assertIn(">Use the review-only issue form</a>", hero_markup)
+        self.assertIn(
+            f'<a class="button primary" href="{issue_url}">Start review-only intake</a>',
+            hero_markup,
+        )
+        self.assertIn(
+            f'<a class="button secondary" href="mailto:{PUBLIC_CONTACT_EMAIL}?subject=One%20broken%20AI%20handoff">Email one technical boundary</a>',
+            hero_markup,
+        )
         self.assertIn('href="en.html#intake">Build a local review draft</a>', hero_markup)
-        self.assertEqual(page.count(issue_url), 2)
+        self.assertEqual(page.count(issue_url), 3)
+        self.assertEqual(
+            page.count(
+                f'<a class="button primary" href="{issue_url}">Start review-only intake</a>'
+            ),
+            2,
+        )
+        self.assertEqual(page.count('class="button primary" href="mailto:'), 0)
+        self.assertEqual(page.count(f'href="mailto:{PUBLIC_CONTACT_EMAIL}?subject=One%20broken%20AI%20handoff"'), 2)
         self.assertEqual(page.count('href="en.html#intake"'), 2)
         self.assertEqual(page.count('>Build a local review draft</a>'), 2)
         intake = re.search(r'<section id="intake".*?</section>', english, re.DOTALL)
@@ -556,7 +578,7 @@ class PublicationCandidateTest(unittest.TestCase):
         for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
             self.assertNotIn(forbidden, page)
 
-    def test_exact_public_contact_is_private_first_and_strictly_allowlisted(self) -> None:
+    def test_exact_public_contact_is_retained_and_strictly_allowlisted(self) -> None:
         expected_href = f"mailto:{PUBLIC_CONTACT_EMAIL}?subject=One%20broken%20AI%20handoff"
         for path in (AI_SYSTEMS_SPRINT, ARCHITECTURE, CASE_STUDY, LANDING_EN, LANDING):
             content = path.read_text(encoding="utf-8")
