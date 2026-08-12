@@ -34,8 +34,43 @@ class ImmutableArtifactHandoffTests(unittest.TestCase):
         result = load_handoff(self.root, self.generation)
         self.assertEqual((result.status, result.reason), ("ready", "review-required"))
         self.assertEqual(result.handoff["review_status"], "review-required")
+        self.assertEqual(result.handoff["read_linearization"], "HELD_FD_BYTES_AT_VALIDATION")
+        self.assertFalse(result.handoff["canonical_path_current_after_return_claimed"])
         self.assertEqual(result.handoff["authority"], {"network": False, "provider": False, "model": False, "deployment": False, "external_effect": False})
         self.assertNotIn("artifact", result.handoff)
+
+    def test_post_validation_mutation_does_not_become_a_current_path_claim(self) -> None:
+        bundle = self._published()
+        original = bundle / ARTIFACT_NAME
+        real_reattest = __import__("immutable_artifact_handoff")._HeldFile.reattest
+        artifact_checks = 0
+
+        def mutate_after_fresh_artifact(held_file, label):
+            nonlocal artifact_checks
+            real_reattest(held_file, label)
+            if label == "artifact":
+                artifact_checks += 1
+                if artifact_checks == 2:
+                    original.write_bytes(b'{"synthetic":"changed"}')
+
+        with mock.patch(
+            "immutable_artifact_handoff._HeldFile.reattest",
+            new=mutate_after_fresh_artifact,
+        ):
+            result = load_handoff(self.root, self.generation)
+        self.assertEqual((result.status, result.reason), ("ready", "review-required"))
+        self.assertFalse(result.handoff["canonical_path_current_after_return_claimed"])
+        self.assertEqual(load_handoff(self.root, self.generation).reason, "artifact-digest-conflict")
+
+    def test_unrelated_ancestor_sibling_churn_does_not_false_hold(self) -> None:
+        self._published()
+
+        def add_unrelated_sibling(stage: str) -> None:
+            if stage == "receipt":
+                (self.root.parent / "unrelated-sibling").mkdir()
+
+        result = load_handoff(self.root, self.generation, _after_read=add_unrelated_sibling)
+        self.assertEqual((result.status, result.reason), ("ready", "review-required"))
 
     def test_missing_receipt_and_partial_publication_hold(self) -> None:
         bundle = self.root / "bundles" / self.generation
