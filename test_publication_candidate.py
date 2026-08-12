@@ -548,13 +548,14 @@ class PublicationCandidateTest(unittest.TestCase):
             page,
         )
         self.assertIn(
-            '<a class="button secondary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/releases/tag/public-proof-v1.7.0">Download immutable public proof v1.7</a>',
+            '<a class="button secondary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/releases/tag/public-proof-v1.8.0">Download immutable public proof v1.8</a>',
             page,
         )
         self.assertIn(
-            "The repository link follows source changes; v1.7 is the immutable release snapshot with its published checksum.",
+            "The repository link follows source changes; v1.8 is the immutable release snapshot with its published checksum.",
             page,
         )
+        self.assertNotIn("public-proof-v1.7.0", page)
         issue_url = "https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml"
         nav = re.search(r'<nav aria-label="AI systems sprint navigation">.*?</nav>', page, re.DOTALL)
         self.assertIsNotNone(nav)
