@@ -89,6 +89,25 @@ class EvidenceGateTest(unittest.TestCase):
         self.assertEqual(result["reason"], "HUMAN_AUTHORITY_REQUIRED")
         self.assertFalse(result["external_action_authorized"])
 
+    def test_malformed_risk_tag_types_fail_contract(self):
+        malformed_tags = (
+            [{}], [[]], [1], [None], [True], ["financial", {}], ["financial", 1]
+        )
+        for tags in malformed_tags:
+            with self.subTest(tags=tags):
+                raw = fixture("clean")
+                raw["risk_tags"] = tags
+                with self.assertRaisesRegex(ContractError, "risk_tags"):
+                    evaluate(raw, AS_OF)
+
+    def test_duplicate_or_unknown_risk_tag_fails_contract(self):
+        for tags in (["financial", "financial"], ["not-a-risk"]):
+            with self.subTest(tags=tags):
+                raw = fixture("clean")
+                raw["risk_tags"] = tags
+                with self.assertRaisesRegex(ContractError, "risk_tags"):
+                    evaluate(raw, AS_OF)
+
     def test_independence_threshold_holds(self):
         raw = fixture("clean")
         raw["min_independent_clusters"] = 2
