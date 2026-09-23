@@ -147,6 +147,79 @@ class OperatingCoreDemoTests(unittest.TestCase):
         self.assertIsNone(result["handoff"])
         self.assert_zero_effect_boundary(result)
 
+    def test_numeric_zero_claim_cannot_enter_lifecycle(self) -> None:
+        raw = boundary()
+        raw["egoh_observation"]["evidence"]["claims"]["external_action"] = 0
+        raw["egoh_observation"]["evidence_sha256"] = sha256_json(raw["egoh_observation"]["evidence"])
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            result = _run_boundary_in_directory(raw, root)
+            self.assertEqual(list(root.iterdir()), [])
+        self.assertEqual((result["decision"], result["reason"]), ("held", "boundary-egoh-observation-invalid"))
+        self.assertIsNone(result["lifecycle"])
+        self.assertIsNone(result["handoff"])
+        self.assert_zero_effect_boundary(result)
+
+    def test_malformed_json_evidence_holds_before_lifecycle_write(self) -> None:
+        for invalid_tags in ([{}], [[]], [None]):
+            with self.subTest(risk_tags=invalid_tags), tempfile.TemporaryDirectory() as directory:
+                raw = boundary()
+                raw["evidence"]["risk_tags"] = invalid_tags
+                raw["evidence_sha256"] = content_hash(raw["evidence"])
+                raw["lifecycle"]["fingerprint"] = f"operating-core:{raw['chain_id']}:{raw['evidence_sha256']}"
+                root = Path(directory)
+                result = _run_boundary_in_directory(raw, root)
+                self.assertEqual((result["decision"], result["reason"]), ("held", "boundary-evidence-invalid"))
+                self.assertEqual(list(root.iterdir()), [])
+                self.assertIsNone(result["lifecycle"])
+                self.assertIsNone(result["handoff"])
+                self.assert_zero_effect_boundary(result)
+
+    def test_malformed_json_lifecycle_events_hold_before_any_write(self) -> None:
+        for events in ([{}], [[]], [None], [1], ["complete", {}]):
+            with self.subTest(events=events), tempfile.TemporaryDirectory() as directory:
+                raw = boundary()
+                raw["lifecycle"]["events"] = events
+                root = Path(directory)
+                result = _run_boundary_in_directory(raw, root)
+                self.assertEqual((result["decision"], result["reason"]), ("held", "boundary-lifecycle-events-invalid"))
+                self.assertEqual(list(root.iterdir()), [])
+                self.assertIsNone(result["lifecycle"])
+                self.assertIsNone(result["handoff"])
+                self.assert_zero_effect_boundary(result)
+
+    def test_json_shape_mutations_never_escape_the_result_contract(self) -> None:
+        seed = boundary()
+        paths = [(key,) for key in seed]
+        paths += [("lifecycle", key) for key in seed["lifecycle"]]
+        paths += [("evidence", key) for key in seed["evidence"]]
+        paths += [("egoh_observation", key) for key in seed["egoh_observation"]]
+        paths += [("egoh_observation", "evidence", key) for key in seed["egoh_observation"]["evidence"]]
+        paths += [
+            ("egoh_observation", "evidence", "projection", key)
+            for key in seed["egoh_observation"]["evidence"]["projection"]
+        ]
+        paths += [
+            ("egoh_observation", "evidence", "claims", key)
+            for key in seed["egoh_observation"]["evidence"]["claims"]
+        ]
+        for path in paths:
+            for replacement in ({}, [], None, 0, 0.0, False, ""):
+                with self.subTest(path=path, replacement=replacement):
+                    raw = boundary()
+                    parent = raw
+                    for key in path[:-1]:
+                        parent = parent[key]
+                    parent[path[-1]] = replacement
+                    if path[0] == "evidence" and len(path) > 1:
+                        raw["evidence_sha256"] = content_hash(raw["evidence"])
+                        raw["lifecycle"]["fingerprint"] = f"operating-core:{raw['chain_id']}:{raw['evidence_sha256']}"
+                    if path[:2] == ("egoh_observation", "evidence") and len(path) > 2:
+                        raw["egoh_observation"]["evidence_sha256"] = sha256_json(raw["egoh_observation"]["evidence"])
+                    result = run_boundary(raw)
+                    self.assertIn(result["decision"], {"held", "review-required"})
+                    self.assert_zero_effect_boundary(result)
+
     def test_public_api_owns_and_cleans_its_ephemeral_directory(self) -> None:
         real_temporary_directory = tempfile.TemporaryDirectory
         with tempfile.TemporaryDirectory() as directory:

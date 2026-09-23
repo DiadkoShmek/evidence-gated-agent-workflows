@@ -8,6 +8,8 @@ owners in one synthetic chain:
 The evidence gate must decide exactly `draft` before the lifecycle is created.
 The lifecycle must end exactly `complete` before the typed EGOH observation is
 decided and journaled. Every other state is `held` without a handoff.
+Malformed JSON-shaped evidence, lifecycle events, and EGOH claims also return
+`held` before the lifecycle writes a status file.
 
 ```bash
 cd operating-core-demo

@@ -16,7 +16,7 @@ Validated synthetic evidence can reach only `review-required`.
 
 - **Single process only.** The JSONL journal has no locking, multi-writer coordination, or tamper-resistant storage. Public write APIs require an `OwnedJournal` minted under an existing current-user-owned root and reject raw paths, traversal, and symlink leaf or ancestor paths.
 - **Synthetic fixtures only.** There is no page content, recipient, credential, token, cookie, API secret, or personal data in this package.
-- **No independent audit claim.** The `16/16` result is the repository acceptance suite, not a certification or penetration test.
+- **No independent audit claim.** The `17/17` result is the repository acceptance suite, not a certification or penetration test.
 
 ## External-effect boundary
 

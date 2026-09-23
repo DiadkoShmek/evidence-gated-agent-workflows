@@ -141,11 +141,11 @@
     },
     {
       "path": "egoh-demo/README.md",
-      "sha256": "b7aabe6eba9e04278d4b0afe330d22c14fd4dace5bc6fd4bb06b3c89d6537b32"
+      "sha256": "c1adc7a52a9c791238acd11cf6b36e62c8259725fb42cbd4c2b7ca4eefa84531"
     },
     {
       "path": "egoh-demo/egoh_demo.py",
-      "sha256": "23c66c7e5360e952427b84fad655423ee43b529508b486bea7b404998d97ca72"
+      "sha256": "3e62ce955bcb678bf2f2180720c422914ad42371cdb54a1352c20bf8280238db"
     },
     {
       "path": "egoh-demo/fixtures/altered-digest.json",
@@ -177,11 +177,11 @@
     },
     {
       "path": "egoh-demo/public-pack/LIMITS.md",
-      "sha256": "5d1774af2528705f5d0e648f2b383799cadacf05d846ee78953ad623801dc007"
+      "sha256": "ee19fed6bdb6eebe2ca376d109fc2667e6a1fde0ec4ab24b463e6b289557bf30"
     },
     {
       "path": "egoh-demo/public-pack/TEST_RESULTS.md",
-      "sha256": "8f513d60bfb20145e5ba502d5781ec562a446eec7ac36a1fa6dcc4dea5c8f1b1"
+      "sha256": "461974c9bc7f3a0263410eb98f3c7113238948d818b9b88f11e8a9b6a0a80a06"
     },
     {
       "path": "egoh-demo/public-pack/example-valid-review.handoff.json",
@@ -197,7 +197,7 @@
     },
     {
       "path": "egoh-demo/tests/test_egoh_demo.py",
-      "sha256": "9e005ae13b2c5702308e7216f3f0fcd7e5756a6eca841a2a7b5cc976a3fd2d54"
+      "sha256": "e0b16b4c42bf19266eba55ff08e989bd187d76bc79935cdf739b4c51aa66ddb3"
     },
     {
       "path": "evidence-gate/README.md",
@@ -281,7 +281,7 @@
     },
     {
       "path": "operating-core-demo/README.md",
-      "sha256": "bbcf0d48ea839a4de9812a5e0bc8a46e6d0c9a2c7001d140fbf1bf7f3f81a537"
+      "sha256": "0dc78dcd0afc8286cdb9bfeed9eeda6a8b9a6d31893e80cddbf09e1314229703"
     },
     {
       "path": "operating-core-demo/fixtures/clean-complete.json",
@@ -289,7 +289,7 @@
     },
     {
       "path": "operating-core-demo/operating_core_demo.py",
-      "sha256": "8379b487740a2630d388b60c616ac9817f09a7a1730b11af6104140bde925f15"
+      "sha256": "2d4c2e1e49ac9ecbda2ebbde4910cb3c963a6ed5806c4932c25c6cefe20f6573"
     },
     {
       "path": "operating-core-demo/run_demo.py",
@@ -301,7 +301,7 @@
     },
     {
       "path": "operating-core-demo/tests/test_operating_core_demo.py",
-      "sha256": "33f111d4c0f2f1f2deff5e68dc08b78dec031dba8ecbfd10a29239ec78e2c99d"
+      "sha256": "9d4d5cfe2844c57d5eb4b152d37c9d989d1804f74e1b9b76d18ee8b3b1e45830"
     },
     {
       "path": "run_proof.py",
@@ -312,5 +312,5 @@
       "sha256": "14c1fc8c1ae1b8095978221b248e7518aa012892d8c889733f65505fafb7dd23"
     }
   ],
-  "tree_sha256": "428dcc009cdbbbfe6fb5c91565e5a1f6e67393209695e92d87fd75442a73e18c"
+  "tree_sha256": "b6d92450dfc9e885e765270d978e3f7e7af1b56927931932e32d9553dc820715"
 }
