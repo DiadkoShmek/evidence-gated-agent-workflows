@@ -25,7 +25,7 @@ delivery, contract, income, or production-ready state.
 
 The checked-in [public-pack](public-pack/TEST_RESULTS.md) contains:
 
-- an exact `16/16` acceptance-suite readback;
+- an exact `17/17` acceptance-suite readback;
 - SHA-256 checksums for all synthetic fixtures;
 - a redacted `valid-review` handoff and one-event JSONL journal;
 - explicit [non-production limits](public-pack/LIMITS.md).

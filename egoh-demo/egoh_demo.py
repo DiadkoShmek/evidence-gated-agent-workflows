@@ -175,12 +175,7 @@ def validate_evidence(value: object) -> dict[str, Any]:
         {"external_action", "page_content_output", "provider_delivery_observed", "application_submitted"},
         "evidence-claims-invalid",
     )
-    if claims != {
-        "external_action": False,
-        "page_content_output": False,
-        "provider_delivery_observed": False,
-        "application_submitted": False,
-    }:
+    if any(claim is not False for claim in claims.values()):
         raise ValidationError("evidence-boundary-invalid")
     return evidence
 
