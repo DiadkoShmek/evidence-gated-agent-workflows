@@ -85,7 +85,11 @@ def _validate_boundary(value: object) -> dict[str, Any]:
     if lifecycle["fingerprint"] != expected_fingerprint:
         raise BoundaryError("boundary-lifecycle-identity-invalid")
     events = lifecycle["events"]
-    if not isinstance(events, list) or not 1 <= len(events) <= 4 or any(event not in ALLOWED_FAKE_EVENTS for event in events):
+    if (
+        not isinstance(events, list)
+        or not 1 <= len(events) <= 4
+        or any(not isinstance(event, str) or event not in ALLOWED_FAKE_EVENTS for event in events)
+    ):
         raise BoundaryError("boundary-lifecycle-events-invalid")
     _strict_int(lifecycle["max_attempts"], minimum=1, maximum=4, reason="boundary-lifecycle-limits-invalid")
     _strict_int(lifecycle["base_backoff_seconds"], minimum=1, maximum=10, reason="boundary-lifecycle-limits-invalid")
@@ -157,7 +161,18 @@ def _run_boundary_in_directory(
             handoff=None,
         )
 
-    evidence_decision = evaluate(boundary["evidence"], boundary["as_of"])
+    try:
+        evidence_decision = evaluate(boundary["evidence"], boundary["as_of"])
+    except ContractError:
+        return _result(
+            chain_id=boundary["chain_id"],
+            decision="held",
+            reason="boundary-evidence-invalid",
+            evidence_decision=None,
+            lifecycle=None,
+            egoh=None,
+            handoff=None,
+        )
     if evidence_decision["decision"] != "draft":
         return _result(
             chain_id=boundary["chain_id"],

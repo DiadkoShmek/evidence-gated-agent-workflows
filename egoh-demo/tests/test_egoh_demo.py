@@ -212,6 +212,20 @@ class EgoHDemoAcceptanceTests(unittest.TestCase):
             with self.assertRaisesRegex(ValidationError, "journal-relative-invalid"):
                 owner.journal("../outside.jsonl")
 
+    def test_17_claims_require_literal_false_not_numeric_zero(self) -> None:
+        for value in (0, 0.0):
+            with self.subTest(value=value):
+                raw = json.loads(fixture("valid-review").read_text(encoding="utf-8"))
+                raw["evidence"]["claims"]["external_action"] = value
+                raw["evidence_sha256"] = hashlib.sha256(
+                    json.dumps(
+                        raw["evidence"], sort_keys=True, separators=(",", ":"), ensure_ascii=True
+                    ).encode("utf-8")
+                ).hexdigest()
+                result = decide(raw, now=NOW)
+                self.assertEqual((result["decision"], result["reason"]), ("held", "evidence-boundary-invalid"))
+                self.assertFalse(result["external_action"])
+
 
 if __name__ == "__main__":
     unittest.main()

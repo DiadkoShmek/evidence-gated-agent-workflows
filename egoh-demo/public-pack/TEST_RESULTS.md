@@ -1,6 +1,6 @@
 # EGOH demo — локальний результат тестів
 
-**Статус:** prepared for publication, **not published**.  
+**Статус:** public synthetic reference, **not production**.
 **Runtime checked:** Python 3.13.7.
 
 ## Exact acceptance command
@@ -29,9 +29,10 @@ test_13_no_candidate_is_held_by_derived_policy ... ok
 test_14_cli_rejects_arbitrary_journal_path ... ok
 test_15_direct_api_rejects_raw_outside_path ... ok
 test_16_owned_journal_rejects_symlink_leaf_ancestor_and_traversal ... ok
+test_17_claims_require_literal_false_not_numeric_zero ... ok
 
 ----------------------------------------------------------------------
-Ran 16 tests in 0.012s
+Ran 17 tests in 0.022s
 
 OK
 ```
