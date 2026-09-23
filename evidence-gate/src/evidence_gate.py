@@ -140,6 +140,8 @@ class WorkflowCase:
         risks_raw = raw["risk_tags"]
         if not isinstance(risks_raw, list) or len(risks_raw) > len(ALLOWED_RISK_TAGS):
             raise ContractError("risk_tags must be a bounded list")
+        if any(not isinstance(tag, str) for tag in risks_raw):
+            raise ContractError("risk_tags must contain strings")
         risks = tuple(sorted(set(risks_raw)))
         if len(risks) != len(risks_raw) or not set(risks) <= ALLOWED_RISK_TAGS:
             raise ContractError("risk_tags contain duplicate or unsupported values")
