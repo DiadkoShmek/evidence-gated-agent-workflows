@@ -12,6 +12,7 @@
 ## Tested
 
 - clean, missing, stale, conflict, risk, insufficient-independence, unknown-field, deterministic, and timezone cases;
+- malformed, duplicate, and unknown risk-tag cases;
 - bounded repeated fixture stress.
 
 ## Not implemented
