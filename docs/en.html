@@ -58,74 +58,74 @@
       <div class="decision-heading">
         <p class="eyebrow">Three useful questions</p>
         <h2 id="decision-title">What happens after the AI produces a result?</h2>
-        <p>A believable artifact can trigger a customer message, CRM update, release, approval, or another action. Before that happens, someone should be able to check where it came from and whether it belongs here.</p>
+        <p>An answer can look convincing even when a source is missing or out of date. If a message or system change follows automatically, that mistake has a real effect.</p>
       </div>
       <div class="decision-grid">
-        <article><span>01</span><h3>What moves?</h3><p>Name the exact artifact and the next system or human decision it can change.</p></article>
-        <article><span>02</span><h3>What can go wrong?</h3><p>Name one expensive false promotion: stale context, substituted bytes, missing evidence, duplicate effect, or contradictory state.</p></article>
-        <article><span>03</span><h3>What would prove control?</h3><p>Name one valid fixture that must pass and hostile fixtures that must stop with readable reasons.</p></article>
+        <article><span>01</span><h3>Where does it go?</h3><p>Into an email, a spreadsheet, another tool, or a person's review? The next step tells you what is at stake.</p></article>
+        <article><span>02</span><h3>When should it stop?</h3><p>In the public examples, missing, stale, or conflicting information stops the handoff.</p></article>
+        <article><span>03</span><h3>Who decides next?</h3><p>The test shows why it stopped. A person still reviews any consequential next action.</p></article>
       </div>
       <div class="decision-offer">
-        <p><strong>For a real workflow:</strong> start by naming its source, destination, likely failure and one result you could check. If those are unclear, that is a good place to begin the conversation.</p>
+        <p>You can see this in the <a href="#proof">test examples</a>. If a similar mistake happens in your work, describe one case and we can begin by finding what needs checking.</p>
         <a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Ask a question</a>
       </div>
     </section>
 
     <section class="section shell fit">
       <div>
-        <p class="eyebrow">A concrete exchange</p>
-        <h2>What you supply. What “done” means.</h2>
+        <p class="eyebrow">From example to real question</p>
+        <h2>One failure is enough to begin.</h2>
       </div>
       <div class="fit-copy">
-        <p><strong>Starting material:</strong> one sanitized sample artifact, its expected shape, the source and destination, and one mistake the system must catch. Do not send credentials or production access in a public inquiry.</p>
-        <p><strong>Acceptance:</strong> the agreed valid fixture passes; missing, malformed, stale, substituted, and contradictory fixtures fail closed; the decision trace names the reason; the documented proof command passes; known limits and unresolved blockers are written down.</p>
-        <p><strong>Boundary:</strong> these public examples do not include production deployment, client-system access or automatic action. A real project needs its own scope, permissions and agreement.</p>
+        <p>A sanitized description is enough: what enters the system, where the result goes, and which mistake causes the most trouble. The first conversation needs no credentials, private files, or production access.</p>
+        <p>Then we can define a small check: a valid example passes, broken ones stop with a reason. Any real work needs its own scope and agreement.</p>
+        <p>The public code uses synthetic data. It is not a client deployment and performs no external action.</p>
       </div>
     </section>
 
     <section id="deliverables" class="section shell">
-      <p class="eyebrow">The deliverable</p>
-      <h2>A narrow reliability layer, not a slide deck.</h2>
+      <p class="eyebrow">What is in the code</p>
+      <h2>One handoff has three parts you can inspect.</h2>
       <div class="cards">
         <article>
           <span>01</span>
-          <h3>Boundary map</h3>
-          <p>One source, one target, exact ownership, expected schema, authority limits, and measurable acceptance criteria.</p>
+          <h3>Source and next step</h3>
+          <p>What the program receives, where it sends a result, and who owns the decision.</p>
         </article>
         <article>
           <span>02</span>
-          <h3>Fail-closed adapter</h3>
-          <p>A small implementation that rejects missing, stale, malformed, substituted, or contradictory evidence instead of promoting it.</p>
+          <h3>A clear stop</h3>
+          <p>When information is missing, stale, or contradictory, the workflow does not pretend it succeeded.</p>
         </article>
         <article>
           <span>03</span>
-          <h3>Hostile proof</h3>
-          <p>Normal and adversarial tests, decision trace, known limits, and a reproducible handoff your engineers can inspect.</p>
+          <h3>Tests and limits</h3>
+          <p>Valid and broken cases, a reason for each result, and a plain account of what the tests do not prove.</p>
         </article>
       </div>
     </section>
 
     <section class="section shell progression" aria-labelledby="progression-title">
       <div class="progression-heading">
-        <p class="eyebrow">A serious system starts narrow</p>
-        <h2 id="progression-title">One proven handoff before any larger control layer.</h2>
-        <p>Start with one observable handoff. A larger system only makes sense after that first boundary is understood and tested.</p>
+        <p class="eyebrow">Start with something concrete</p>
+        <h2 id="progression-title">Understand one handoff first.</h2>
+        <p>A small example shows where a workflow can go wrong. Only then is it useful to talk about a larger system.</p>
       </div>
       <ol class="progression-steps">
         <li>
           <span>01 · first question</span>
-          <h3>One fail-closed handoff</h3>
+          <h3>One handoff</h3>
           <p>Can one handoff accept a valid example and clearly refuse the bad ones?</p>
         </li>
         <li>
           <span>02 · if the evidence calls for it</span>
-          <h3>Harden an agent/runtime control plane</h3>
-          <p>Other transitions may need attention once the first result shows where the real risk sits.</p>
+          <h3>Nearby steps</h3>
+          <p>The first result may show whether other transitions need attention.</p>
         </li>
         <li>
-          <span>03 · after evidence</span>
-          <h3>Operator system roadmap</h3>
-          <p>A later roadmap may name proof gaps, ownership boundaries, and the next operator decisions. It does not authorize implementation.</p>
+          <span>03 · if more work is useful</span>
+          <h3>What remains</h3>
+          <p>After that, we can describe the open questions. A description alone does not authorize changes to a working system.</p>
         </li>
       </ol>
     </section>
@@ -243,20 +243,20 @@
 
     <section class="section shell fit">
       <div>
-        <p class="eyebrow">Good first use</p>
-        <h2>Bring the handoff your team does not trust.</h2>
+        <p class="eyebrow">Where this helps</p>
+        <h2>When an AI answer becomes someone's action.</h2>
       </div>
       <div class="fit-copy">
-        <p>Examples: an agent result entering an internal tool, a model artifact crossing into a runtime, an async job whose status can lie, or a data receipt that must survive malformed and racing inputs.</p>
-        <p>If a useful proof cannot be completed inside the agreed boundary, you receive an honest hold report with the exact blocker and reusable artifacts.</p>
+        <p>For example, a program passes a result to another tool, waits for a service, or decides whether its sources are enough for a conclusion.</p>
+        <p>If we cannot make an honest check, that is also a result: name what is missing instead of calling an unknown outcome a success.</p>
       </div>
     </section>
 
     <section class="closing shell">
-      <p class="eyebrow">Start without exposing private data</p>
-      <h2>One workflow. One expensive failure. One fact that would prove improvement.</h2>
-      <div class="actions"><a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Ask a question</a><a class="button secondary" href="mailto:onyskoartur@gmail.com?subject=One%20broken%20AI%20handoff">Email a private summary</a></div>
-      <p class="micro">Do not send credentials, personal/customer data, private code, or production access details by email or public issue. Start with a sanitized summary only.</p>
+      <p class="eyebrow">Have a question or a similar problem?</p>
+      <h2>Describe one case. We can start there.</h2>
+      <div class="actions"><a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Ask a question</a><a class="button secondary" href="mailto:onyskoartur@gmail.com?subject=One%20broken%20AI%20handoff">Email Artur</a></div>
+      <p class="micro">Public issues are visible to everyone. Do not send passwords, private data, client code, or production access details.</p>
     </section>
   </main>
 

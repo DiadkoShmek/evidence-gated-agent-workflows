@@ -41,7 +41,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "999474d993ceda104a8807a43bba44cef20ec727d0acb2ccc6cb36eb2b09dc86"
+      "sha256": "c7ec33bcf80d43ad206a2a3e4306c1be2f87446d6f91477c3d1659636ca1d607"
     },
     {
       "path": "agent-action-admission-demo/README.md",
@@ -109,7 +109,7 @@
     },
     {
       "path": "docs/en.html",
-      "sha256": "e4a3325a38662401673177f0221df663854596da02004f308c35c477cbda3e09"
+      "sha256": "112642d00c9ca11600ba36fad97a364a4c6e653f0619c1972b583e464064556b"
     },
     {
       "path": "docs/index.html",
@@ -309,8 +309,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "8a90059b7353bbefe7fd60667a9dbbc81d7cf0b0f3fa315c9fc45c884e5978cb"
+      "sha256": "69c1dbf08d76dc8f7087280311815d8fda1363d97a83bf60ebcce71ed410049a"
     }
   ],
-  "tree_sha256": "8db94b236f563fa8637b4d8b4f2dce127b0b0c282d57160df2402b62dbeac2c0"
+  "tree_sha256": "4b1721e007d34e6e1744911cbef0c312f776e0dd1fe212d099c026a110dc7d5b"
 }
