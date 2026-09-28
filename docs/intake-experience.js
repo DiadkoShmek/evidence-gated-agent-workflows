@@ -16,10 +16,10 @@ const ISSUE_FORM_GUIDANCE_JSON = `{
   "route": "existing-github-issue-form",
   "headings": [
     "One workflow",
-    "Expensive failure",
-    "Five-day proof",
+    "What goes wrong?",
+    "A useful first check",
     "Test environment available?",
-    "How did you find this sprint?",
+    "How did you find this project?",
     "Public-data boundary"
   ],
   "environment_mapping": {
@@ -41,7 +41,7 @@ const ISSUE_FORM_GUIDANCE_JSON = `{
   ],
   "public_data_boundary_requirements": {
     "I confirm this issue contains no credentials, personal/customer data, private code, private URLs, or production access details.": "manual-checkbox-attestation-required",
-    "I understand that production activation, credentials, payments, and account changes are outside the first public inquiry.": "manual-checkbox-attestation-required"
+    "I understand that this public issue does not authorize paid work, production changes, credentials, or account access.": "manual-checkbox-attestation-required"
   }
 }`;
 const ISSUE_FORM_GUIDANCE = Object.freeze(JSON.parse(ISSUE_FORM_GUIDANCE_JSON));
@@ -51,10 +51,10 @@ const ISSUE_FORM_BRIDGE_CONTRACT_JSON = `{
   "route": "existing-github-issue-form",
   "headings": [
     "One workflow",
-    "Expensive failure",
-    "Five-day proof",
+    "What goes wrong?",
+    "A useful first check",
     "Test environment available?",
-    "How did you find this sprint?",
+    "How did you find this project?",
     "Public-data boundary"
   ],
   "environment_mapping": {
@@ -71,7 +71,7 @@ const ISSUE_FORM_BRIDGE_CONTRACT_JSON = `{
   ],
   "public_data_boundary_statements": [
     "I confirm this issue contains no credentials, personal/customer data, private code, private URLs, or production access details.",
-    "I understand that production activation, credentials, payments, and account changes are outside the first public inquiry."
+    "I understand that this public issue does not authorize paid work, production changes, credentials, or account access."
   ]
 }`;
 const ISSUE_FORM_BRIDGE_CONTRACT = Object.freeze(JSON.parse(ISSUE_FORM_BRIDGE_CONTRACT_JSON));
@@ -132,16 +132,16 @@ function buildIssueFormBridge(complete) {
       state: "buyer-review-and-manual-entry-required",
       scaffold: `Review whether ${WORKFLOW_SCAFFOLDS[intakeState.workflow]} from ${SOURCE_SCAFFOLDS[intakeState.source]} to ${TARGET_SCAFFOLDS[intakeState.target]} is the one public workflow to describe.`,
     },
-    "Expensive failure": {
+    "What goes wrong?": {
       state: "buyer-review-and-manual-entry-required",
       scaffold: `Review whether ${FAILURE_SCAFFOLDS[intakeState.costly_failure]} is the costly failure that the first boundary must hold instead of treating as success.`,
     },
-    "Five-day proof": {
+    "A useful first check": {
       state: "buyer-review-and-manual-entry-required",
-      scaffold: `Review whether ${PROOF_SCAFFOLDS[intakeState.five_day_evidence]} is the observable five-day proof for this first slice.`,
+      scaffold: `Review whether ${PROOF_SCAFFOLDS[intakeState.five_day_evidence]} would show that this first slice works.`,
     },
     "Test environment available?": environment,
-    "How did you find this sprint?": {
+    "How did you find this project?": {
       state: "buyer-selection-required-in-public-form",
       options: ISSUE_FORM_BRIDGE_CONTRACT.buyer_declared_acquisition_source_options,
       attribution_class: "buyer-declared-not-authenticated",

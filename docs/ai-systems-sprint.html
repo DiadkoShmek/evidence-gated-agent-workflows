@@ -3,40 +3,40 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A fixed $1,500 engineering sprint for one AI memory, retrieval, evaluation, tool, or workflow promotion boundary: code, hostile tests, decision receipt, and handoff.">
-  <title>AI Systems Proof Sprint — Artur Onysko</title>
+  <meta name="description" content="Four places where an AI workflow can go wrong after the model responds, with concrete refusal paths and a runnable public reference.">
+  <title>Where AI workflows need a clear stop — Artur Onysko</title>
   <link rel="canonical" href="https://diadkoshmek.github.io/evidence-gated-agent-workflows/ai-systems-sprint.html">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="AI Systems Proof Sprint">
-  <meta property="og:title" content="AI Systems Proof Sprint — Artur Onysko">
-  <meta property="og:description" content="One exact AI-system promotion boundary, implemented and attacked in code in 3–5 working days.">
+  <meta property="og:site_name" content="Artur Onysko · AI workflow notes">
+  <meta property="og:title" content="Where AI workflows need a clear stop — Artur Onysko">
+  <meta property="og:description" content="Four places where an AI workflow can go wrong after the model responds, with a runnable public reference.">
   <meta property="og:url" content="https://diadkoshmek.github.io/evidence-gated-agent-workflows/ai-systems-sprint.html">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="AI Systems Proof Sprint">
+  <meta name="twitter:title" content="Where AI workflows need a clear stop">
   <meta name="twitter:description" content="Memory, retrieval, evaluation, tool and workflow handoffs that fail closed before promotion.">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"AI Systems Proof Sprint","description":"A fixed engineering sprint for one AI-system promotion boundary, with a bounded adapter, hostile tests, decision receipt and handoff.","url":"https://diadkoshmek.github.io/evidence-gated-agent-workflows/ai-systems-sprint.html","inLanguage":"en","provider":{"@type":"Person","name":"Artur Onysko"},"offers":{"@type":"Offer","price":"1500","priceCurrency":"USD"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Where AI workflows need a clear stop","url":"https://diadkoshmek.github.io/evidence-gated-agent-workflows/ai-systems-sprint.html","inLanguage":"en","author":{"@type":"Person","name":"Artur Onysko"}}</script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="nav shell">
-    <a class="mark" href="en.html" aria-label="Service home">AO<span>/proof</span></a>
-    <nav aria-label="AI systems sprint navigation">
+    <a class="mark" href="en.html" aria-label="Home">Artur<span>/AI</span></a>
+    <nav aria-label="AI systems navigation">
       <a href="#seams">Four seams</a>
       <a href="#delivery">Delivery</a>
       <a href="architecture.html">Architecture</a>
-      <a class="nav-cta" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Start review-only intake</a>
+      <a class="nav-cta" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Ask a question</a>
     </nav>
   </header>
 
   <main>
     <article>
       <header class="article-hero shell">
-        <p class="eyebrow">AI systems proof sprint · $1,500 fixed · 3–5 working days</p>
+        <p class="eyebrow">Four places worth checking after the model responds</p>
         <h1>Your model is not<br><em>the whole system.</em></h1>
-        <p class="lede">The expensive failure usually happens one boundary later: memory enters the wrong context, retrieval loses its source identity, an evaluation promotes the wrong revision, a valid tool call becomes an uncertain effect, or a workflow resumes from foreign state. I implement one of those transitions as an exact, hostile-tested acceptance contract.</p>
+        <p class="lede">The expensive failure often happens one step later: memory enters the wrong context, retrieval loses its source, an evaluation promotes the wrong revision, or a tool call leaves an uncertain effect. These are places where a system needs a clear reason to continue or stop.</p>
         <div class="actions">
-          <a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Start review-only intake</a>
-          <a class="button secondary" href="mailto:onyskoartur@gmail.com?subject=One%20broken%20AI%20handoff">Email one technical boundary</a>
+          <a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Ask a question</a>
+          <a class="button secondary" href="mailto:onyskoartur@gmail.com?subject=One%20broken%20AI%20handoff">Email me</a>
           <a class="button secondary" href="en.html#intake">Build a local review draft</a>
           <a class="button secondary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows">Run the public proof</a>
           <a class="button secondary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/releases/tag/public-proof-v1.8.0">Download immutable public proof v1.8</a>
@@ -68,8 +68,8 @@
         </section>
 
         <section id="delivery">
-          <p class="eyebrow">What ships</p>
-          <h2>A code cut your engineers can attack, rerun, and own.</h2>
+          <p class="eyebrow">A useful way to work</p>
+          <h2>Make one transition small enough to test and understand.</h2>
           <dl class="article-decision">
             <dt>Boundary contract</dt><dd>Exact source, artifact, consumer, costly false promotion, required evidence, authority, and known exclusions.</dd>
             <dt>Bounded adapter</dt><dd>One small implementation that admits the agreed valid path and returns named fail-closed decisions for every rejected path.</dd>
@@ -80,24 +80,15 @@
         </section>
 
         <section>
-          <p class="eyebrow">Scope, not shelfware</p>
-          <h2>Not a platform subscription or a migration.</h2>
+          <p class="eyebrow">Keep the boundary small</p>
+          <h2>Start with the part that can cause a real mistake.</h2>
           <p>Keep the orchestration, observability, or evaluation tools your team already uses. This work hardens one exact transition in your codebase: the source, target, costly false promotion, and proof that the rejected paths stop there.</p>
-          <p>The Proof Sprint is not a platform rewrite, model switch, vendor migration, production deployment, provider operation, or an open-ended reliability retainer.</p>
+          <p>A local test can show whether a particular mistake is refused. It cannot, by itself, prove that an entire production system is safe.</p>
         </section>
 
         <section>
-          <p class="eyebrow">Fixed-scope engagement</p>
-          <h2>Start at one boundary; enlarge scope only after its proof.</h2>
-          <dl class="article-decision">
-            <dt>AI Systems Proof Sprint — $1,500 fixed</dt><dd>3–5 working days for one source-to-target handoff in one repository: one reviewable patch, hostile tests, a decision receipt, and handoff.</dd>
-            <dt>Release Integrity Pack — $4,500 fixed</dt><dd>Available only as a separately scoped follow-on after a completed Proof Sprint; it is not included in the entry sprint or sold as a standalone replacement for it. In 7–10 working days, it hardens one declared evaluation-or-release chain or tool-result-to-effect chain: two linked transitions, exact release/effect eligibility proof, and CI-facing hostile coverage. It remains bounded to the agreed code seam and never claims provider, deployment, delivery, or production-effect authority.</dd>
-          </dl>
-        </section>
-
-        <section>
-          <p class="eyebrow">What I need from your team</p>
-          <h2>No production access. No six-week discovery phase.</h2>
+          <p class="eyebrow">For a real system</p>
+          <h2>First understand the source, destination and failure.</h2>
           <ul>
             <li>One sanitized source artifact or interface description.</li>
             <li>The target system or decision it can change.</li>
@@ -105,7 +96,7 @@
             <li>One costly false promotion the adapter must stop.</li>
             <li>A local, CI, or sanitized test environment—or an explicit discovery-only boundary if none exists yet.</li>
           </ul>
-          <div class="article-callout"><p><strong>Fit rule:</strong> if the source, target, costly failure, and acceptance proof cannot be named from a sanitized summary, I hold the sprint instead of selling a larger vague engagement.</p></div>
+          <div class="article-callout"><p>If those pieces are still unclear, the useful first step is to describe the problem together, not promise an implementation.</p></div>
         </section>
 
         <section>
@@ -116,18 +107,18 @@ hostile fixtures    → held with named reasons
 replay              → idempotent or conflicting, never ambiguous
 external authority  → false unless separately granted
 proof command       → green from a clean checkout</code></pre>
-          <p>The public repository demonstrates the pattern with synthetic fixtures. A client sprint implements only the chosen sanitized boundary. It does not claim production safety, certification, customer results, provider authenticity, delivery, deployment, or external effect unless those are separately and directly proven.</p>
+          <p>The public repository demonstrates this pattern with synthetic fixtures. A real integration needs its own inputs, owners, acceptance checks and permissions. These examples do not prove production safety, customer results or external effects.</p>
         </section>
 
         <section>
-          <p class="eyebrow">The first commercial move</p>
-          <h2>One boundary. $1,500 fixed. 3–5 working days.</h2>
+          <p class="eyebrow">Continue the conversation</p>
+          <h2>One concrete example is enough to begin.</h2>
           <div class="article-cta">
             <p>Send a sanitized summary in this form:</p>
             <p><strong>Source → target → costly false promotion → evidence you already have → test environment.</strong></p>
             <div class="actions">
-              <a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Start review-only intake</a>
-              <a class="button secondary" href="mailto:onyskoartur@gmail.com?subject=One%20broken%20AI%20handoff">Email the boundary</a>
+              <a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Ask a question</a>
+              <a class="button secondary" href="mailto:onyskoartur@gmail.com?subject=One%20broken%20AI%20handoff">Email me</a>
               <a class="button secondary" href="en.html#intake">Build a local review draft</a>
             </div>
             <p>Do not send credentials, personal/customer data, private code, or production access details. Start with a sanitized summary only.</p>
@@ -139,7 +130,7 @@ proof command       → green from a clean checkout</code></pre>
 
   <footer class="shell">
     <span>Artur Onysko · AI systems proof engineering</span>
-    <span><a href="en.html">Service</a> · <a href="architecture.html">Architecture</a> · <a href="case-study.html">Case study</a> · <a href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows">Public proof</a></span>
+    <span><a href="en.html">Home</a> · <a href="architecture.html">Architecture</a> · <a href="case-study.html">Case study</a> · <a href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows">Public proof</a></span>
   </footer>
 </body>
 </html>

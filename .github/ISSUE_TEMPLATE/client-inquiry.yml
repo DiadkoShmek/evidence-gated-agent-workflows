@@ -1,5 +1,5 @@
-name: AI Systems Proof Sprint — scoped inquiry
-description: Describe one sanitized AI or data handoff for the fixed $1,500, 3–5 working day first step; this form is review-only.
+name: Ask about an AI workflow
+description: Share a public, sanitized question about one AI workflow or handoff.
 title: "[inquiry] "
 labels: ["client-inquiry", "review-required"]
 body:
@@ -7,8 +7,8 @@ body:
     attributes:
       value: |
         This is a public issue. Do not include credentials, personal data, customer records, private URLs, proprietary code, or security-sensitive details. A public summary is enough to decide whether a private next step is useful.
-        This review-only form is for the AI Systems Proof Sprint: one fixed $1,500, 3–5 working day first step delivering one fail-closed provenance adapter, hostile proof, and reviewable handoff.
-        Submitting this form does not purchase a sprint, accept a contract, reserve capacity, or authorize a production or external action.
+        This is a starting point for a conversation. Describe the problem in your own words; no ready-made package is assumed.
+        Submitting this form does not start paid work, accept a contract, grant access, or authorize a production or external action.
   - type: input
     id: workflow
     attributes:
@@ -20,7 +20,7 @@ body:
   - type: textarea
     id: failure
     attributes:
-      label: Expensive failure
+      label: What goes wrong?
       description: What repeatedly goes wrong, in sanitized terms?
       placeholder: "Missing output is sometimes treated as success, causing manual recovery."
     validations:
@@ -28,8 +28,8 @@ body:
   - type: textarea
     id: proof
     attributes:
-      label: Five-day proof
-      description: What observable fact would make a small first slice useful?
+      label: A useful first check
+      description: What observable result would make a small first step useful?
       placeholder: "Malformed and missing artifacts always enter an explicit held state in the test environment."
     validations:
       required: true
@@ -46,8 +46,8 @@ body:
   - type: dropdown
     id: discovery
     attributes:
-      label: How did you find this sprint?
-      description: Buyer-declared acquisition source for aggregate inquiry-funnel measurement; this is not authenticated attribution.
+      label: How did you find this project?
+      description: This helps me understand where people find the project.
       options:
         - "GitHub profile"
         - "GitHub repository or release"
@@ -63,5 +63,5 @@ body:
       options:
         - label: I confirm this issue contains no credentials, personal/customer data, private code, private URLs, or production access details.
           required: true
-        - label: I understand that production activation, credentials, payments, and account changes are outside the first public inquiry.
+        - label: I understand that this public issue does not authorize paid work, production changes, credentials, or account access.
           required: true

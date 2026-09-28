@@ -13,7 +13,7 @@
   "files": [
     {
       "path": ".github/ISSUE_TEMPLATE/client-inquiry.yml",
-      "sha256": "e067131ce872756d5bd222751ef5f3ef8c20f238f83141cbca4ced9c8b850fa9"
+      "sha256": "0d46345d33895da04236265dd486955c7870c65a8aac5ed9ae04464861664937"
     },
     {
       "path": ".github/workflows/pages.yml",
@@ -29,7 +29,7 @@
     },
     {
       "path": "CAPABILITY_UA.md",
-      "sha256": "cd4267f8aaa5a6e4137cd181de6199c009874adef77c9402d7be00be6b9f73b3"
+      "sha256": "d7d6967fcd50e8e3fa43eba9f98c2b4640df3e980e7a2ec1c9cf57552644d44f"
     },
     {
       "path": "INTEGRATION_RELIABILITY_ACCEPTANCE_PACK.md",
@@ -97,27 +97,27 @@
     },
     {
       "path": "docs/ai-systems-sprint.html",
-      "sha256": "d6af11effc45d678121cfc105ef4e35b662a8bd54f21cf721538132c1957c710"
+      "sha256": "d215d0872d9363b2d099f49b7a4c21e0fb56f6abb7099efd474cbd6e8043036f"
     },
     {
       "path": "docs/architecture.html",
-      "sha256": "ae18edf439b0784e46e058d05f8da7813fad0497906f14357d05c4490692d4ca"
+      "sha256": "e64f4c805c90f4dbc4f15cc4da2a506befabbe459354e3e055148a5e6efc5fdc"
     },
     {
       "path": "docs/case-study.html",
-      "sha256": "4af2b79c5f116d23e926eb07a617286d4ae40ec86902cd5537098d7b714d84f3"
+      "sha256": "f8596ce506949acab3273f79c614941b42357b073d91c0026b386068c9cef52a"
     },
     {
       "path": "docs/en.html",
-      "sha256": "cfbefba527a299dfe88925691e19758feda7b192e04bf054b27888415258d19d"
+      "sha256": "e4a3325a38662401673177f0221df663854596da02004f308c35c477cbda3e09"
     },
     {
       "path": "docs/index.html",
-      "sha256": "219d3782093765210c45bc8490ddf1a924b95d3f2f92731c723e7bbd5fc3878f"
+      "sha256": "8585e9402a0963599fd041c099733e7574de1c4699f1b9e11e6de5b6b10c5a37"
     },
     {
       "path": "docs/intake-experience.js",
-      "sha256": "c72b4d0080032877fbaee74b381c1b89fc32439d6e19e5b4d2f476d52f3568e1"
+      "sha256": "492e057cee99417a004f0e01117c3d138017ec68e2b6218d8fe7481e52f3bea9"
     },
     {
       "path": "docs/operating-core-experience.js",
@@ -137,7 +137,7 @@
     },
     {
       "path": "docs/styles.css",
-      "sha256": "d83b1ed90d67bf84e102a949842248c4d75f88dc543d633d2d4eab75096346e0"
+      "sha256": "1f86c1b4166513e738945a2bd090739b0e5de2b3369223e9502aaa6005e67be7"
     },
     {
       "path": "egoh-demo/README.md",
@@ -309,8 +309,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "0ac4d98332ea22b7d70aa266a5f0ccecc5f65b870568d856675f0e60625d14e4"
+      "sha256": "5c45191b32d7871659a76ec582b4c12958b8902e9d9e3bac032ff793cf33100d"
     }
   ],
-  "tree_sha256": "9bdd535c4a564616701c482f1d042937a5c38d7958ebd92d1e911ed0bd888884"
+  "tree_sha256": "4add9f6028c71d1070ca05fd0f87db2e1547bde3d7eec28bc4a655a807e48358"
 }

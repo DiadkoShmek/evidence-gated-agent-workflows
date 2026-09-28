@@ -44,7 +44,7 @@ EVIDENCE_GATE = ROOT / "evidence-gate"
 TRACE_AS_OF = "2026-07-30T12:00:00Z"
 MANIFEST = EGOH / "public-pack" / "PUBLICATION_MANIFEST.json"
 EXPECTED_PACK_SHA256 = "cd1107d793ca7a89cd973c43926cf8533459644a86a90c872d2b9e7cd6fa2cc8"
-EXPECTED_CAPABILITY_SHA256 = "cd4267f8aaa5a6e4137cd181de6199c009874adef77c9402d7be00be6b9f73b3"
+EXPECTED_CAPABILITY_SHA256 = "d7d6967fcd50e8e3fa43eba9f98c2b4640df3e980e7a2ec1c9cf57552644d44f"
 MANIFEST_SCHEMA = "evidence-gated-public-candidate-manifest-v1"
 PRIVATE_MARKER = re.compile(
     r"/(?:home|Users)/[^/\s]+/|"
@@ -420,14 +420,14 @@ class PublicationCandidateTest(unittest.TestCase):
         nav = re.search(r'<nav\b.*?</nav>', page, re.DOTALL)
         self.assertIsNotNone(nav)
         self.assertIn(
-            f'<a class="nav-cta" href="{issue_url}">Start review-only intake</a>',
+            f'<a class="nav-cta" href="{issue_url}">Ask a question</a>',
             nav.group(0),  # type: ignore[union-attr]
         )
         self.assertNotIn("mailto:", nav.group(0))  # type: ignore[union-attr]
         article_cta = re.search(r'<div class="article-cta">.*?</div>\s*</section>', page, re.DOTALL)
         self.assertIsNotNone(article_cta)
         self.assertIn(
-            f'<a class="button primary" href="{issue_url}">Start review-only intake</a>',
+            f'<a class="button primary" href="{issue_url}">Ask a question</a>',
             article_cta.group(0),  # type: ignore[union-attr]
         )
         self.assertIn(
@@ -465,7 +465,7 @@ class PublicationCandidateTest(unittest.TestCase):
         )
         self.assertIn("https://diadkoshmek.github.io/evidence-gated-agent-workflows/case-study.html", sitemap)
         self.assert_article_review_intake_topology(
-            case_study, email_label="Email one broken handoff",
+            case_study, email_label="Email me",
         )
         for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
             self.assertNotIn(forbidden, case_study)
@@ -503,12 +503,12 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertNotIn("it is not claimed by the synthetic demo", readme)
         self.assertIn("https://diadkoshmek.github.io/evidence-gated-agent-workflows/architecture.html", sitemap)
         self.assert_article_review_intake_topology(
-            architecture, email_label="Email one technical boundary",
+            architecture, email_label="Email me",
         )
         for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
             self.assertNotIn(forbidden, architecture)
 
-    def test_ai_systems_sprint_is_specific_bounded_and_linked(self) -> None:
+    def test_ai_workflow_article_is_specific_bounded_and_linked(self) -> None:
         page = AI_SYSTEMS_SPRINT.read_text(encoding="utf-8")
         english = LANDING_EN.read_text(encoding="utf-8")
         ukrainian = LANDING.read_text(encoding="utf-8")
@@ -517,15 +517,14 @@ class PublicationCandidateTest(unittest.TestCase):
         sitemap = SITEMAP.read_text(encoding="utf-8")
 
         self.assertIn('<link rel="canonical" href="https://diadkoshmek.github.io/evidence-gated-agent-workflows/ai-systems-sprint.html">', page)
-        self.assertIn('"@type":"Service"', page)
-        self.assertIn('"price":"1500"', page)
-        self.assertIn("Not a platform subscription or a migration.", page)
-        self.assertIn("AI Systems Proof Sprint — $1,500 fixed", page)
-        self.assertIn("Release Integrity Pack — $4,500 fixed", page)
+        self.assertIn('"@type":"Article"', page)
+        self.assertNotIn('"offers"', page)
+        self.assertNotIn("$1,500", page)
+        self.assertNotIn("$4,500", page)
+        self.assertIn("Start with the part that can cause a real mistake.", page)
         self.assertIn("agent action admission demo", page)
         self.assertIn("It grants no real tool or effect authority.", page)
-        self.assertIn("only as a separately scoped follow-on after a completed Proof Sprint", page)
-        self.assertNotIn("$7,500", page)
+        self.assertIn("One concrete example is enough to begin.", page)
         for seam in (
             "Memory or retrieval → next-agent context",
             "Dataset or evaluation → release decision",
@@ -536,7 +535,7 @@ class PublicationCandidateTest(unittest.TestCase):
         for deliverable in ("Boundary contract", "Bounded adapter", "Hostile proof", "Decision receipt", "Engineering handoff"):
             self.assertIn(deliverable, page)
         self.assertIn("external authority  → false unless separately granted", page)
-        self.assertIn("does not claim production safety", page)
+        self.assertIn("do not prove production safety", page)
         self.assertIn("sanitized summary only", page)
         self.assertIn(
             '<a class="button secondary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows">Run the public proof</a>',
@@ -552,10 +551,10 @@ class PublicationCandidateTest(unittest.TestCase):
         )
         self.assertNotIn("public-proof-v1.7.0", page)
         issue_url = "https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml"
-        nav = re.search(r'<nav aria-label="AI systems sprint navigation">.*?</nav>', page, re.DOTALL)
+        nav = re.search(r'<nav aria-label="AI systems navigation">.*?</nav>', page, re.DOTALL)
         self.assertIsNotNone(nav)
         self.assertIn(
-            f'<a class="nav-cta" href="{issue_url}">Start review-only intake</a>',
+            f'<a class="nav-cta" href="{issue_url}">Ask a question</a>',
             nav.group(0),  # type: ignore[union-attr]
         )
         self.assertNotIn("mailto:", nav.group(0))  # type: ignore[union-attr]
@@ -564,18 +563,18 @@ class PublicationCandidateTest(unittest.TestCase):
         hero_markup = hero.group(0)  # type: ignore[union-attr]
         self.assertEqual(hero_markup.count(issue_url), 1)
         self.assertIn(
-            f'<a class="button primary" href="{issue_url}">Start review-only intake</a>',
+            f'<a class="button primary" href="{issue_url}">Ask a question</a>',
             hero_markup,
         )
         self.assertIn(
-            f'<a class="button secondary" href="mailto:{PUBLIC_CONTACT_EMAIL}?subject=One%20broken%20AI%20handoff">Email one technical boundary</a>',
+            f'<a class="button secondary" href="mailto:{PUBLIC_CONTACT_EMAIL}?subject=One%20broken%20AI%20handoff">Email me</a>',
             hero_markup,
         )
         self.assertIn('href="en.html#intake">Build a local review draft</a>', hero_markup)
         self.assertEqual(page.count(issue_url), 3)
         self.assertEqual(
             page.count(
-                f'<a class="button primary" href="{issue_url}">Start review-only intake</a>'
+                f'<a class="button primary" href="{issue_url}">Ask a question</a>'
             ),
             2,
         )
@@ -599,9 +598,10 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertNotIn("AI Systems Proof Sprint", readme)
         self.assertNotIn("ai-systems-sprint.html", readme)
         for public_cta in (architecture, case_study):
-            self.assertIn("<strong>AI Systems Proof Sprint</strong>", public_cta)
-            self.assertIn("One fail-closed provenance adapter for a sanitized source-to-target handoff", public_cta)
-            self.assertNotIn("Fail-Closed Provenance Adapter Sprint", public_cta)
+            self.assertIn("From example to real system", public_cta)
+            self.assertIn(issue_url, public_cta)
+            self.assertNotIn("$1,500", public_cta)
+            self.assertNotIn("AI Systems Proof Sprint", public_cta)
         for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
             self.assertNotIn(forbidden, page)
 
@@ -716,7 +716,7 @@ class PublicationCandidateTest(unittest.TestCase):
             )
             main = re.search(r"<main\b.*?</main>", page, re.DOTALL)
             self.assertIsNotNone(main)
-            self.assertEqual(main.group(0).count("$1,500"), 1)  # type: ignore[union-attr]
+            self.assertEqual(main.group(0).count("$1,500"), 0)  # type: ignore[union-attr]
             self.assertLess(len(page.encode("utf-8")), 32 * 1024)
             issue_url = "https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml"
             nav = re.search(r'<nav\b.*?</nav>', page, re.DOTALL)
@@ -725,17 +725,17 @@ class PublicationCandidateTest(unittest.TestCase):
             self.assertNotIn("mailto:", nav.group(0))  # type: ignore[union-attr]
             self.assertEqual(
                 page.count(f'class="button primary" href="{issue_url}"'),
-                3,
+                2,
             )
             self.assertEqual(page.count('class="button primary" href="mailto:'), 0)
             self.assertEqual(
                 page.count(f'href="mailto:{PUBLIC_CONTACT_EMAIL}?subject=One%20broken%20AI%20handoff"'),
                 2,
             )
-            self.assertEqual(page.count(issue_url), 5)
+            self.assertEqual(page.count(issue_url), 4)
         self.assertTrue(PROOF_EXPERIENCE.is_file())
-        self.assertIn("AI Systems Proof Sprint · фіксований інженерний спринт", landing)
-        self.assertIn("AI Systems Proof Sprint · 3–5 day fixed-scope engineering sprint", english)
+        self.assertIn("AI-процеси · код, приклади й чесні межі", landing)
+        self.assertIn("AI workflows · code, examples, and clear limits", english)
         self.assertIn("does not prove", english)
         self.assertIn("Ілюстративне browser-local відтворення", landing)
         self.assertNotIn("url(", style.lower())
@@ -756,8 +756,10 @@ class PublicationCandidateTest(unittest.TestCase):
                 LANDING.read_text(encoding="utf-8"),
                 {
                     "language": "uk",
-                    "title": "AI Systems Proof Sprint — Артур Онисько",
-                    "description": "AI Systems Proof Sprint: фіксований $1,500 sprint на 3–5 днів для однієї AI або data передачі: fail-closed provenance adapter, hostile proof і review-only handoff.",
+                    "title": "AI-процеси, які можна перевірити — Артур Онисько",
+                    "schema_name": "AI-процеси, які можна перевірити",
+                    "site_name": "Артур Онисько · нотатки про AI-процеси",
+                    "description": "Відкриті приклади AI-процесів, які зупиняються на неповних даних і залишають важливе рішення людині.",
                     "canonical": base,
                 },
             ),
@@ -765,8 +767,10 @@ class PublicationCandidateTest(unittest.TestCase):
                 LANDING_EN.read_text(encoding="utf-8"),
                 {
                     "language": "en",
-                    "title": "AI Systems Proof Sprint — Artur Onysko",
-                    "description": "AI Systems Proof Sprint: a $1,500, 3–5 day fixed-scope sprint for one AI or data workflow, delivered as a fail-closed provenance adapter, hostile proof, and review-only handoff.",
+                    "title": "AI workflows people can inspect — Artur Onysko",
+                    "schema_name": "AI workflows people can inspect",
+                    "site_name": "Artur Onysko · AI workflow notes",
+                    "description": "Small, runnable examples of AI workflows that stop on incomplete evidence and leave consequential decisions with people.",
                     "canonical": base + "en.html",
                 },
             ),
@@ -784,7 +788,7 @@ class PublicationCandidateTest(unittest.TestCase):
             )
             for property_name, content in (
                 ("og:type", "website"),
-                ("og:site_name", "AI Systems Proof Sprint"),
+                ("og:site_name", expected["site_name"]),
                 ("og:title", expected["title"]),
                 ("og:description", expected["description"]),
                 ("og:url", expected["canonical"]),
@@ -804,13 +808,12 @@ class PublicationCandidateTest(unittest.TestCase):
                 json.loads(structured_match.group(1)),  # type: ignore[union-attr]
                 {
                     "@context": "https://schema.org",
-                    "@type": "Service",
-                    "name": "AI Systems Proof Sprint",
+                    "@type": "WebPage",
+                    "name": expected["schema_name"],
                     "description": expected["description"],
                     "url": expected["canonical"],
                     "inLanguage": expected["language"],
-                    "provider": {"@type": "Person", "name": "Artur Onysko"},
-                    "offers": {"@type": "Offer", "price": "1500", "priceCurrency": "USD"},
+                    "author": {"@type": "Person", "name": "Artur Onysko"},
                 },
             )
             self.assertNotRegex(head_markup.lower(), r"(?:analytics|gtag|plausible|pixel|og:image|twitter:image)")
@@ -819,7 +822,7 @@ class PublicationCandidateTest(unittest.TestCase):
                 {base, base + "en.html", "https://schema.org", repository_url, issue_url},
             )
 
-    def test_legacy_site_progression_keeps_only_the_first_sprint_purchasable(self) -> None:
+    def test_site_progression_stays_evidence_first_without_a_price(self) -> None:
         landing = LANDING_EN.read_text(encoding="utf-8")
         progression = re.search(
             r'<section class="section shell progression".*?</section>', landing, re.DOTALL,
@@ -827,21 +830,20 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertIsNotNone(progression)
         progression_text = progression.group(0)  # type: ignore[union-attr]
         for text in (
-            "The only purchasable step is the fixed sprint above.",
+            "Start with one observable handoff.",
             "One fail-closed handoff",
             "Harden an agent/runtime control plane",
             "Operator system roadmap",
-            "It is not included, priced, or promised by the first sprint.",
+            "Other transitions may need attention",
             "It does not authorize implementation.",
         ):
             self.assertIn(text, progression_text)
         buyer_visible_main = re.search(r"<main\b.*?</main>", landing, re.DOTALL)
         self.assertIsNotNone(buyer_visible_main)
-        self.assertEqual(buyer_visible_main.group(0).count("$1,500"), 1)  # type: ignore[union-attr]
+        self.assertEqual(buyer_visible_main.group(0).count("$1,500"), 0)  # type: ignore[union-attr]
         for cautious_clause in (
-            "Later layers are considered only when its written evidence identifies a real boundary worth carrying forward.",
-            "A later written scope may harden the boundary the sprint exposes.",
-            "It is not included, priced, or promised by the first sprint.",
+            "A larger system only makes sense after that first boundary is understood and tested.",
+            "Other transitions may need attention once the first result shows where the real risk sits.",
             "It does not authorize implementation.",
         ):
             self.assertIn(cautious_clause, progression_text)
@@ -858,7 +860,7 @@ class PublicationCandidateTest(unittest.TestCase):
         for pattern in prohibited_claim_patterns:
             self.assertNotRegex(progression_text.lower(), pattern)
 
-    def test_operating_core_map_has_exact_bilingual_stage_machine_and_one_purchasable_step(self) -> None:
+    def test_operating_core_map_has_exact_bilingual_stage_machine_and_clear_limits(self) -> None:
         ukrainian = LANDING.read_text(encoding="utf-8")
         english = LANDING_EN.read_text(encoding="utf-8")
         expected_stages = [
@@ -879,10 +881,10 @@ class PublicationCandidateTest(unittest.TestCase):
                 "external", "production", "provider",
             ):
                 self.assertIn(f"data-core-{field}", markup)
-        self.assertIn("Перший slice operating core, не chatbot-проєкт.", ukrainian)
-        self.assertIn("The first slice of an operating core, not a chatbot project.", english)
-        self.assertIn("Єдиний purchasable крок зараз — fixed sprint вище.", ukrainian)
-        self.assertIn("The fixed sprint above remains the only purchasable step now.", english)
+        self.assertIn("Подивіться, де рішення переходить до людини.", ukrainian)
+        self.assertIn("See where the decision changes hands.", english)
+        self.assertIn("не є системою клієнта", ukrainian)
+        self.assertIn("not a running client system", english)
 
     def test_operating_core_runtime_replays_all_stages_and_static_bootstrap_exactly(self) -> None:
         expected_controls = [
@@ -1248,8 +1250,8 @@ class PublicationCandidateTest(unittest.TestCase):
             self.assertEqual(
                 bridge["headings"],
                 [
-                    "One workflow", "Expensive failure", "Five-day proof",
-                    "Test environment available?", "How did you find this sprint?",
+                    "One workflow", "What goes wrong?", "A useful first check",
+                    "Test environment available?", "How did you find this project?",
                     "Public-data boundary",
                 ],
             )
@@ -1259,20 +1261,20 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertEqual(complete_bridge["route"], "existing-github-issue-form")
         self.assertEqual(
             [key for key in complete_bridge if key in {
-                "One workflow", "Expensive failure", "Five-day proof",
-                "Test environment available?", "How did you find this sprint?",
+                "One workflow", "What goes wrong?", "A useful first check",
+                "Test environment available?", "How did you find this project?",
                 "Public-data boundary",
             }],
             [
-                "One workflow", "Expensive failure", "Five-day proof",
-                "Test environment available?", "How did you find this sprint?",
+                "One workflow", "What goes wrong?", "A useful first check",
+                "Test environment available?", "How did you find this project?",
                 "Public-data boundary",
             ],
         )
         for heading, controlled_value in (
             ("One workflow", "agent result entering one internal tool"),
-            ("Expensive failure", "missing evidence"),
-            ("Five-day proof", "one valid fixture passes"),
+            ("What goes wrong?", "missing evidence"),
+            ("A useful first check", "one valid fixture passes"),
         ):
             field = complete_bridge[heading]
             self.assertEqual(field["state"], "buyer-review-and-manual-entry-required")
@@ -1282,7 +1284,7 @@ class PublicationCandidateTest(unittest.TestCase):
             "Partly — examples only",
         )
         self.assertEqual(
-            complete_bridge["How did you find this sprint?"],
+            complete_bridge["How did you find this project?"],
             {
                 "state": "buyer-selection-required-in-public-form",
                 "options": [
@@ -1301,7 +1303,7 @@ class PublicationCandidateTest(unittest.TestCase):
                 },
                 {
                     "state": "buyer-review-and-manual-entry-required",
-                    "manual_checkbox_label": "I understand that production activation, credentials, payments, and account changes are outside the first public inquiry.",
+                    "manual_checkbox_label": "I understand that this public issue does not authorize paid work, production changes, credentials, or account access.",
                 },
             ],
         )
@@ -1333,8 +1335,8 @@ class PublicationCandidateTest(unittest.TestCase):
             self.assertEqual(
                 packet["issue_form_guidance"]["headings"],
                 [
-                    "One workflow", "Expensive failure", "Five-day proof",
-                    "Test environment available?", "How did you find this sprint?",
+                    "One workflow", "What goes wrong?", "A useful first check",
+                    "Test environment available?", "How did you find this project?",
                     "Public-data boundary",
                 ],
             )
@@ -1392,26 +1394,28 @@ class PublicationCandidateTest(unittest.TestCase):
 
     def test_public_inquiry_warns_without_claiming_enforced_sanitization(self) -> None:
         inquiry = INQUIRY.read_text(encoding="utf-8")
-        self.assertIn("name: AI Systems Proof Sprint — scoped inquiry", inquiry)
+        self.assertIn("name: Ask about an AI workflow", inquiry)
         self.assertIn(
-            "description: Describe one sanitized AI or data handoff for the fixed $1,500, 3–5 working day first step; this form is review-only.",
+            "description: Share a public, sanitized question about one AI workflow or handoff.",
             inquiry,
         )
         self.assertIn("This is a public issue", inquiry)
         self.assertIn(
-            "This review-only form is for the AI Systems Proof Sprint: one fixed $1,500, 3–5 working day first step delivering one fail-closed provenance adapter, hostile proof, and reviewable handoff.",
+            "This is a starting point for a conversation. Describe the problem in your own words; no ready-made package is assumed.",
             inquiry,
         )
         self.assertIn(
-            "Submitting this form does not purchase a sprint, accept a contract, reserve capacity, or authorize a production or external action.",
+            "Submitting this form does not start paid work, accept a contract, grant access, or authorize a production or external action.",
             inquiry,
         )
         for forbidden in ("email", "phone", "password", "token", "api key", "upload"):
             self.assertNotRegex(inquiry.lower(), rf"id:\s*{re.escape(forbidden)}")
         for required in ("id: workflow", "id: failure", "id: proof", "id: boundary"):
             self.assertIn(required, inquiry)
-        self.assertIn("production activation", inquiry)
+        self.assertIn("production changes", inquiry)
         self.assertIn("private code", inquiry)
+        self.assertNotIn("$1,500", inquiry)
+        self.assertNotIn("Proof Sprint", inquiry)
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertNotIn("sanitized workflow inquiry", readme)
 
@@ -1435,7 +1439,7 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertIn("consistent packet", readme)
         self.assertNotRegex(intake_url, r"[?&](?:workflow|failure|proof|boundary)=")
 
-    def test_public_inquiry_binds_exact_first_sprint_intake_contract(self) -> None:
+    def test_public_inquiry_binds_existing_intake_contract_without_fixed_offer(self) -> None:
         inquiry = INQUIRY.read_text(encoding="utf-8")
         self.assertRegex(inquiry, re.compile(r'^title: "\[inquiry\] "$', re.MULTILINE))
         self.assertRegex(
@@ -1454,10 +1458,10 @@ class PublicationCandidateTest(unittest.TestCase):
             [(control_type, control_id, label) for control_type, control_id, label, _ in controls],
             [
                 ("input", "workflow", "One workflow"),
-                ("textarea", "failure", "Expensive failure"),
-                ("textarea", "proof", "Five-day proof"),
+                ("textarea", "failure", "What goes wrong?"),
+                ("textarea", "proof", "A useful first check"),
                 ("dropdown", "environment", "Test environment available?"),
-                ("dropdown", "discovery", "How did you find this sprint?"),
+                ("dropdown", "discovery", "How did you find this project?"),
                 ("checkboxes", "boundary", "Public-data boundary"),
             ],
         )
@@ -1489,14 +1493,14 @@ class PublicationCandidateTest(unittest.TestCase):
                 "Other public source",
             ],
         )
-        self.assertIn("buyer-declared", discovery.lower())
-        self.assertIn("not authenticated attribution", discovery.lower())
+        self.assertIn("where people find the project", discovery.lower())
+        self.assertNotIn("sprint", discovery.lower())
         checkboxes = controls[5][3]
         self.assertEqual(
             re.findall(r"^        - label: ([^\n]+)\n          required: true$", checkboxes, re.MULTILINE),
             [
                 "I confirm this issue contains no credentials, personal/customer data, private code, private URLs, or production access details.",
-                "I understand that production activation, credentials, payments, and account changes are outside the first public inquiry.",
+                "I understand that this public issue does not authorize paid work, production changes, credentials, or account access.",
             ],
         )
         self.assertEqual(checkboxes.count("required: true"), 2)
