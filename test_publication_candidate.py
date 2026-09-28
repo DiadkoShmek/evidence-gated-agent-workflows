@@ -613,6 +613,9 @@ class PublicationCandidateTest(unittest.TestCase):
             if path == LANDING:
                 self.assertIn("знеособленого опису", content)
                 self.assertIn("Не надсилайте паролі, приватні дані", content)
+            elif path == LANDING_EN:
+                self.assertIn("A sanitized description is enough", content)
+                self.assertIn("Do not send passwords, private data", content)
             else:
                 self.assertIn("sanitized summary", content)
             self.assertIn("issues/new?template=client-inquiry.yml", content)
@@ -834,21 +837,21 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertIsNotNone(progression)
         progression_text = progression.group(0)  # type: ignore[union-attr]
         for text in (
-            "Start with one observable handoff.",
-            "One fail-closed handoff",
-            "Harden an agent/runtime control plane",
-            "Operator system roadmap",
-            "Other transitions may need attention",
-            "It does not authorize implementation.",
+            "Understand one handoff first.",
+            "One handoff",
+            "Nearby steps",
+            "What remains",
+            "The first result may show whether other transitions need attention.",
+            "A description alone does not authorize changes to a working system.",
         ):
             self.assertIn(text, progression_text)
         buyer_visible_main = re.search(r"<main\b.*?</main>", landing, re.DOTALL)
         self.assertIsNotNone(buyer_visible_main)
         self.assertEqual(buyer_visible_main.group(0).count("$1,500"), 0)  # type: ignore[union-attr]
         for cautious_clause in (
-            "A larger system only makes sense after that first boundary is understood and tested.",
-            "Other transitions may need attention once the first result shows where the real risk sits.",
-            "It does not authorize implementation.",
+            "Only then is it useful to talk about a larger system.",
+            "The first result may show whether other transitions need attention.",
+            "A description alone does not authorize changes to a working system.",
         ):
             self.assertIn(cautious_clause, progression_text)
         prohibited_claim_patterns = (

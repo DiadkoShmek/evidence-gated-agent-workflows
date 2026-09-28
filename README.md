@@ -1,5 +1,10 @@
 # Evidence-gated Agent Workflows
 
+**Українською:** тут є невеликі приклади AI-процесів, які зупиняються,
+коли даних бракує або вони суперечать одне одному. Код і тести відкриті;
+[сторінка проєкту](https://diadkoshmek.github.io/evidence-gated-agent-workflows/)
+пояснює ідею без потреби читати весь репозиторій.
+
 Small, dependency-free examples of a problem that is easy to miss: an
 automation receives incomplete or conflicting information and carries on as
 if it succeeded. These demos stop, give a reason, and leave the decision with
