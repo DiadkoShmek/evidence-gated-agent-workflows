@@ -610,7 +610,11 @@ class PublicationCandidateTest(unittest.TestCase):
         for path in (AI_SYSTEMS_SPRINT, ARCHITECTURE, CASE_STUDY, LANDING_EN, LANDING):
             content = path.read_text(encoding="utf-8")
             self.assertIn(expected_href, content)
-            self.assertIn("sanitized summary", content)
+            if path == LANDING:
+                self.assertIn("знеособленого опису", content)
+                self.assertIn("Не надсилайте паролі, приватні дані", content)
+            else:
+                self.assertIn("sanitized summary", content)
             self.assertIn("issues/new?template=client-inquiry.yml", content)
 
     def tracked_paths(self) -> list[Path]:
@@ -1044,7 +1048,7 @@ class PublicationCandidateTest(unittest.TestCase):
                 ("missing", "false", "Відсутній доказ"),
                 ("stale", "false", "Застарілий доказ"),
                 ("conflict", "false", "Суперечливий доказ"),
-                ("risk", "false", "Передача з risk-tag"),
+                ("risk", "false", "Передача з позначкою ризику"),
             ],
         )
         for label in (
@@ -1117,14 +1121,14 @@ class PublicationCandidateTest(unittest.TestCase):
                 {"id": "missing", "classSelected": False, "ariaPressed": "false"},
                 {"id": "stale", "classSelected": False, "ariaPressed": "false"},
                 {"id": "conflict", "classSelected": False, "ariaPressed": "false"},
-                {"id": "risk", "classSelected": snapshot["title"] in {"Risk-tagged handoff", "Передача з risk-tag"}, "ariaPressed": "true" if snapshot["title"] in {"Risk-tagged handoff", "Передача з risk-tag"} else "false"},
+                {"id": "risk", "classSelected": snapshot["title"] in {"Risk-tagged handoff", "Передача з позначкою ризику"}, "ariaPressed": "true" if snapshot["title"] in {"Risk-tagged handoff", "Передача з позначкою ризику"} else "false"},
             ])
         self.assertEqual(
             [(english["initial"][key], english["risk"][key]) for key in ("outcome", "reason", "decision", "authorized")],
             [(ukrainian["initial"][key], ukrainian["risk"][key]) for key in ("outcome", "reason", "decision", "authorized")],
         )
         self.assertEqual(ukrainian["initial"]["title"], "Валідний доказ")
-        self.assertEqual(ukrainian["risk"]["title"], "Передача з risk-tag")
+        self.assertEqual(ukrainian["risk"]["title"], "Передача з позначкою ризику")
 
     def test_failure_trace_explorer_has_no_input_or_external_runtime_surface(self) -> None:
         landing = LANDING.read_text(encoding="utf-8").lower()
