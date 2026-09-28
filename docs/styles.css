@@ -174,7 +174,10 @@ footer { border-top: 1px solid var(--line); padding: 26px 0 40px; display: flex;
   .decision-offer { align-items: flex-start; flex-direction: column; }
   .trace-details, .core-details { grid-template-columns: 1fr; }
   .section { padding-block: 74px; }
-  .cards article { min-height: 220px; }
+  .cards article { min-height: 0; padding: 22px; }
+  .cards h3 { margin-top: 22px; }
+  .decision-grid h3 { margin-top: 20px; }
+  .progression-steps h3 { margin-top: 24px; }
   footer { flex-direction: column; }
 }
 

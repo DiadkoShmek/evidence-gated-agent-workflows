@@ -18,11 +18,11 @@ const TRACE_COPY = Object.freeze({
     risk: Object.freeze({ title: "Risk-tagged handoff", explanation: "A financial risk tag escalates the decision to a human; no action is authorized." })
   }),
   uk: Object.freeze({
-    clean: Object.freeze({ title: "Валідний доказ", explanation: "Повний synthetic evidence може дати draft; будь-яку наступну дію все одно вирішує людина." }),
-    missing: Object.freeze({ title: "Відсутній доказ", explanation: "Fixture не містить потрібного proof, тому handoff утримується без substitute claim." }),
-    stale: Object.freeze({ title: "Застарілий доказ", explanation: "Evidence поза declared freshness window лишається hold для нового bounded review." }),
-    conflict: Object.freeze({ title: "Суперечливий доказ", explanation: "Conflicting values не отримують promotion через handoff; case лишається hold для resolution." }),
-    risk: Object.freeze({ title: "Передача з risk-tag", explanation: "Financial risk tag передає decision людині; жодна дія не authorized." })
+    clean: Object.freeze({ title: "Валідний доказ", explanation: "Повний тестовий запис дає чернетку. Наступну дію все одно вирішує людина." }),
+    missing: Object.freeze({ title: "Відсутній доказ", explanation: "Потрібного підтвердження немає. Передачу зупинено, а причину видно в результаті." }),
+    stale: Object.freeze({ title: "Застарілий доказ", explanation: "Дані старші за допустимий строк. Потрібна нова перевірка." }),
+    conflict: Object.freeze({ title: "Суперечливий доказ", explanation: "Джерела не збігаються. Результат не передається далі, доки суперечність не розв'язана." }),
+    risk: Object.freeze({ title: "Передача з позначкою ризику", explanation: "Ризикована дія переходить на розгляд людині. Тест не дає дозволу її виконати." })
   })
 });
 

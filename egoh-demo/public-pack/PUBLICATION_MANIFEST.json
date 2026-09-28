@@ -113,7 +113,7 @@
     },
     {
       "path": "docs/index.html",
-      "sha256": "8585e9402a0963599fd041c099733e7574de1c4699f1b9e11e6de5b6b10c5a37"
+      "sha256": "c7122aaceb713f2d159c3e7c2f25bf3aef7995c5721150d028a7732d1d8d9d80"
     },
     {
       "path": "docs/intake-experience.js",
@@ -125,7 +125,7 @@
     },
     {
       "path": "docs/proof-experience.js",
-      "sha256": "add1e8d662f1d11b729b29ff5e0566d6c888fdd3fddac62f76d3edebd93f4e0e"
+      "sha256": "e01d1d36d63208b41c3976d167df2a64681f857ab2dfbe53605b557a0496f77f"
     },
     {
       "path": "docs/robots.txt",
@@ -137,7 +137,7 @@
     },
     {
       "path": "docs/styles.css",
-      "sha256": "1f86c1b4166513e738945a2bd090739b0e5de2b3369223e9502aaa6005e67be7"
+      "sha256": "49a2d7bc0b6a4bed10c882a9ab9691d62252b9e34d6a1877ce01124d9d26590b"
     },
     {
       "path": "egoh-demo/README.md",
@@ -309,8 +309,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "5c45191b32d7871659a76ec582b4c12958b8902e9d9e3bac032ff793cf33100d"
+      "sha256": "8a90059b7353bbefe7fd60667a9dbbc81d7cf0b0f3fa315c9fc45c884e5978cb"
     }
   ],
-  "tree_sha256": "4add9f6028c71d1070ca05fd0f87db2e1547bde3d7eec28bc4a655a807e48358"
+  "tree_sha256": "8db94b236f563fa8637b4d8b4f2dce127b0b0c282d57160df2402b62dbeac2c0"
 }

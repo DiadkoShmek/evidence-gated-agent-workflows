@@ -58,34 +58,34 @@
       <div class="decision-heading">
         <p class="eyebrow">Три корисні питання</p>
         <h2 id="decision-title">Що станеться після відповіді AI?</h2>
-        <p>Переконливий на вигляд результат може запустити повідомлення клієнту, зміну в CRM, реліз або іншу дію. До цього варто зрозуміти, звідки він узявся і чи можна йому довірити наступний крок.</p>
+        <p>Відповідь може виглядати переконливою, навіть коли потрібного документа немає або він застарів. Якщо за нею автоматично йде повідомлення чи зміна в системі, помилка вже має наслідок.</p>
       </div>
       <div class="decision-grid">
-        <article><span>01</span><h3>Що рухається?</h3><p>Назвіть exact artifact і наступну систему або людське рішення, яке він змінює.</p></article>
-        <article><span>02</span><h3>Що може піти не так?</h3><p>Назвіть один дорогий false promotion: stale context, substituted bytes, missing evidence, duplicate effect або contradictory state.</p></article>
-        <article><span>03</span><h3>Що доведе контроль?</h3><p>Назвіть один valid fixture, який мусить пройти, і hostile fixtures, що мусять зупинитися з readable reasons.</p></article>
+        <article><span>01</span><h3>Куди вона піде?</h3><p>У лист, таблицю, іншу програму чи на розгляд людині? Саме наступний крок визначає ризик.</p></article>
+        <article><span>02</span><h3>Коли зупинитися?</h3><p>У відкритих прикладах брак даних, застарілий запис або суперечність зупиняють передачу результату.</p></article>
+        <article><span>03</span><h3>Хто вирішить далі?</h3><p>Тест показує причину зупинки. Важливу дію після цього має розглядати людина.</p></article>
       </div>
       <div class="decision-offer">
-        <p><strong>Для реального процесу:</strong> почнімо з джерела, наступної дії, можливого збою й одного результату, який можна перевірити. Якщо це поки нечітко, саме з цього і варто почати розмову.</p>
+        <p>Це можна побачити в <a href="#proof">тестових прикладах</a>. Якщо схожа помилка трапляється у вашій роботі, опишіть один випадок — спочатку розберемося, що саме треба перевірити.</p>
         <a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Поставити питання</a>
       </div>
     </section>
 
     <section class="section shell fit">
-      <div><p class="eyebrow">Конкретний обмін</p><h2>Що ви даєте. Що означає «готово».</h2></div>
+      <div><p class="eyebrow">Від прикладу до задачі</p><h2>Почати можна з одного збою.</h2></div>
       <div class="fit-copy">
-        <p><strong>Для початку:</strong> один знеособлений приклад, очікуваний формат, джерело й призначення та помилка, яку система має зупинити. Не надсилайте ключі чи доступ до production у публічному зверненні.</p>
-        <p><strong>Acceptance:</strong> погоджений valid fixture проходить; missing, malformed, stale, substituted і contradictory fixtures fail closed; decision trace називає reason; proof command проходить; межі й невирішені blockers записані.</p>
-        <p><strong>Межа:</strong> ці публічні приклади не включають production deployment, доступ до систем клієнта або автоматичні дії. Для реальної роботи потрібні окремі обсяг, повноваження й домовленість.</p>
+        <p>Достатньо знеособленого опису: що надходить до системи, куди має піти результат і яка помилка найбільше заважає. Ключі, приватні файли та доступ до робочої системи для першої розмови не потрібні.</p>
+        <p>Потім можна домовитися про маленьку перевірку: правильний приклад проходить, помилкові зупиняються з названою причиною. Обсяг реальної роботи визначається окремо.</p>
+        <p>Публічний код використовує тестові дані. Він не є впровадженням у чужій системі й не виконує зовнішніх дій.</p>
       </div>
     </section>
 
     <section id="deliverables" class="section shell">
-      <p class="eyebrow">Результат</p><h2>Вузький reliability layer, не slide deck.</h2>
+      <p class="eyebrow">Що є в коді</p><h2>Одну передачу можна розкласти на три частини.</h2>
       <div class="cards">
-        <article><span>01</span><h3>Boundary map</h3><p>Один source, один target, точний owner, очікувана schema, межі authority та вимірювані acceptance criteria.</p></article>
-        <article><span>02</span><h3>Fail-closed adapter</h3><p>Мала реалізація, що відмовляє missing, stale, malformed, substituted або contradictory evidence замість promotion.</p></article>
-        <article><span>03</span><h3>Hostile proof</h3><p>Звичайні й adversarial tests, decision trace, known limits і reproducible handoff для inspection.</p></article>
+        <article><span>01</span><h3>Джерело і наступний крок</h3><p>Що саме отримує програма, куди передає результат і хто відповідає за рішення.</p></article>
+        <article><span>02</span><h3>Чітка зупинка</h3><p>Коли даних бракує, вони застаріли або суперечать одне одному, процес не вдає успіх.</p></article>
+        <article><span>03</span><h3>Тести та межі</h3><p>Правильні й помилкові приклади, причина кожного рішення та чесний опис того, чого тести не доводять.</p></article>
       </div>
     </section>
 
@@ -94,7 +94,7 @@
       <ol class="progression-steps">
         <li><span>01 · перше питання</span><h3>Одна передача</h3><p>Чи проходить правильний приклад і чи зупиняються помилкові з названою причиною?</p></li>
         <li><span>02 · якщо доказ цього потребує</span><h3>Сусідні кроки</h3><p>Після першої перевірки стане видно, чи є сенс посилювати інші переходи.</p></li>
-        <li><span>03 · після evidence</span><h3>Operator system roadmap</h3><p>Пізніша roadmap може назвати proof gaps, межі owner та наступні operator decisions. Вона не authorizes implementation.</p></li>
+        <li><span>03 · якщо потрібне продовження</span><h3>Наступні кроки</h3><p>Після першої перевірки можна описати, що ще лишається незрозумілим. Сам опис не дає дозволу змінювати робочу систему.</p></li>
       </ol>
     </section>
 
@@ -122,7 +122,7 @@
           <button class="trace-control" type="button" data-trace-scenario="missing" aria-pressed="false">Відсутній доказ</button>
           <button class="trace-control" type="button" data-trace-scenario="stale" aria-pressed="false">Застарілий доказ</button>
           <button class="trace-control" type="button" data-trace-scenario="conflict" aria-pressed="false">Суперечливий доказ</button>
-          <button class="trace-control" type="button" data-trace-scenario="risk" aria-pressed="false">Передача з risk-tag</button>
+          <button class="trace-control" type="button" data-trace-scenario="risk" aria-pressed="false">Передача з позначкою ризику</button>
         </div>
         <article class="trace-card" aria-live="polite" aria-atomic="true"><p class="trace-kicker">Зафіксований синтетичний результат</p><h3 data-trace-title>Валідний доказ</h3><dl class="trace-details"><div><dt>Результат triage</dt><dd data-trace-outcome>draft</dd></div><div><dt>Названа причина</dt><dd data-trace-reason>EVIDENCE_COMPLETE</dd></div><div><dt>Рішення fixture</dt><dd data-trace-decision>draft</dd></div><div><dt>Зовнішня дія дозволена</dt><dd data-trace-authorized>false</dd></div></dl><p class="trace-explanation" data-trace-explanation>Повний синтетичний доказ може дати draft; будь-яку наступну дію все одно вирішує людина.</p></article>
       </div>
@@ -180,8 +180,8 @@
       <p class="intake-boundary">Не вводьте тут і не додавайте до public issue secrets, credentials, private code, customer/personal data, private URLs або production access details. Поточний builder має контрольовані поля, не має network, storage, telemetry чи automatic-submit APIs.</p>
     </section>
 
-    <section class="section shell fit"><div><p class="eyebrow">Хороший перший use</p><h2>Принесіть передачу, якій ваша команда не довіряє.</h2></div><div class="fit-copy"><p>Наприклад: agent result входить у internal tool, model artifact переходить у runtime, async job може брехати status або data receipt мусить пережити malformed і racing inputs.</p><p>Якщо корисний proof не можна завершити в погодженій межі, ви отримаєте чесний hold report з точним blocker-ом і reusable artifacts.</p></div></section>
-    <section class="closing shell"><p class="eyebrow">Почніть без private data</p><h2>Один workflow. Один дорогий failure. Один факт, що доведе improvement.</h2><div class="actions"><a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Поставити питання</a><a class="button secondary" href="mailto:onyskoartur@gmail.com?subject=One%20broken%20AI%20handoff">Надіслати приватний summary email-ом</a></div><p class="micro">Не надсилайте credentials, personal/customer data, private code або production access details ані email-ом, ані через public issue. Почніть тільки з sanitized summary.</p></section>
+    <section class="section shell fit"><div><p class="eyebrow">Де це корисно</p><h2>Коли відповідь AI стає чиєюсь дією.</h2></div><div class="fit-copy"><p>Наприклад, програма передає результат у внутрішній інструмент, чекає на відповідь іншого сервісу або має вирішити, чи достатньо джерел для висновку.</p><p>Якщо перевірку не вдається зробити чесно, це теж результат: назвати, чого бракує, і не видавати невідоме за успіх.</p></div></section>
+    <section class="closing shell"><p class="eyebrow">Є питання чи схожа задача?</p><h2>Опишіть один випадок. З нього й почнемо розмову.</h2><div class="actions"><a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Поставити питання</a><a class="button secondary" href="mailto:onyskoartur@gmail.com?subject=One%20broken%20AI%20handoff">Написати Артуру</a></div><p class="micro">Публічне звернення бачать усі. Не надсилайте паролі, приватні дані, код клієнта чи доступ до робочих систем.</p></section>
   </main>
   <footer class="shell"><span>Артур Онисько · AI-процеси, які можна перевірити</span><span><a href="case-study.html">Технічний приклад</a> · <a href="architecture.html">Архітектура</a> · <a href="ai-systems-sprint.html">Де зупиняти AI</a></span></footer>
 </body>
