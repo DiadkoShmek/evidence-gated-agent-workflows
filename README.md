@@ -1,93 +1,17 @@
 # Evidence-gated Agent Workflows
 
-Small, dependency-free Python references for automation systems that must
-fail honestly instead of inventing a successful result.
+Small, dependency-free examples of a problem that is easy to miss: an
+automation receives incomplete or conflicting information and carries on as
+if it succeeded. These demos stop, give a reason, and leave the decision with
+a person.
 
-## For AI engineers
+**Try the examples:** `python3 run_proof.py` (Python 3.12 and Node 24.14.0).
+The short descriptions below explain what each example checks.
 
-Read the [architecture of the evidence-gated boundary](https://diadkoshmek.github.io/evidence-gated-agent-workflows/architecture.html)
-before the service page. It separates seven checked owners instead of presenting
-one vague “AI safety” layer:
-
-- exact evidence admission with fact identity, hashes, freshness and conflicts;
-- fingerprint reuse and bounded terminal states for asynchronous polling;
-- scenario/evidence/decision replay and conflict refusal in the EGOH journal;
-- a composed synthetic core that requires lifecycle completion and independent
-  EGOH acceptance before producing a review-required handoff;
-- receipt-last immutable artifact publication and descriptor-pinned readback
-  before a local review-required handoff.
-- typed action request, pre-state and simulator binding in a frozen pre-effect
-  commitment before a deterministic local simulation receipt.
-- exact source hashes and deterministic lexical retrieval before a raw-free
-  `local-context-review-ready` result with every effect authority false.
-
-The public reference keeps external action authority false. Its immutable
-artifact demo proves one synthetic local filesystem boundary; a client adapter
-still needs its own source, target, identity, authority, and effect contract.
-
-For teams working on agent memory, retrieval, evaluation, tool execution, or
-durable workflow state, the [AI Systems Proof Sprint](https://diadkoshmek.github.io/evidence-gated-agent-workflows/ai-systems-sprint.html)
-maps four purchasable code seams to exact evidence, refusal paths, deliverables,
-and acceptance criteria.
-
-## Work with me
-
-I offer a fixed-scope **AI Systems Proof Sprint**: one fail-closed provenance
-adapter for one sanitized AI or data handoff. You bring its expected schema,
-the source and target interface descriptions, and one costly failure the
-handoff must refuse. In 3–5 working days I build a bounded adapter, hostile
-test suite, decision trace, known-limits report, and engineering handoff. The
-fixed first-step price is **$1,500**.
-
-[View the AI Systems Proof Sprint](https://diadkoshmek.github.io/evidence-gated-agent-workflows/ai-systems-sprint.html)
-or [inspect the architecture](https://diadkoshmek.github.io/evidence-gated-agent-workflows/architecture.html)
-or [open a scoped public workflow inquiry](https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml).
-Do not put credentials, personal/customer data, private code, or production
-access details in a public issue.
-
-For clients: this demonstrates how I make AI workflows observable and honest
-about failure before they are connected to real systems.
-
-The pilot is accepted when the agreed valid fixture passes, the agreed hostile
-fixtures fail closed with named reasons, and the documented proof command is
-green. One review round is included. Production deployment, security or
-compliance certification, SLA, ongoing support, client-system access, and
-automatic activation are outside this pilot. Repository and licensing terms
-are agreed before work begins. The public demo tests demonstrate only the
-checked-in demo; they are not a safety guarantee for a client adapter.
-
-## A staged system, with one purchasable first step
-
-The fixed AI Systems Proof Sprint is deliberately the only item for sale now: **one fail-closed handoff**
-with a bounded acceptance proof. It is the evidence needed to decide whether any larger
-system work is justified.
-
-1. **Now — fixed purchasable sprint.** The AI Systems Proof Sprint above
-   produces one bounded fail-closed provenance adapter, hostile proof, decision trace,
-   known-limits report, and handoff.
-2. **After Stage 1 evidence — separately scoped hardening.** If that proof
-   reveals a real boundary worth carrying forward, a later written scope can
-   harden an agent/runtime control plane around that boundary. It is not
-   included, priced, or promised by the first sprint.
-3. **After evidence — operator system roadmap.** A later roadmap can name the
-   next operator decisions, proof gaps, and ownership boundaries. It does not
-   authorize implementation or imply that a later layer will be needed.
-
-This is a progression of evidence, not a bundled platform offer: the first
-handoff must earn every later conversation.
+Everything here uses synthetic inputs and local effects. Passing the tests
+does not establish production readiness or safety for another system.
 
 ## Included demos
-
-### [Integration Reliability Acceptance Pack](INTEGRATION_RELIABILITY_ACCEPTANCE_PACK.md)
-
-A buyer-facing scope for one paid discovery and control-plane slice. It names
-the required buyer inputs, deliverables, hostile acceptance tests, human
-approval boundary, and explicit exclusions before any production activation.
-
-### [Український capability brief](CAPABILITY_UA.md)
-
-Коротка українська подача: оплачуваний перший slice, exact public proof і
-чітка доказова межа без production-обіцянок.
 
 ### Evidence gate
 
@@ -136,8 +60,9 @@ zero—not a real tool call, authenticated approval, or execution-safety claim.
 
 Binds synthetic local source text to exact SHA-256 identities, ranks it by
 deterministic lexical overlap, and exposes only raw-free source metadata for a
-review-only result. Irrelevant queries, digest conflicts, duplicate sources,
-noncanonical requests and every non-review effect hold. This is not semantic
+local `local-context-review-ready` result. Irrelevant queries, digest
+conflicts, duplicate sources, noncanonical requests and every non-review
+effect hold. This is not semantic
 RAG quality, an LLM answer, a vector database, or a production retrieval claim.
 
 ### [Evidence-Gated Operator Handoff](egoh-demo/README.md)
@@ -178,7 +103,5 @@ Published for portfolio review. No reuse license is granted at this stage.
 
 ## Author
 
-Artur Onysko — AI automation builder for agent workflows, API integrations,
-context and memory systems, and reliability boundaries.
-
-See [PROFILE.md](PROFILE.md) for the working profile and evidence boundaries.
+Artur Onysko. See [my profile](https://github.com/DiadkoShmek) for other
+projects and a way to get in touch.

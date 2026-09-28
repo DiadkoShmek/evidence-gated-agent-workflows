@@ -496,11 +496,6 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertIn('href="architecture.html"', english)
         self.assertIn('href="architecture.html"', LANDING.read_text(encoding="utf-8"))
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn("architecture of the evidence-gated boundary", readme)
-        self.assertIn("seven checked owners", readme)
-        self.assertNotIn("six checked owners", readme)
-        self.assertNotIn("four checked owners", readme)
-        self.assertIn("receipt-last immutable artifact publication", readme)
         self.assertIn("Immutable artifact handoff", readme)
         self.assertIn("Agent action admission", readme)
         self.assertIn("Bounded local-context review", readme)
@@ -598,14 +593,11 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertIn('href="ai-systems-sprint.html"', architecture)
         self.assertIn("https://diadkoshmek.github.io/evidence-gated-agent-workflows/ai-systems-sprint.html", sitemap)
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn("**AI Systems Proof Sprint**: one fail-closed provenance", readme)
-        self.assertIn("fixed first-step price is **$1,500**.", readme)
-        self.assertIn("one bounded fail-closed provenance adapter", readme)
-        self.assertIn(
-            "https://diadkoshmek.github.io/evidence-gated-agent-workflows/ai-systems-sprint.html",
-            readme,
-        )
-        self.assertNotIn("I offer a fixed-scope **Fail-Closed Provenance Adapter Sprint**", readme)
+        self.assertIn("python3 run_proof.py", readme)
+        self.assertIn("synthetic inputs and local effects", readme)
+        self.assertNotIn("$1,500", readme)
+        self.assertNotIn("AI Systems Proof Sprint", readme)
+        self.assertNotIn("ai-systems-sprint.html", readme)
         for public_cta in (architecture, case_study):
             self.assertIn("<strong>AI Systems Proof Sprint</strong>", public_cta)
             self.assertIn("One fail-closed provenance adapter for a sanitized source-to-target handoff", public_cta)
@@ -687,22 +679,15 @@ class PublicationCandidateTest(unittest.TestCase):
             self.assertTrue(is_excluded(ROOT, cached))
             self.assertEqual(manifest_payload(ROOT), baseline)
 
-    def test_acceptance_pack_is_exact_reviewed_source_and_linked(self) -> None:
+    def test_acceptance_pack_is_exact_reviewed_source(self) -> None:
         self.assertTrue(PACK.is_file())
         self.assertFalse(PACK.is_symlink())
         self.assertEqual(sha256_file(PACK), EXPECTED_PACK_SHA256)
-        readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn(
-            "[Integration Reliability Acceptance Pack](INTEGRATION_RELIABILITY_ACCEPTANCE_PACK.md)",
-            readme,
-        )
 
-    def test_ukrainian_capability_brief_is_exact_and_linked(self) -> None:
+    def test_ukrainian_capability_brief_is_exact(self) -> None:
         self.assertTrue(CAPABILITY.is_file())
         self.assertFalse(CAPABILITY.is_symlink())
         self.assertEqual(sha256_file(CAPABILITY), EXPECTED_CAPABILITY_SHA256)
-        readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn("[Український capability brief](CAPABILITY_UA.md)", readme)
 
     def test_public_landing_is_static_bounded_and_points_to_exact_owner_routes(self) -> None:
         landing = LANDING.read_text(encoding="utf-8")
@@ -834,21 +819,13 @@ class PublicationCandidateTest(unittest.TestCase):
                 {base, base + "en.html", "https://schema.org", repository_url, issue_url},
             )
 
-    def test_buyer_visible_progression_keeps_only_the_first_sprint_purchasable(self) -> None:
-        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    def test_legacy_site_progression_keeps_only_the_first_sprint_purchasable(self) -> None:
         landing = LANDING_EN.read_text(encoding="utf-8")
         progression = re.search(
             r'<section class="section shell progression".*?</section>', landing, re.DOTALL,
         )
         self.assertIsNotNone(progression)
         progression_text = progression.group(0)  # type: ignore[union-attr]
-        for text in (
-            "A staged system, with one purchasable first step",
-            "one fail-closed handoff",
-            "After Stage 1 evidence — separately scoped hardening",
-            "After evidence — operator system roadmap",
-        ):
-            self.assertIn(text, readme)
         for text in (
             "The only purchasable step is the fixed sprint above.",
             "One fail-closed handoff",
