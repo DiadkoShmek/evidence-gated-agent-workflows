@@ -41,7 +41,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "c7ec33bcf80d43ad206a2a3e4306c1be2f87446d6f91477c3d1659636ca1d607"
+      "sha256": "fa0a79a745f660478492dc2537b94745526d48d7dda2b1f6420ca11baa2016b7"
     },
     {
       "path": "agent-action-admission-demo/README.md",
@@ -309,8 +309,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "69c1dbf08d76dc8f7087280311815d8fda1363d97a83bf60ebcce71ed410049a"
+      "sha256": "d2c50a44752c814ff3577ed4e834970c906f7e87fb4a16a9157996a551955890"
     }
   ],
-  "tree_sha256": "4b1721e007d34e6e1744911cbef0c312f776e0dd1fe212d099c026a110dc7d5b"
+  "tree_sha256": "c916166208623e4ad245fb1120aad69814873f4b2b36731925a4269b2ab5be5f"
 }

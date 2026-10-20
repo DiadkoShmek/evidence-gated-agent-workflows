@@ -415,6 +415,16 @@ console.log(JSON.stringify({ initial, stages }));
 
 
 class PublicationCandidateTest(unittest.TestCase):
+    def test_repository_overview_is_short_and_keeps_local_example_routes(self) -> None:
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertLess(len(readme.split()), 450)
+        for target in re.findall(r"!?\[[^]]*\]\(([^)]+)\)", readme):
+            if target.startswith(("https://", "#")):
+                continue
+            destination = (ROOT / target.split("#")[0]).resolve()
+            self.assertTrue(destination.is_relative_to(ROOT.resolve()))
+            self.assertTrue(destination.is_file(), target)
+
     def assert_article_review_intake_topology(self, page: str, *, email_label: str) -> None:
         issue_url = "https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml"
         nav = re.search(r'<nav\b.*?</nav>', page, re.DOTALL)
