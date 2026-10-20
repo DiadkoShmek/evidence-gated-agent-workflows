@@ -415,6 +415,23 @@ console.log(JSON.stringify({ initial, stages }));
 
 
 class PublicationCandidateTest(unittest.TestCase):
+    def test_advanced_public_detail_is_optional_without_removing_runtime_controls(self) -> None:
+        for path in (LANDING, LANDING_EN):
+            page = path.read_text(encoding="utf-8")
+            for kind, section_id in (("technical-map", "operating-core"), ("planning-tool", "intake")):
+                match = re.search(r'<details\b([^>]*)data-reading-level="' + kind + r'"([^>]*)>(.*?)</details>', page, re.DOTALL)
+                self.assertIsNotNone(match, (path.name, kind))
+                self.assertNotRegex(match[1] + match[2], r"\bopen\b")
+                self.assertIn("<summary>", match[3])
+                self.assertIn(f'id="{section_id}"', match[3])
+            self.assertIn('data-signature-moment="evidence-switch"', page)
+            self.assertEqual(page.count('data-reading-level="'), 2)
+            self.assertIn("data-intake-packet", page)
+            self.assertIn("data-core-stage", page)
+        style = LANDING_STYLE.read_text(encoding="utf-8")
+        self.assertIn("summary:focus-visible", style)
+        self.assertIn("prefers-reduced-motion: reduce", style)
+
     def test_repository_overview_is_short_and_keeps_local_example_routes(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertLess(len(readme.split()), 450)

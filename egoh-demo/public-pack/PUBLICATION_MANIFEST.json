@@ -109,11 +109,11 @@
     },
     {
       "path": "docs/en.html",
-      "sha256": "0f11f11f3ad9ebda6b108e2d6a9e9fdb71c5ed2e5fb750366de69c076546da1d"
+      "sha256": "27bbcd9ce7b536a59ca997c53343c95cec80f99dd8f64bb2d3ece211c8cc9979"
     },
     {
       "path": "docs/index.html",
-      "sha256": "842e0f7e87e0f4b4de7d29cb67b9c7011ad17833a827a6e1719550e17904a7a8"
+      "sha256": "790a55b4f43342cda980c5969fe7cc9c4a1ea97fb2589665436417dd0401cb1e"
     },
     {
       "path": "docs/intake-experience.js",
@@ -128,6 +128,10 @@
       "sha256": "e01d1d36d63208b41c3976d167df2a64681f857ab2dfbe53605b557a0496f77f"
     },
     {
+      "path": "docs/reading-path.md",
+      "sha256": "4a4e62cb5a815f2a18b20e3046df4066c7d64f6cc1b37ff5769e5b90491fdc44"
+    },
+    {
       "path": "docs/robots.txt",
       "sha256": "0013427b485b3d1498b67bbb8676dd6335bc336ccfd2ee3a646adf64fc18a875"
     },
@@ -137,7 +141,7 @@
     },
     {
       "path": "docs/styles.css",
-      "sha256": "49a2d7bc0b6a4bed10c882a9ab9691d62252b9e34d6a1877ce01124d9d26590b"
+      "sha256": "419bbacdd56ba8c97adac40ac04dc2c4aec62ff010f670dbb916a7a5dcd0aa75"
     },
     {
       "path": "egoh-demo/README.md",
@@ -309,8 +313,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "244e678ab70d2e7ff9bb55c267ae383b689b6abfd0d41a17633e3e3c7d8d936d"
+      "sha256": "3d906c5aeb55d36a28a64bc0f20876619954de91b30f96bff9d8fb26fd25bd73"
     }
   ],
-  "tree_sha256": "fb313a9432ae79922e4df675c5b94e337a5e32e22c9cdd1f5f488bea58edc21d"
+  "tree_sha256": "7650e0d055af1dcc0d348997bd5d718102476650d9e50cb38f3ca861a16f581f"
 }
