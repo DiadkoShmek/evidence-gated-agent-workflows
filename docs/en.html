@@ -130,7 +130,9 @@
       </ol>
     </section>
 
-    <section id="operating-core" class="section shell core-section" aria-labelledby="core-title">
+    <details class="advanced-disclosure shell" data-reading-level="technical-map">
+      <summary><span>Technical detail</span><strong>Map the path from evidence to human review</strong></summary>
+    <section id="operating-core" class="section core-section" aria-labelledby="core-title">
       <div class="core-heading"><p class="eyebrow">Operating Core Map</p><h2 id="core-title">See where the decision changes hands.</h2><p>This interactive map follows one example from input to evidence check, bounded work and human review. It is a way to inspect the idea, not a running client system.</p></div>
       <div class="core-layout">
         <div class="core-controls" role="group" aria-label="Operating core stages"><button class="core-control is-selected" type="button" data-core-stage="system-boundary" aria-pressed="true">01 · System boundary</button><button class="core-control" type="button" data-core-stage="evidence-decision" aria-pressed="false">02 · Evidence decision</button><button class="core-control" type="button" data-core-stage="bounded-lifecycle" aria-pressed="false">03 · Bounded lifecycle</button><button class="core-control" type="button" data-core-stage="human-authority" aria-pressed="false">04 · Human authority</button><button class="core-control" type="button" data-core-stage="receipt-handoff" aria-pressed="false">05 · Receipt / handoff</button></div>
@@ -138,6 +140,7 @@
       </div>
       <p class="core-boundary">Browser-local inspection of a checked-in map, not a runtime system, evidence, contract, deployment, provider observation, or permission. It has no network, storage, telemetry, clipboard, navigation, prefill, or submit APIs.</p>
     </section>
+    </details>
 
     <section id="proof" class="section proof-section">
       <div class="shell proof-grid">
@@ -161,7 +164,7 @@
       </div>
     </section>
 
-    <section id="failure-traces" class="section shell trace-section" aria-labelledby="trace-title">
+    <section id="failure-traces" class="section shell trace-section" aria-labelledby="trace-title" data-signature-moment="evidence-switch">
       <div class="trace-heading">
         <p class="eyebrow">Failure trace explorer</p>
         <h2 id="trace-title">See why an unsafe handoff stops.</h2>
@@ -190,7 +193,9 @@
       <p class="trace-boundary">Illustrative browser-local replay of the separate checked-in <code>evidence-gate</code> fixtures. The current checked-in explorer source contains no network, storage, or telemetry APIs. It is not Python equivalence, EGOH parity, production safety, certification, client validity, or external authorization.</p>
     </section>
 
-    <section id="intake" class="section shell intake-section" aria-labelledby="intake-title">
+    <details class="advanced-disclosure shell" data-reading-level="planning-tool">
+      <summary><span>Optional planning tool</span><strong>Break down one workflow before getting in touch</strong></summary>
+    <section id="intake" class="section intake-section" aria-labelledby="intake-title">
       <div class="intake-heading"><p class="eyebrow">Local acceptance packet</p><h2 id="intake-title">Build a narrow review-only draft before a public inquiry.</h2><p>Choose controlled values only. The builder produces a browser-local planning draft, not evidence, a contract, an award, a payment, or authority for an external action.</p></div>
       <div class="intake-layout">
         <div class="intake-choices" aria-label="Acceptance packet options">
@@ -240,6 +245,7 @@
       </div>
       <p class="intake-boundary">Do not enter here or add to a public issue any secrets, credentials, private code, customer/personal data, private URLs, or production access details. The current builder has controlled fields and no network, storage, telemetry, or automatic-submit APIs.</p>
     </section>
+    </details>
 
     <section class="section shell fit">
       <div>

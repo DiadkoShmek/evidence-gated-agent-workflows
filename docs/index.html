@@ -98,7 +98,9 @@
       </ol>
     </section>
 
-    <section id="operating-core" class="section shell core-section" aria-labelledby="core-title">
+    <details class="advanced-disclosure shell" data-reading-level="technical-map">
+      <summary><span>Технічний рівень</span><strong>Карта переходів від даних до людського рішення</strong></summary>
+    <section id="operating-core" class="section core-section" aria-labelledby="core-title">
       <div class="core-heading"><p class="eyebrow">Operating Core Map</p><h2 id="core-title">Подивіться, де рішення переходить до людини.</h2><p>Ця інтерактивна карта веде один приклад від входу до перевірки даних, обмеженої роботи й людського розгляду. Вона допомагає побачити ідею, але не є системою клієнта.</p></div>
       <div class="core-layout">
         <div class="core-controls" role="group" aria-label="Етапи operating core"><button class="core-control is-selected" type="button" data-core-stage="system-boundary" aria-pressed="true">01 · Межа системи</button><button class="core-control" type="button" data-core-stage="evidence-decision" aria-pressed="false">02 · Evidence decision</button><button class="core-control" type="button" data-core-stage="bounded-lifecycle" aria-pressed="false">03 · Bounded lifecycle</button><button class="core-control" type="button" data-core-stage="human-authority" aria-pressed="false">04 · Людська влада</button><button class="core-control" type="button" data-core-stage="receipt-handoff" aria-pressed="false">05 · Receipt / handoff</button></div>
@@ -106,6 +108,7 @@
       </div>
       <p class="core-boundary">Browser-local інспекція зафіксованої карти, не runtime system, evidence, contract, deployment, provider observation чи permission. Вона не має network, storage, telemetry, clipboard, navigation, prefill або submit APIs.</p>
     </section>
+    </details>
 
     <section id="proof" class="section proof-section">
       <div class="shell proof-grid">
@@ -114,7 +117,7 @@
       </div>
     </section>
 
-    <section id="failure-traces" class="section shell trace-section" aria-labelledby="trace-title">
+    <section id="failure-traces" class="section shell trace-section" aria-labelledby="trace-title" data-signature-moment="evidence-switch">
       <div class="trace-heading"><p class="eyebrow">Failure trace explorer</p><h2 id="trace-title">Подивіться, чому unsafe handoff зупиняється.</h2><p>Оберіть checked-in synthetic case. Trace показує named reason, buyer-facing triage outcome і межу non-authorization.</p></div>
       <div class="trace-layout">
         <div class="trace-controls" role="group" aria-label="Синтетичні сценарії failure trace">
@@ -129,7 +132,9 @@
       <p class="trace-boundary">Ілюстративне browser-local відтворення окремих зафіксованих <code>evidence-gate</code> fixtures. Поточний source explorer не має network, storage або telemetry APIs. Це не Python equivalence, EGOH parity, production safety, certification, client validity чи external authorization.</p>
     </section>
 
-    <section id="intake" class="section shell intake-section" aria-labelledby="intake-title">
+    <details class="advanced-disclosure shell" data-reading-level="planning-tool">
+      <summary><span>Необов'язковий інструмент</span><strong>Розкласти власну задачу перед зверненням</strong></summary>
+    <section id="intake" class="section intake-section" aria-labelledby="intake-title">
       <div class="intake-heading"><p class="eyebrow">Локальний acceptance packet</p><h2 id="intake-title">Складіть вузький review-only draft перед public inquiry.</h2><p>Оберіть лише контрольовані значення. Builder створює browser-local planning draft, а не evidence, contract, award, payment чи дозвіл на зовнішню дію.</p></div>
       <div class="intake-layout">
         <div class="intake-choices" aria-label="Параметри acceptance packet">
@@ -179,6 +184,7 @@
       </div>
       <p class="intake-boundary">Не вводьте тут і не додавайте до public issue secrets, credentials, private code, customer/personal data, private URLs або production access details. Поточний builder має контрольовані поля, не має network, storage, telemetry чи automatic-submit APIs.</p>
     </section>
+    </details>
 
     <section class="section shell fit"><div><p class="eyebrow">Де це корисно</p><h2>Коли відповідь AI стає чиєюсь дією.</h2></div><div class="fit-copy"><p>Наприклад, програма передає результат у внутрішній інструмент, чекає на відповідь іншого сервісу або має вирішити, чи достатньо джерел для висновку.</p><p>Якщо перевірку не вдається зробити чесно, це теж результат: назвати, чого бракує, і не видавати невідоме за успіх.</p></div></section>
     <section class="closing shell"><p class="eyebrow">Є питання чи схожа задача?</p><h2>Опишіть один випадок. З нього й почнемо розмову.</h2><div class="actions"><a class="button primary" href="https://github.com/DiadkoShmek/evidence-gated-agent-workflows/issues/new?template=client-inquiry.yml">Поставити питання</a><a class="button secondary" href="mailto:onyskoartur@gmail.com?subject=One%20broken%20AI%20handoff">Написати Артуру</a></div><p class="micro">Публічне звернення бачать усі. Не надсилайте паролі, приватні дані, код клієнта чи доступ до робочих систем.</p></section>
