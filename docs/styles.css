@@ -160,8 +160,10 @@ aside li { margin: 10px 0; }
 .advanced-disclosure > summary { cursor: pointer; overflow-wrap: anywhere; }
 .advanced-disclosure > summary span { color: var(--blue); font-size: .76rem; font-weight: 800; letter-spacing: .06em; margin-right: 12px; }
 .advanced-disclosure > summary strong { font-size: 1.1rem; }
-.advanced-disclosure > summary:focus-visible { outline: 3px solid var(--blue); outline-offset: 8px; }
+.advanced-disclosure > summary:focus-visible, .trace-method > summary:focus-visible { outline: 3px solid var(--blue); outline-offset: 8px; }
 .advanced-disclosure > .section { padding-block: 36px 12px; }
+.trace-method { color: var(--muted); font-size: .88rem; margin-top: 16px; }
+.trace-method > summary { cursor: pointer; font-weight: 700; }
 footer { border-top: 1px solid var(--line); padding: 26px 0 40px; display: flex; justify-content: space-between; gap: 16px; color: var(--muted); font-size: .8rem; }
 
 @media (max-width: 760px) {

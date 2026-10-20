@@ -113,12 +113,12 @@
     <section id="proof" class="section proof-section">
       <div class="shell proof-grid">
         <div><p class="eyebrow">Відкриті приклади</p><h2>Запустіть тести й подивіться самі.</h2><p>У репозиторії є приклади перевірки даних, обмеженого очікування та передачі результату людині. Одна команда запускає тести; їх успіх не є гарантією безпеки іншої системи.</p><pre><code>python3 run_proof.py</code></pre></div>
-        <aside><p class="aside-label">Що це доводить</p><ul><li>Missing evidence не стає success.</li><li>Retries і polling мають hard bounds.</li><li>Duplicate effects та ambiguous outcomes утримуються.</li><li>Human approval лишається explicit.</li></ul><p class="aside-label">Чого це не доводить</p><p>Production deployment, client results, security certification або access до ваших systems.</p></aside>
+        <aside><p class="aside-label">Що перевіряють приклади</p><ul><li>Брак даних не перетворюється на успіх.</li><li>Очікування й повторні спроби мають чіткі межі.</li><li>Дублікати та невизначені результати зупиняються для розбору.</li><li>Приклад не підміняє людське рішення.</li></ul><p class="aside-label">Чого це не доводить</p><p>Впровадження в реальній системі, клієнтських результатів, сертифікації безпеки чи доступу до ваших даних.</p></aside>
       </div>
     </section>
 
     <section id="failure-traces" class="section shell trace-section" aria-labelledby="trace-title" data-signature-moment="evidence-switch">
-      <div class="trace-heading"><p class="eyebrow">Failure trace explorer</p><h2 id="trace-title">Подивіться, чому unsafe handoff зупиняється.</h2><p>Оберіть checked-in synthetic case. Trace показує named reason, buyer-facing triage outcome і межу non-authorization.</p></div>
+      <div class="trace-heading"><p class="eyebrow">Спробуйте самі</p><h2 id="trace-title">Змініть дані — побачте рішення.</h2><p>Оберіть тестовий сценарій. Приклад покаже рішення та причину, не виконуючи зовнішніх дій.</p></div>
       <div class="trace-layout">
         <div class="trace-controls" role="group" aria-label="Синтетичні сценарії failure trace">
           <button class="trace-control is-selected" type="button" data-trace-scenario="clean" aria-pressed="true">Валідний доказ</button>
@@ -129,7 +129,8 @@
         </div>
         <article class="trace-card" aria-live="polite" aria-atomic="true"><p class="trace-kicker">Зафіксований синтетичний результат</p><h3 data-trace-title>Валідний доказ</h3><dl class="trace-details"><div><dt>Результат triage</dt><dd data-trace-outcome>draft</dd></div><div><dt>Названа причина</dt><dd data-trace-reason>EVIDENCE_COMPLETE</dd></div><div><dt>Рішення fixture</dt><dd data-trace-decision>draft</dd></div><div><dt>Зовнішня дія дозволена</dt><dd data-trace-authorized>false</dd></div></dl><p class="trace-explanation" data-trace-explanation>Повний синтетичний доказ може дати draft; будь-яку наступну дію все одно вирішує людина.</p></article>
       </div>
-      <p class="trace-boundary">Ілюстративне browser-local відтворення окремих зафіксованих <code>evidence-gate</code> fixtures. Поточний source explorer не має network, storage або telemetry APIs. Це не Python equivalence, EGOH parity, production safety, certification, client validity чи external authorization.</p>
+      <p class="trace-boundary">Це підготовлені тестові дані, не перевірка вашої системи. Приклад працює лише в цій вкладці.</p>
+      <details class="trace-method"><summary>Метод і технічні межі прикладу</summary><p class="trace-boundary">Ілюстративне browser-local відтворення окремих зафіксованих <code>evidence-gate</code> fixtures. Поточний source explorer не має network, storage або telemetry APIs. Це не Python equivalence, EGOH parity, production safety, certification, client validity чи external authorization.</p></details>
     </section>
 
     <details class="advanced-disclosure shell" data-reading-level="planning-tool">
