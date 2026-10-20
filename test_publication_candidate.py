@@ -432,6 +432,18 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertIn("summary:focus-visible", style)
         self.assertIn("prefers-reduced-motion: reduce", style)
 
+    def test_first_read_copy_is_plain_and_technical_trace_limits_remain_available(self) -> None:
+        ukrainian = LANDING.read_text(encoding="utf-8")
+        english = LANDING_EN.read_text(encoding="utf-8")
+        self.assertIn("Змініть дані — побачте рішення.", ukrainian)
+        self.assertIn("Change the evidence. See the decision.", english)
+        self.assertNotIn("Missing evidence не стає success", ukrainian)
+        for page in (ukrainian, english):
+            detail = re.search(r'<details class="trace-method">(.*?)</details>', page, re.DOTALL)
+            self.assertIsNotNone(detail)
+            self.assertIn("<summary>", detail[1])
+            self.assertIn("EGOH parity", detail[1])
+
     def test_repository_overview_is_short_and_keeps_local_example_routes(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertLess(len(readme.split()), 450)
