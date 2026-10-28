@@ -36,6 +36,6 @@ The proof pack contains fixture identities, checked outcomes and limits. The sou
 
 ## Author and use
 
-Artur Onysko, working with AI tools. [Profile and contact](https://github.com/DiadkoShmek).
+DiadkoShmek, working with AI tools. [Profile and contact](https://github.com/DiadkoShmek).
 
 Published for portfolio review. No reuse license is granted at this stage.

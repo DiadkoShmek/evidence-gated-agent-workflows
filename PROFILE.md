@@ -1,4 +1,4 @@
-# Artur Onysko
+# DiadkoShmek
 
 I build and harden AI-assisted workflows: agents, API integrations, stateful
 jobs, and decision gates. My contribution is turning ambiguous operations into
