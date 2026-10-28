@@ -44,7 +44,7 @@ EVIDENCE_GATE = ROOT / "evidence-gate"
 TRACE_AS_OF = "2026-07-30T12:00:00Z"
 MANIFEST = EGOH / "public-pack" / "PUBLICATION_MANIFEST.json"
 EXPECTED_PACK_SHA256 = "cd1107d793ca7a89cd973c43926cf8533459644a86a90c872d2b9e7cd6fa2cc8"
-EXPECTED_CAPABILITY_SHA256 = "d7d6967fcd50e8e3fa43eba9f98c2b4640df3e980e7a2ec1c9cf57552644d44f"
+EXPECTED_CAPABILITY_SHA256 = "eff46714a653392a6cdebb2295ba5bef6e6aaae2f431aac21325ba69a61b27b8"
 MANIFEST_SCHEMA = "evidence-gated-public-candidate-manifest-v1"
 PRIVATE_MARKER = re.compile(
     r"/(?:home|Users)/[^/\s]+/|"
@@ -55,8 +55,7 @@ PRIVATE_MARKER = re.compile(
     r"[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}",
     re.IGNORECASE,
 )
-PUBLIC_CONTACT_EMAIL = "onyskoartur" + chr(64) + "gmail.com"
-PUBLIC_CONTACT_PATHS = {"docs/ai-systems-sprint.html", "docs/architecture.html", "docs/case-study.html", "docs/en.html", "docs/index.html"}
+PUBLIC_CONTACT_URL = "https://github.com/DiadkoShmek"
 
 
 def sha256_file(path: Path) -> str:
@@ -470,13 +469,13 @@ class PublicationCandidateTest(unittest.TestCase):
             article_cta.group(0),  # type: ignore[union-attr]
         )
         self.assertIn(
-            f'<a class="button secondary" href="mailto:{PUBLIC_CONTACT_EMAIL}?subject=One%20broken%20AI%20handoff">{email_label}</a>',
+            f'<a class="button secondary" href="{PUBLIC_CONTACT_URL}">{email_label}</a>',
             article_cta.group(0),  # type: ignore[union-attr]
         )
         self.assertEqual(page.count(issue_url), 2)
         self.assertEqual(page.count('class="button primary" href="mailto:'), 0)
         self.assertEqual(
-            page.count(f'href="mailto:{PUBLIC_CONTACT_EMAIL}?subject=One%20broken%20AI%20handoff"'),
+            page.count(f'href="{PUBLIC_CONTACT_URL}"'),
             1,
         )
 
@@ -504,7 +503,7 @@ class PublicationCandidateTest(unittest.TestCase):
         )
         self.assertIn("https://diadkoshmek.github.io/evidence-gated-agent-workflows/case-study.html", sitemap)
         self.assert_article_review_intake_topology(
-            case_study, email_label="Email me",
+            case_study, email_label="GitHub profile",
         )
         for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
             self.assertNotIn(forbidden, case_study)
@@ -542,7 +541,7 @@ class PublicationCandidateTest(unittest.TestCase):
         self.assertNotIn("it is not claimed by the synthetic demo", readme)
         self.assertIn("https://diadkoshmek.github.io/evidence-gated-agent-workflows/architecture.html", sitemap)
         self.assert_article_review_intake_topology(
-            architecture, email_label="Email me",
+            architecture, email_label="GitHub profile",
         )
         for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
             self.assertNotIn(forbidden, architecture)
@@ -606,7 +605,7 @@ class PublicationCandidateTest(unittest.TestCase):
             hero_markup,
         )
         self.assertIn(
-            f'<a class="button secondary" href="mailto:{PUBLIC_CONTACT_EMAIL}?subject=One%20broken%20AI%20handoff">Email me</a>',
+            f'<a class="button secondary" href="{PUBLIC_CONTACT_URL}">GitHub profile</a>',
             hero_markup,
         )
         self.assertIn('href="en.html#intake">Build a local review draft</a>', hero_markup)
@@ -618,7 +617,7 @@ class PublicationCandidateTest(unittest.TestCase):
             2,
         )
         self.assertEqual(page.count('class="button primary" href="mailto:'), 0)
-        self.assertEqual(page.count(f'href="mailto:{PUBLIC_CONTACT_EMAIL}?subject=One%20broken%20AI%20handoff"'), 2)
+        self.assertEqual(page.count(f'href="{PUBLIC_CONTACT_URL}"'), 2)
         self.assertEqual(page.count('href="en.html#intake"'), 2)
         self.assertEqual(page.count('>Build a local review draft</a>'), 2)
         intake = re.search(r'<section id="intake".*?</section>', english, re.DOTALL)
@@ -644,8 +643,8 @@ class PublicationCandidateTest(unittest.TestCase):
         for forbidden in ("fetch(", "XMLHttpRequest", "localStorage", "sessionStorage", "navigator.sendBeacon"):
             self.assertNotIn(forbidden, page)
 
-    def test_exact_public_contact_is_retained_and_strictly_allowlisted(self) -> None:
-        expected_href = f"mailto:{PUBLIC_CONTACT_EMAIL}?subject=One%20broken%20AI%20handoff"
+    def test_handle_profile_contact_replaces_personal_email(self) -> None:
+        expected_href = f"{PUBLIC_CONTACT_URL}"
         for path in (AI_SYSTEMS_SPRINT, ARCHITECTURE, CASE_STUDY, LANDING_EN, LANDING):
             content = path.read_text(encoding="utf-8")
             self.assertIn(expected_href, content)
@@ -758,6 +757,7 @@ class PublicationCandidateTest(unittest.TestCase):
                     "https://diadkoshmek.github.io/evidence-gated-agent-workflows/",
                     "https://diadkoshmek.github.io/evidence-gated-agent-workflows/en.html",
                     "https://schema.org",
+                    PUBLIC_CONTACT_URL,
                 },
             )
             main = re.search(r"<main\b.*?</main>", page, re.DOTALL)
@@ -775,7 +775,7 @@ class PublicationCandidateTest(unittest.TestCase):
             )
             self.assertEqual(page.count('class="button primary" href="mailto:'), 0)
             self.assertEqual(
-                page.count(f'href="mailto:{PUBLIC_CONTACT_EMAIL}?subject=One%20broken%20AI%20handoff"'),
+                page.count(f'href="{PUBLIC_CONTACT_URL}"'),
                 2,
             )
             self.assertEqual(page.count(issue_url), 4)
@@ -802,9 +802,9 @@ class PublicationCandidateTest(unittest.TestCase):
                 LANDING.read_text(encoding="utf-8"),
                 {
                     "language": "uk",
-                    "title": "AI-процеси, які можна перевірити — Артур Онисько",
+                    "title": "AI-процеси, які можна перевірити — DiadkoShmek",
                     "schema_name": "AI-процеси, які можна перевірити",
-                    "site_name": "Артур Онисько · нотатки про AI-процеси",
+                    "site_name": "DiadkoShmek · нотатки про AI-процеси",
                     "description": "Відкриті приклади AI-процесів, які зупиняються на неповних даних і залишають важливе рішення людині.",
                     "canonical": base,
                 },
@@ -865,7 +865,7 @@ class PublicationCandidateTest(unittest.TestCase):
             self.assertNotRegex(head_markup.lower(), r"(?:analytics|gtag|plausible|pixel|og:image|twitter:image)")
             self.assertEqual(
                 set(re.findall(r"https://[^\"<\s]+", page)),
-                {base, base + "en.html", "https://schema.org", repository_url, issue_url},
+                {base, base + "en.html", "https://schema.org", repository_url, issue_url, PUBLIC_CONTACT_URL},
             )
 
     def test_site_progression_stays_evidence_first_without_a_price(self) -> None:
@@ -1742,8 +1742,6 @@ class PublicationCandidateTest(unittest.TestCase):
             self.assertFalse(path.is_symlink(), path.name)
             relative = str(path.relative_to(ROOT))
             for match in PRIVATE_MARKER.finditer(path.read_text(encoding="utf-8")):
-                if relative in PUBLIC_CONTACT_PATHS and match.group(0).lower() == PUBLIC_CONTACT_EMAIL:
-                    continue
                 findings.append((relative, match.group(0)))
         self.assertEqual(findings, [])
 

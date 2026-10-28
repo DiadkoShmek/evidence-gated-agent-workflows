@@ -29,7 +29,7 @@
     },
     {
       "path": "CAPABILITY_UA.md",
-      "sha256": "1547f3f707014743db6f1c8735cf47a6331644753beb8ca018c1b7ffe4b7fd7e"
+      "sha256": "eff46714a653392a6cdebb2295ba5bef6e6aaae2f431aac21325ba69a61b27b8"
     },
     {
       "path": "INTEGRATION_RELIABILITY_ACCEPTANCE_PACK.md",
@@ -97,23 +97,23 @@
     },
     {
       "path": "docs/ai-systems-sprint.html",
-      "sha256": "b2750b1f7f3ce3e1418304d4f178c338566069e91c0472da55b3703c7a989c70"
+      "sha256": "19f34ed250cba7936ddc3dd34da98e7d7d07fccf155dd3fc3f529859710fea83"
     },
     {
       "path": "docs/architecture.html",
-      "sha256": "bca6de905e46eb798d098353ac843bc747cf03be026cdc501e2dc2c0ac0345c3"
+      "sha256": "f30c352bc77b9992131af3c74404b9e7e50545f75a72687c9095aa10561fadf1"
     },
     {
       "path": "docs/case-study.html",
-      "sha256": "a07d74c4968fdaaa221984abe5314fe902563b3a64f1386e2376ae216270beac"
+      "sha256": "2e87d07ce1df0506e1222c787b7c2033c0efe6283647c5ea7a34ee67f1a40ad0"
     },
     {
       "path": "docs/en.html",
-      "sha256": "48d6d172b9a5aeb48c1fe0254d9698b534190f92d85b562d225622157f445c65"
+      "sha256": "01dc3722d248fd205d7cec05cd78e3f60d896c546255694e8b26dfac8232c59b"
     },
     {
       "path": "docs/index.html",
-      "sha256": "64ffbe9338d86a4c324ccba29b587788fafdbfbc66581ab4eeeeb6d3e3d3993c"
+      "sha256": "454cdccfe51db3d2459da74f6766ddaaa979cd7d4cfe4519853e56d648858e98"
     },
     {
       "path": "docs/intake-experience.js",
@@ -257,7 +257,7 @@
     },
     {
       "path": "evidence-gate/tests/test_evidence_gate.py",
-      "sha256": "37c488f83e1251bcd11c2abd883694977719b60134fdfac7d726b0ffe2cc4924"
+      "sha256": "c931fe6402b1e9f70848ed010e55fbb701d1b38a47bd1bd900fbc70726f66b72"
     },
     {
       "path": "generate_publication_manifest.py",
@@ -313,8 +313,8 @@
     },
     {
       "path": "test_publication_candidate.py",
-      "sha256": "541b996916ea11d51e8de025d62bd1baf73facf90cd0f89a88390394768be99c"
+      "sha256": "c46dbe92a5f1ee09731d3b8f6fe4b4753cdfcc090c6cc9f29498b9dd024c79fb"
     }
   ],
-  "tree_sha256": "9e61309aa7063600859f00714f0d05e459a3491b2ceb8f12e790c8b8b2b0f4fe"
+  "tree_sha256": "7fb6b3d0a41f6facdb382fc9fc714db2cfe5c12e74e078688b71d2dc7315d0e5"
 }
