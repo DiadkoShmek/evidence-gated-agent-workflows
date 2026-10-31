@@ -34,8 +34,8 @@ All examples use **synthetic inputs and local effects**. No real provider calls,
 
 The proof pack contains fixture identities, checked outcomes and limits. The source and CI use the same proof command.
 
-## Author and use
+## Project and use
 
-DiadkoShmek, working with AI tools. [Profile and contact](https://github.com/DiadkoShmek).
+AI-assisted engineering by DiadkoShmek. [Project index](https://github.com/DiadkoShmek) · [External results](https://github.com/DiadkoShmek/DiadkoShmek/blob/main/RESULTS.en.md).
 
 Published for portfolio review. No reuse license is granted at this stage.
