@@ -41,7 +41,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "fab6b5645d912787c1f4c7ec26e1cccf9be9ba405359f517880aaf2a63809c2f"
+      "sha256": "bedb4f59f25b536c96e223367bf1aee0021a194146a817906ba0c71131caa564"
     },
     {
       "path": "agent-action-admission-demo/README.md",
@@ -109,11 +109,11 @@
     },
     {
       "path": "docs/en.html",
-      "sha256": "01dc3722d248fd205d7cec05cd78e3f60d896c546255694e8b26dfac8232c59b"
+      "sha256": "5ce238bd7fbb5d5c902be031d1702f0990caddf31512e322c588d533677da5ef"
     },
     {
       "path": "docs/index.html",
-      "sha256": "454cdccfe51db3d2459da74f6766ddaaa979cd7d4cfe4519853e56d648858e98"
+      "sha256": "951b5c59bcf6fdf1b0c4241087c2f9d5ab9cee4722777dff2126c632eb91dbb7"
     },
     {
       "path": "docs/intake-experience.js",
@@ -316,5 +316,5 @@
       "sha256": "c46dbe92a5f1ee09731d3b8f6fe4b4753cdfcc090c6cc9f29498b9dd024c79fb"
     }
   ],
-  "tree_sha256": "7fb6b3d0a41f6facdb382fc9fc714db2cfe5c12e74e078688b71d2dc7315d0e5"
+  "tree_sha256": "03f51c29934aea6d54e34ff4e576964df198df433f3e3f7eb1fb3063e02723e2"
 }
