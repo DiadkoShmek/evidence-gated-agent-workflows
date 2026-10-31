@@ -1,5 +1,12 @@
 # Evidence-gated Agent Workflows
 
+<picture>
+  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="https://raw.githubusercontent.com/DiadkoShmek/DiadkoShmek/main/assets/identity/workflows-dark-mobile.svg">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/DiadkoShmek/DiadkoShmek/main/assets/identity/workflows-light-mobile.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/DiadkoShmek/DiadkoShmek/main/assets/identity/workflows-dark.svg">
+  <img src="https://raw.githubusercontent.com/DiadkoShmek/DiadkoShmek/main/assets/identity/workflows-light.svg" alt="Evidence-gated Agent Workflows — executable references" width="1280">
+</picture>
+
 Small, runnable examples of automation that **stops when evidence is missing or conflicting**, explains why, and leaves the next decision with a person.
 
 **[Explore the project →](https://diadkoshmek.github.io/evidence-gated-agent-workflows/en.html)** · [Українською](https://diadkoshmek.github.io/evidence-gated-agent-workflows/)
